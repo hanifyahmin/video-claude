@@ -33,9 +33,9 @@
       #card {
         position: absolute;
         left: 0;
-        top: 400px;
+        top: 220px;
         width: 1080px;
-        height: 1100px;
+        height: 1700px;
         overflow: hidden;
         background: #000;
       }
@@ -43,28 +43,27 @@
         position: absolute;
         inset: 0;
         overflow: hidden;
+        transform-origin: 50% 38%;
       }
       .shot video {
         position: absolute;
         left: 0;
         top: 0;
         width: 1080px;
-        height: 1100px;
+        height: 1920px;
         object-fit: cover;
       }
       #shine {
         position: absolute;
         top: -10%;
         left: 0;
-        width: 46%;
+        width: 40%;
         height: 120%;
         background: linear-gradient(
-          100deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0) 20%,
-          rgba(255, 255, 255, 0.38) 50%,
-          rgba(255, 255, 255, 0) 80%,
-          transparent 100%
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.34) 50%,
+          rgba(255, 255, 255, 0) 100%
         );
         mix-blend-mode: screen;
         opacity: 0;
@@ -75,16 +74,16 @@
         position: absolute;
         left: 0;
         width: 1080px;
-        height: 140px;
+        height: 200px;
         pointer-events: none;
       }
       #card-edge-top {
-        top: 400px;
-        background: linear-gradient(180deg, rgba(7, 8, 10, 0.85), rgba(7, 8, 10, 0));
+        top: 220px;
+        background: linear-gradient(180deg, rgba(7, 8, 10, 0.92), rgba(7, 8, 10, 0));
       }
       #card-edge-bot {
-        top: 1360px;
-        background: linear-gradient(0deg, rgba(7, 8, 10, 0.9), rgba(7, 8, 10, 0));
+        top: 1720px;
+        background: linear-gradient(0deg, rgba(7, 8, 10, 0.75), rgba(7, 8, 10, 0));
       }
       #flash {
         position: absolute;
@@ -98,7 +97,7 @@
       .cap {
         position: absolute;
         left: 40px;
-        top: 170px;
+        top: 150px;
         width: 1000px;
         height: 260px;
         display: flex;
@@ -142,7 +141,7 @@
       .chips {
         position: absolute;
         left: 40px;
-        top: 1330px;
+        top: 1500px;
         width: 1000px;
         height: 110px;
         display: flex;
@@ -178,8 +177,8 @@
       /* ---------- battery ---------- */
       #battery {
         position: absolute;
-        left: 820px;
-        top: 450px;
+        left: 435px;
+        top: 1490px;
         width: 210px;
         height: 110px;
       }
@@ -188,7 +187,7 @@
       #klik {
         position: absolute;
         left: 600px;
-        top: 560px;
+        top: 640px;
         width: 420px;
         height: 300px;
       }
@@ -262,31 +261,31 @@
       <!-- ================= FOOTAGE (one shot wrapper per cut) ================= -->
       <div id="card">
         <div class="shot" data-layout-allow-overflow id="sh1">
-          <video id="v1" class="clip" src="assets/source.mp4" data-start="0" data-duration="2.2" data-media-start="15.5" data-track-index="0" playsinline data-has-audio="true" style="object-position: 36% 50%"></video>
+          <video id="v1" class="clip" src="assets/source-portrait.mp4" data-start="0" data-duration="2.2" data-media-start="15.5" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh2">
-          <video id="v2" class="clip" src="assets/source.mp4" data-start="2.2" data-duration="1.6" data-media-start="18.0" data-track-index="0" playsinline data-has-audio="true" style="object-position: 27% 50%"></video>
+          <video id="v2" class="clip" src="assets/source-portrait.mp4" data-start="2.2" data-duration="1.6" data-media-start="18.0" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh3">
-          <video id="v3" class="clip" src="assets/source.mp4" data-start="3.8" data-duration="1.7" data-media-start="21.25" data-track-index="0" playsinline data-has-audio="true" style="object-position: 14% 50%"></video>
+          <video id="v3" class="clip" src="assets/source-portrait.mp4" data-start="3.8" data-duration="1.7" data-media-start="21.25" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh4">
-          <video id="v4" class="clip" src="assets/source.mp4" data-start="5.5" data-duration="3.3" data-media-start="36.25" data-track-index="0" playsinline data-has-audio="true" style="object-position: 22% 50%"></video>
+          <video id="v4" class="clip" src="assets/source-portrait.mp4" data-start="5.5" data-duration="3.3" data-media-start="36.25" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh5">
-          <video id="v5" class="clip" src="assets/source.mp4" data-start="8.8" data-duration="1.4" data-media-start="3.0" data-track-index="0" playsinline data-has-audio="true" style="object-position: 27% 50%"></video>
+          <video id="v5" class="clip" src="assets/source-portrait.mp4" data-start="8.8" data-duration="1.4" data-media-start="3.0" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh6">
-          <video id="v6" class="clip" src="assets/source.mp4" data-start="10.2" data-duration="1.2" data-media-start="8.4" data-track-index="0" playsinline data-has-audio="true" style="object-position: 27% 50%"></video>
+          <video id="v6" class="clip" src="assets/source-portrait.mp4" data-start="10.2" data-duration="1.2" data-media-start="8.4" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh7">
-          <video id="v7" class="clip" src="assets/source.mp4" data-start="11.4" data-duration="2.3" data-media-start="46.1" data-track-index="0" playsinline data-has-audio="true" style="object-position: 33% 50%"></video>
+          <video id="v7" class="clip" src="assets/source-portrait.mp4" data-start="11.4" data-duration="2.3" data-media-start="46.1" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh8">
-          <video id="v8" class="clip" src="assets/source.mp4" data-start="13.7" data-duration="1.6" data-media-start="48.1" data-track-index="0" playsinline data-has-audio="true" style="object-position: 22% 50%"></video>
+          <video id="v8" class="clip" src="assets/source-portrait.mp4" data-start="13.7" data-duration="1.6" data-media-start="48.1" data-track-index="0" playsinline data-has-audio="true"></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh9">
-          <video id="v9" class="clip" src="assets/source.mp4" data-start="15.3" data-duration="2.9" data-media-start="50.0" data-playback-rate="0.34" data-track-index="0" muted playsinline style="object-position: 29% 50%"></video>
+          <video id="v9" class="clip" src="assets/source-portrait.mp4" data-start="15.3" data-duration="2.9" data-media-start="50.0" data-playback-rate="0.34" data-track-index="0" muted playsinline></video>
         </div>
         <div id="shine" data-layout-allow-overflow></div>
       </div>
@@ -434,7 +433,7 @@
 
       // shine + flash reuse one element many times: set() then to(), so seeking
       // before a hit never renders that hit's start state early.
-      tl.set("#shine", { xPercent: -120, opacity: 0 }, 0);
+      tl.set("#shine", { xPercent: -120, skewX: -16, opacity: 0 }, 0);
       tl.set("#flash", { opacity: 0 }, 0);
       const shine = (at) =>
         tl.set("#shine", { xPercent: -120, opacity: 1 }, at)
