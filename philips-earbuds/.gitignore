@@ -1,0 +1,6 @@
+# source footage (104MB) — download from the Google Drive folder into assets/source.mp4
+assets/source.mp4
+renders/
+snapshots/
+.hyperframes/
+node_modules/
