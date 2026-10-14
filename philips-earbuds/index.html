@@ -242,10 +242,66 @@
       }
       #arrow {
         position: absolute;
-        left: 130px;
-        top: 1520px;
+        left: 330px;
+        top: 1560px;
         width: 170px;
         height: 170px;
+      }
+
+      /* ---------- pixel cat mascot ---------- */
+      #cat {
+        position: absolute;
+        left: 22px;
+        top: 1300px;
+        width: 280px;
+        height: 238px;
+        opacity: 0;
+      }
+      #cat-svg {
+        display: block;
+        filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.45));
+      }
+      #cat-alert {
+        position: absolute;
+        left: 190px;
+        top: 1200px;
+        width: 66px;
+        height: 90px;
+        opacity: 0;
+      }
+      .bub {
+        position: absolute;
+        left: 330px;
+        top: 1330px;
+        width: 720px;
+        height: 130px;
+      }
+      .bub-in {
+        position: absolute;
+        left: 0;
+        top: 0;
+        max-width: 720px;
+        padding: 22px 28px;
+        background: #fffdf5;
+        box-shadow:
+          0 -6px 0 0 #2a160b,
+          0 6px 0 0 #2a160b,
+          -6px 0 0 0 #2a160b,
+          6px 0 0 0 #2a160b,
+          12px 12px 0 0 rgba(0, 0, 0, 0.35);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 1.2;
+        color: #2a160b;
+        white-space: nowrap;
+      }
+      .bub-tail {
+        position: absolute;
+        left: -30px;
+        top: 34px;
+        width: 30px;
+        height: 30px;
       }
     </style>
   </head>
@@ -326,45 +382,8 @@
       </div>
 
       <!-- ================= CHIPS ================= -->
-      <div id="chips2" class="chips clip" data-start="2.2" data-duration="1.6" data-track-index="3">
-        <div class="chip" id="c2a">
-          <span class="tick"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0b0d10" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
-          LED indicator
-        </div>
-      </div>
-      <div id="chips4" class="chips clip" data-start="5.5" data-duration="3.3" data-track-index="3">
-        <div class="chip" id="c4a">
-          <span class="tick"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0b0d10" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
-          Saiz compact
-        </div>
-        <div class="chip" id="c4b">
-          <span class="tick"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0b0d10" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
-          Nampak mewah
-        </div>
-      </div>
-      <div id="chips5" class="chips clip" data-start="8.8" data-duration="2.6" data-track-index="3">
-        <div class="chip" id="c5a">
-          <span class="tick"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0b0d10" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
-          Muat dalam poket
-        </div>
-      </div>
 
-      <div id="chips6" class="chips clip" data-start="11.4" data-duration="2.3" data-track-index="3">
-        <div class="chip" id="c6a">
-          <span class="tick"><svg width="34" height="34" viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="19" height="9" rx="4.5" fill="none" stroke="#0b0d10" stroke-width="2.4" /><rect x="7" y="11" width="10" height="2" rx="1" fill="#0b0d10" /></svg></span>
-          Charging port USB Type-C
-        </div>
-      </div>
 
-      <!-- ================= BATTERY (scene 6) ================= -->
-      <div id="battery" class="clip" data-start="11.4" data-duration="2.3" data-track-index="4">
-        <svg id="batt-svg" width="210" height="110" viewBox="0 0 210 110">
-          <rect x="6" y="10" width="170" height="90" rx="18" fill="rgba(12,14,18,0.8)" stroke="#fff" stroke-width="8" />
-          <rect x="180" y="38" width="20" height="34" rx="6" fill="#fff" />
-          <rect id="batt-fill" x="20" y="24" width="142" height="62" rx="9" fill="#ffd60a" />
-          <path d="M98 26 L74 60 L92 60 L84 86 L112 48 L94 48 Z" fill="#0b0d10" />
-        </svg>
-      </div>
 
       <!-- ================= KLIK (scene 7) ================= -->
       <div id="klik" class="clip" data-start="14.5" data-duration="0.8" data-track-index="4">
@@ -397,6 +416,16 @@
         </svg>
       </div>
 
+      <!-- ================= PIXEL CAT MASCOT ================= -->
+      <div id="cat"><svg id="cat-svg" width="280" height="238" viewBox="0 0 20 17" shape-rendering="crispEdges"><g><rect x="4" y="0" width="1" height="1" fill="#2a160b"/><rect x="5" y="0" width="1" height="1" fill="#2a160b"/><rect x="14" y="0" width="1" height="1" fill="#2a160b"/><rect x="15" y="0" width="1" height="1" fill="#2a160b"/><rect x="3" y="1" width="1" height="1" fill="#2a160b"/><rect x="4" y="1" width="1" height="1" fill="#f39232"/><rect x="5" y="1" width="1" height="1" fill="#ff8fa3"/><rect x="6" y="1" width="1" height="1" fill="#2a160b"/><rect x="13" y="1" width="1" height="1" fill="#2a160b"/><rect x="14" y="1" width="1" height="1" fill="#ff8fa3"/><rect x="15" y="1" width="1" height="1" fill="#f39232"/><rect x="16" y="1" width="1" height="1" fill="#2a160b"/><rect x="3" y="2" width="1" height="1" fill="#2a160b"/><rect x="4" y="2" width="1" height="1" fill="#f39232"/><rect x="5" y="2" width="1" height="1" fill="#ff8fa3"/><rect x="6" y="2" width="1" height="1" fill="#ff8fa3"/><rect x="7" y="2" width="1" height="1" fill="#2a160b"/><rect x="12" y="2" width="1" height="1" fill="#2a160b"/><rect x="13" y="2" width="1" height="1" fill="#ff8fa3"/><rect x="14" y="2" width="1" height="1" fill="#ff8fa3"/><rect x="15" y="2" width="1" height="1" fill="#f39232"/><rect x="16" y="2" width="1" height="1" fill="#2a160b"/><rect x="3" y="3" width="1" height="1" fill="#2a160b"/><rect x="4" y="3" width="1" height="1" fill="#f39232"/><rect x="5" y="3" width="1" height="1" fill="#f39232"/><rect x="6" y="3" width="1" height="1" fill="#f39232"/><rect x="7" y="3" width="1" height="1" fill="#f39232"/><rect x="8" y="3" width="1" height="1" fill="#2a160b"/><rect x="9" y="3" width="1" height="1" fill="#2a160b"/><rect x="10" y="3" width="1" height="1" fill="#2a160b"/><rect x="11" y="3" width="1" height="1" fill="#2a160b"/><rect x="12" y="3" width="1" height="1" fill="#f39232"/><rect x="13" y="3" width="1" height="1" fill="#f39232"/><rect x="14" y="3" width="1" height="1" fill="#f39232"/><rect x="15" y="3" width="1" height="1" fill="#f39232"/><rect x="16" y="3" width="1" height="1" fill="#2a160b"/><rect x="2" y="4" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#f39232"/><rect x="4" y="4" width="1" height="1" fill="#f39232"/><rect x="5" y="4" width="1" height="1" fill="#c8611a"/><rect x="6" y="4" width="1" height="1" fill="#f39232"/><rect x="7" y="4" width="1" height="1" fill="#f39232"/><rect x="8" y="4" width="1" height="1" fill="#f39232"/><rect x="9" y="4" width="1" height="1" fill="#c8611a"/><rect x="10" y="4" width="1" height="1" fill="#c8611a"/><rect x="11" y="4" width="1" height="1" fill="#f39232"/><rect x="12" y="4" width="1" height="1" fill="#f39232"/><rect x="13" y="4" width="1" height="1" fill="#f39232"/><rect x="14" y="4" width="1" height="1" fill="#c8611a"/><rect x="15" y="4" width="1" height="1" fill="#f39232"/><rect x="16" y="4" width="1" height="1" fill="#f39232"/><rect x="17" y="4" width="1" height="1" fill="#2a160b"/><rect x="2" y="5" width="1" height="1" fill="#2a160b"/><rect x="3" y="5" width="1" height="1" fill="#f39232"/><rect x="4" y="5" width="1" height="1" fill="#f39232"/><rect x="5" y="5" width="1" height="1" fill="#f39232"/><rect x="6" y="5" width="1" height="1" fill="#f39232"/><rect x="7" y="5" width="1" height="1" fill="#f39232"/><rect x="8" y="5" width="1" height="1" fill="#f39232"/><rect x="9" y="5" width="1" height="1" fill="#f39232"/><rect x="10" y="5" width="1" height="1" fill="#f39232"/><rect x="11" y="5" width="1" height="1" fill="#f39232"/><rect x="12" y="5" width="1" height="1" fill="#f39232"/><rect x="13" y="5" width="1" height="1" fill="#f39232"/><rect x="14" y="5" width="1" height="1" fill="#f39232"/><rect x="15" y="5" width="1" height="1" fill="#f39232"/><rect x="16" y="5" width="1" height="1" fill="#f39232"/><rect x="17" y="5" width="1" height="1" fill="#2a160b"/><rect x="2" y="6" width="1" height="1" fill="#2a160b"/><rect x="3" y="6" width="1" height="1" fill="#f39232"/><rect x="4" y="6" width="1" height="1" fill="#f39232"/><rect x="5" y="6" width="1" height="1" fill="#f39232"/><rect x="6" y="6" width="1" height="1" fill="#f39232"/><rect x="7" y="6" width="1" height="1" fill="#f39232"/><rect x="8" y="6" width="1" height="1" fill="#f39232"/><rect x="9" y="6" width="1" height="1" fill="#f39232"/><rect x="10" y="6" width="1" height="1" fill="#f39232"/><rect x="11" y="6" width="1" height="1" fill="#f39232"/><rect x="12" y="6" width="1" height="1" fill="#f39232"/><rect x="13" y="6" width="1" height="1" fill="#f39232"/><rect x="14" y="6" width="1" height="1" fill="#f39232"/><rect x="15" y="6" width="1" height="1" fill="#f39232"/><rect x="16" y="6" width="1" height="1" fill="#f39232"/><rect x="17" y="6" width="1" height="1" fill="#2a160b"/><rect x="2" y="7" width="1" height="1" fill="#2a160b"/><rect x="3" y="7" width="1" height="1" fill="#f39232"/><rect x="4" y="7" width="1" height="1" fill="#f39232"/><rect x="5" y="7" width="1" height="1" fill="#f39232"/><rect x="6" y="7" width="1" height="1" fill="#f39232"/><rect x="7" y="7" width="1" height="1" fill="#f39232"/><rect x="8" y="7" width="1" height="1" fill="#f39232"/><rect x="9" y="7" width="1" height="1" fill="#f39232"/><rect x="10" y="7" width="1" height="1" fill="#f39232"/><rect x="11" y="7" width="1" height="1" fill="#f39232"/><rect x="12" y="7" width="1" height="1" fill="#f39232"/><rect x="13" y="7" width="1" height="1" fill="#f39232"/><rect x="14" y="7" width="1" height="1" fill="#f39232"/><rect x="15" y="7" width="1" height="1" fill="#f39232"/><rect x="16" y="7" width="1" height="1" fill="#f39232"/><rect x="17" y="7" width="1" height="1" fill="#2a160b"/><rect x="2" y="8" width="1" height="1" fill="#2a160b"/><rect x="3" y="8" width="1" height="1" fill="#f39232"/><rect x="4" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="5" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="6" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="7" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="8" y="8" width="1" height="1" fill="#f39232"/><rect x="9" y="8" width="1" height="1" fill="#ff8fa3"/><rect x="10" y="8" width="1" height="1" fill="#ff8fa3"/><rect x="11" y="8" width="1" height="1" fill="#f39232"/><rect x="12" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="13" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="14" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="15" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="16" y="8" width="1" height="1" fill="#f39232"/><rect x="17" y="8" width="1" height="1" fill="#2a160b"/><rect x="2" y="9" width="1" height="1" fill="#2a160b"/><rect x="3" y="9" width="1" height="1" fill="#f39232"/><rect x="4" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="5" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="6" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="7" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="8" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="9" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="10" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="11" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="12" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="13" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="14" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="15" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="16" y="9" width="1" height="1" fill="#f39232"/><rect x="17" y="9" width="1" height="1" fill="#2a160b"/><rect x="3" y="10" width="1" height="1" fill="#2a160b"/><rect x="4" y="10" width="1" height="1" fill="#f39232"/><rect x="5" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="6" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="7" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="8" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="9" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="10" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="11" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="12" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="13" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="14" y="10" width="1" height="1" fill="#ffe0b5"/><rect x="15" y="10" width="1" height="1" fill="#f39232"/><rect x="16" y="10" width="1" height="1" fill="#2a160b"/><rect x="4" y="11" width="1" height="1" fill="#2a160b"/><rect x="5" y="11" width="1" height="1" fill="#2a160b"/><rect x="6" y="11" width="1" height="1" fill="#f39232"/><rect x="7" y="11" width="1" height="1" fill="#f39232"/><rect x="8" y="11" width="1" height="1" fill="#f39232"/><rect x="9" y="11" width="1" height="1" fill="#f39232"/><rect x="10" y="11" width="1" height="1" fill="#f39232"/><rect x="11" y="11" width="1" height="1" fill="#f39232"/><rect x="12" y="11" width="1" height="1" fill="#f39232"/><rect x="13" y="11" width="1" height="1" fill="#f39232"/><rect x="14" y="11" width="1" height="1" fill="#2a160b"/><rect x="15" y="11" width="1" height="1" fill="#2a160b"/><rect x="3" y="12" width="1" height="1" fill="#2a160b"/><rect x="4" y="12" width="1" height="1" fill="#f39232"/><rect x="5" y="12" width="1" height="1" fill="#f39232"/><rect x="6" y="12" width="1" height="1" fill="#c8611a"/><rect x="7" y="12" width="1" height="1" fill="#f39232"/><rect x="8" y="12" width="1" height="1" fill="#f39232"/><rect x="9" y="12" width="1" height="1" fill="#ffe0b5"/><rect x="10" y="12" width="1" height="1" fill="#ffe0b5"/><rect x="11" y="12" width="1" height="1" fill="#ffe0b5"/><rect x="12" y="12" width="1" height="1" fill="#ffe0b5"/><rect x="13" y="12" width="1" height="1" fill="#f39232"/><rect x="14" y="12" width="1" height="1" fill="#f39232"/><rect x="15" y="12" width="1" height="1" fill="#c8611a"/><rect x="16" y="12" width="1" height="1" fill="#f39232"/><rect x="17" y="12" width="1" height="1" fill="#2a160b"/><rect x="3" y="13" width="1" height="1" fill="#2a160b"/><rect x="4" y="13" width="1" height="1" fill="#f39232"/><rect x="5" y="13" width="1" height="1" fill="#f39232"/><rect x="6" y="13" width="1" height="1" fill="#f39232"/><rect x="7" y="13" width="1" height="1" fill="#f39232"/><rect x="8" y="13" width="1" height="1" fill="#ffe0b5"/><rect x="9" y="13" width="1" height="1" fill="#ffe0b5"/><rect x="10" y="13" width="1" height="1" fill="#ffe0b5"/><rect x="11" y="13" width="1" height="1" fill="#ffe0b5"/><rect x="12" y="13" width="1" height="1" fill="#ffe0b5"/><rect x="13" y="13" width="1" height="1" fill="#ffe0b5"/><rect x="14" y="13" width="1" height="1" fill="#f39232"/><rect x="15" y="13" width="1" height="1" fill="#f39232"/><rect x="16" y="13" width="1" height="1" fill="#f39232"/><rect x="17" y="13" width="1" height="1" fill="#2a160b"/><rect x="3" y="14" width="1" height="1" fill="#2a160b"/><rect x="4" y="14" width="1" height="1" fill="#f39232"/><rect x="5" y="14" width="1" height="1" fill="#c8611a"/><rect x="6" y="14" width="1" height="1" fill="#f39232"/><rect x="7" y="14" width="1" height="1" fill="#f39232"/><rect x="8" y="14" width="1" height="1" fill="#ffe0b5"/><rect x="9" y="14" width="1" height="1" fill="#ffe0b5"/><rect x="10" y="14" width="1" height="1" fill="#ffe0b5"/><rect x="11" y="14" width="1" height="1" fill="#ffe0b5"/><rect x="12" y="14" width="1" height="1" fill="#ffe0b5"/><rect x="13" y="14" width="1" height="1" fill="#ffe0b5"/><rect x="14" y="14" width="1" height="1" fill="#f39232"/><rect x="15" y="14" width="1" height="1" fill="#f39232"/><rect x="16" y="14" width="1" height="1" fill="#c8611a"/><rect x="17" y="14" width="1" height="1" fill="#2a160b"/><rect x="3" y="15" width="1" height="1" fill="#2a160b"/><rect x="4" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="5" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="6" y="15" width="1" height="1" fill="#2a160b"/><rect x="7" y="15" width="1" height="1" fill="#f39232"/><rect x="8" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="9" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="10" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="11" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="12" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="13" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="14" y="15" width="1" height="1" fill="#f39232"/><rect x="15" y="15" width="1" height="1" fill="#2a160b"/><rect x="4" y="16" width="1" height="1" fill="#2a160b"/><rect x="5" y="16" width="1" height="1" fill="#2a160b"/><rect x="6" y="16" width="1" height="1" fill="#2a160b"/><rect x="7" y="16" width="1" height="1" fill="#2a160b"/><rect x="8" y="16" width="1" height="1" fill="#2a160b"/><rect x="9" y="16" width="1" height="1" fill="#2a160b"/><rect x="10" y="16" width="1" height="1" fill="#2a160b"/><rect x="11" y="16" width="1" height="1" fill="#2a160b"/><rect x="12" y="16" width="1" height="1" fill="#2a160b"/><rect x="13" y="16" width="1" height="1" fill="#2a160b"/><rect x="14" y="16" width="1" height="1" fill="#2a160b"/><rect x="15" y="16" width="1" height="1" fill="#2a160b"/><rect x="16" y="16" width="1" height="1" fill="#2a160b"/><rect x="17" y="16" width="1" height="1" fill="#2a160b"/></g><g id="cat-tail-a"><rect x="1" y="10" width="1" height="1" fill="#2a160b"/><rect x="0" y="11" width="1" height="1" fill="#2a160b"/><rect x="1" y="11" width="1" height="1" fill="#f39232"/><rect x="2" y="11" width="1" height="1" fill="#2a160b"/><rect x="0" y="12" width="1" height="1" fill="#2a160b"/><rect x="1" y="12" width="1" height="1" fill="#c8611a"/><rect x="2" y="12" width="1" height="1" fill="#2a160b"/><rect x="0" y="13" width="1" height="1" fill="#2a160b"/><rect x="1" y="13" width="1" height="1" fill="#f39232"/><rect x="2" y="13" width="1" height="1" fill="#2a160b"/><rect x="1" y="14" width="1" height="1" fill="#2a160b"/><rect x="2" y="14" width="1" height="1" fill="#f39232"/><rect x="2" y="15" width="1" height="1" fill="#2a160b"/></g><g id="cat-tail-b" opacity="0"><rect x="1" y="12" width="1" height="1" fill="#2a160b"/><rect x="0" y="13" width="1" height="1" fill="#2a160b"/><rect x="1" y="13" width="1" height="1" fill="#f39232"/><rect x="2" y="13" width="1" height="1" fill="#2a160b"/><rect x="0" y="14" width="1" height="1" fill="#2a160b"/><rect x="1" y="14" width="1" height="1" fill="#c8611a"/><rect x="2" y="14" width="1" height="1" fill="#f39232"/><rect x="1" y="15" width="1" height="1" fill="#2a160b"/><rect x="2" y="15" width="1" height="1" fill="#2a160b"/></g><g id="cat-eyes-open"><rect x="5" y="6" width="1" height="1" fill="#1b1b1b"/><rect x="6" y="6" width="1" height="1" fill="#ffffff"/><rect x="13" y="6" width="1" height="1" fill="#1b1b1b"/><rect x="14" y="6" width="1" height="1" fill="#ffffff"/><rect x="5" y="7" width="1" height="1" fill="#1b1b1b"/><rect x="6" y="7" width="1" height="1" fill="#1b1b1b"/><rect x="13" y="7" width="1" height="1" fill="#1b1b1b"/><rect x="14" y="7" width="1" height="1" fill="#1b1b1b"/></g><g id="cat-eyes-shut" opacity="0"><rect x="5" y="7" width="1" height="1" fill="#2a160b"/><rect x="6" y="7" width="1" height="1" fill="#2a160b"/><rect x="13" y="7" width="1" height="1" fill="#2a160b"/><rect x="14" y="7" width="1" height="1" fill="#2a160b"/></g><g id="cat-mouth-shut"><rect x="8" y="9" width="1" height="1" fill="#2a160b"/><rect x="11" y="9" width="1" height="1" fill="#2a160b"/><rect x="9" y="10" width="1" height="1" fill="#2a160b"/><rect x="10" y="10" width="1" height="1" fill="#2a160b"/></g><g id="cat-mouth-open" opacity="0"><rect x="8" y="9" width="1" height="1" fill="#2a160b"/><rect x="11" y="9" width="1" height="1" fill="#2a160b"/><rect x="9" y="9" width="1" height="1" fill="#1b1b1b"/><rect x="10" y="9" width="1" height="1" fill="#1b1b1b"/><rect x="9" y="10" width="1" height="1" fill="#ff8fa3"/><rect x="10" y="10" width="1" height="1" fill="#ff8fa3"/></g><g id="cat-paw-down"><rect x="15" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="16" y="15" width="1" height="1" fill="#ffe0b5"/><rect x="17" y="15" width="1" height="1" fill="#2a160b"/></g><g id="cat-paw-up" opacity="0"><rect x="18" y="7" width="1" height="1" fill="#2a160b"/><rect x="17" y="8" width="1" height="1" fill="#2a160b"/><rect x="18" y="8" width="1" height="1" fill="#ffe0b5"/><rect x="19" y="8" width="1" height="1" fill="#2a160b"/><rect x="17" y="9" width="1" height="1" fill="#2a160b"/><rect x="18" y="9" width="1" height="1" fill="#ffe0b5"/><rect x="19" y="9" width="1" height="1" fill="#2a160b"/><rect x="17" y="10" width="1" height="1" fill="#2a160b"/><rect x="18" y="10" width="1" height="1" fill="#f39232"/><rect x="19" y="10" width="1" height="1" fill="#2a160b"/><rect x="17" y="11" width="1" height="1" fill="#2a160b"/><rect x="18" y="11" width="1" height="1" fill="#f39232"/><rect x="19" y="11" width="1" height="1" fill="#2a160b"/><rect x="15" y="15" width="1" height="1" fill="#2a160b"/><rect x="16" y="15" width="1" height="1" fill="#2a160b"/></g></svg></div>
+      <div id="cat-alert"><svg width="66" height="90" viewBox="0 0 3 4" shape-rendering="crispEdges"><rect x="1" y="0" width="1" height="2" fill="#ffd60a"/><rect x="1" y="3" width="1" height="1" fill="#ffd60a"/><rect x="0" y="0" width="1" height="2" fill="#2a160b" opacity="0.6"/></svg></div>
+      <div id="b0" class="bub clip" data-start="0.75" data-duration="1.37" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">M</span><span class="ch">e</span><span class="ch">o</span><span class="ch">w</span><span class="ch">!</span><span class="ch">&nbsp;</span><span class="ch">J</span><span class="ch">o</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">a</span><span class="ch">k</span><span class="ch">u</span><span class="ch">&nbsp;</span><span class="ch">t</span><span class="ch">u</span><span class="ch">n</span><span class="ch">j</span><span class="ch">u</span><span class="ch">k</span><span class="ch">.</span><span class="ch">.</span><span class="ch">.</span></div></div>
+      <div id="b1" class="bub clip" data-start="2.35" data-duration="1.4" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">A</span><span class="ch">d</span><span class="ch">a</span><span class="ch">&nbsp;</span><span class="ch">L</span><span class="ch">E</span><span class="ch">D</span><span class="ch">&nbsp;</span><span class="ch">i</span><span class="ch">n</span><span class="ch">d</span><span class="ch">i</span><span class="ch">c</span><span class="ch">a</span><span class="ch">t</span><span class="ch">o</span><span class="ch">r</span><span class="ch">!</span></div></div>
+      <div id="b2" class="bub clip" data-start="5.9" data-duration="2.82" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">S</span><span class="ch">a</span><span class="ch">i</span><span class="ch">z</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">o</span><span class="ch">m</span><span class="ch">p</span><span class="ch">a</span><span class="ch">c</span><span class="ch">t</span><span class="ch">,</span><span class="ch">&nbsp;</span><span class="ch">n</span><span class="ch">a</span><span class="ch">m</span><span class="ch">p</span><span class="ch">a</span><span class="ch">k</span><span class="ch">&nbsp;</span><span class="ch">m</span><span class="ch">e</span><span class="ch">w</span><span class="ch">a</span><span class="ch">h</span><span class="ch">!</span></div></div>
+      <div id="b3" class="bub clip" data-start="9.2" data-duration="2.12" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">M</span><span class="ch">u</span><span class="ch">a</span><span class="ch">t</span><span class="ch">&nbsp;</span><span class="ch">d</span><span class="ch">a</span><span class="ch">l</span><span class="ch">a</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">p</span><span class="ch">o</span><span class="ch">k</span><span class="ch">e</span><span class="ch">t</span><span class="ch">!</span></div></div>
+      <div id="b4" class="bub clip" data-start="11.6" data-duration="2.02" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">P</span><span class="ch">o</span><span class="ch">r</span><span class="ch">t</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">h</span><span class="ch">a</span><span class="ch">r</span><span class="ch">g</span><span class="ch">i</span><span class="ch">n</span><span class="ch">g</span><span class="ch">&nbsp;</span><span class="ch">U</span><span class="ch">S</span><span class="ch">B</span><span class="ch">&nbsp;</span><span class="ch">T</span><span class="ch">y</span><span class="ch">p</span><span class="ch">e</span><span class="ch">-</span><span class="ch">C</span><span class="ch">!</span></div></div>
+      <div id="b5" class="bub clip" data-start="15.9" data-duration="2.3" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">M</span><span class="ch">e</span><span class="ch">o</span><span class="ch">w</span><span class="ch">~</span><span class="ch">&nbsp;</span><span class="ch">j</span><span class="ch">o</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">h</span><span class="ch">e</span><span class="ch">c</span><span class="ch">k</span><span class="ch">o</span><span class="ch">u</span><span class="ch">t</span><span class="ch">!</span></div></div>
+
       <div id="flash"></div>
 
       <!-- ================= SOUND FX ================= -->
@@ -405,20 +434,26 @@
       <audio id="sfx-pop-h" src="assets/sfx/pop.mp3" data-start="0.62" data-track-index="23" data-volume="0.5"></audio>
       <audio id="sfx-whoosh-1" src="assets/sfx/whoosh-short.mp3" data-start="2.1" data-track-index="24" data-volume="0.45"></audio>
       <audio id="sfx-sparkle-1" src="assets/sfx/sparkle.mp3" data-start="2.3" data-track-index="25" data-volume="0.4"></audio>
-      <audio id="sfx-pop-2" src="assets/sfx/pop.mp3" data-start="2.55" data-track-index="26" data-volume="0.5"></audio>
       <audio id="sfx-whoosh-2" src="assets/sfx/whoosh-short.mp3" data-start="3.7" data-track-index="27" data-volume="0.4"></audio>
       <audio id="sfx-whoosh-3" src="assets/sfx/whoosh.mp3" data-start="5.4" data-track-index="28" data-volume="0.45"></audio>
       <audio id="sfx-sparkle-4" src="assets/sfx/sparkle.mp3" data-start="5.75" data-track-index="29" data-volume="0.5"></audio>
-      <audio id="sfx-pop-4a" src="assets/sfx/pop.mp3" data-start="6.3" data-track-index="30" data-volume="0.5"></audio>
-      <audio id="sfx-pop-4b" src="assets/sfx/pop.mp3" data-start="6.6" data-track-index="31" data-volume="0.5"></audio>
       <audio id="sfx-whoosh-5" src="assets/sfx/whoosh-short.mp3" data-start="8.7" data-track-index="32" data-volume="0.45"></audio>
-      <audio id="sfx-pop-5" src="assets/sfx/pop.mp3" data-start="9.3" data-track-index="33" data-volume="0.5"></audio>
       <audio id="sfx-whoosh-7" src="assets/sfx/whoosh-short.mp3" data-start="11.3" data-track-index="34" data-volume="0.45"></audio>
-      <audio id="sfx-ping-7" src="assets/sfx/ping.mp3" data-start="12.55" data-track-index="35" data-volume="0.45"></audio>
-      <audio id="sfx-pop-6" src="assets/sfx/pop.mp3" data-start="12.55" data-track-index="39" data-volume="0.5"></audio>
       <audio id="sfx-click-8" src="assets/sfx/click.mp3" data-start="14.55" data-track-index="36" data-volume="0.9"></audio>
       <audio id="sfx-impact-9" src="assets/sfx/impact-bass-1.mp3" data-start="15.3" data-track-index="37" data-volume="0.55"></audio>
       <audio id="sfx-chime-9" src="assets/sfx/chime.mp3" data-start="15.75" data-track-index="38" data-volume="0.45"></audio>
+      <audio id="sfx-bub-b0" src="assets/sfx/pop.mp3" data-start="0.75" data-track-index="50" data-volume="0.45"></audio>
+      <audio id="sfx-type-b0" src="assets/sfx/typing.mp3" data-start="0.87" data-duration="0.79" data-track-index="51" data-volume="0.22"></audio>
+      <audio id="sfx-bub-b1" src="assets/sfx/pop.mp3" data-start="2.35" data-track-index="52" data-volume="0.45"></audio>
+      <audio id="sfx-type-b1" src="assets/sfx/typing.mp3" data-start="2.47" data-duration="0.63" data-track-index="53" data-volume="0.22"></audio>
+      <audio id="sfx-bub-b2" src="assets/sfx/pop.mp3" data-start="5.9" data-track-index="54" data-volume="0.45"></audio>
+      <audio id="sfx-type-b2" src="assets/sfx/typing.mp3" data-start="6.02" data-duration="0.91" data-track-index="55" data-volume="0.22"></audio>
+      <audio id="sfx-bub-b3" src="assets/sfx/pop.mp3" data-start="9.2" data-track-index="56" data-volume="0.45"></audio>
+      <audio id="sfx-type-b3" src="assets/sfx/typing.mp3" data-start="9.32" data-duration="0.59" data-track-index="57" data-volume="0.22"></audio>
+      <audio id="sfx-bub-b4" src="assets/sfx/pop.mp3" data-start="11.6" data-track-index="58" data-volume="0.45"></audio>
+      <audio id="sfx-type-b4" src="assets/sfx/typing.mp3" data-start="11.72" data-duration="0.85" data-track-index="59" data-volume="0.22"></audio>
+      <audio id="sfx-bub-b5" src="assets/sfx/pop.mp3" data-start="15.9" data-track-index="60" data-volume="0.45"></audio>
+      <audio id="sfx-type-b5" src="assets/sfx/typing.mp3" data-start="16.02" data-duration="0.66" data-track-index="61" data-volume="0.22"></audio>
     </div>
 
     <script>
@@ -470,7 +505,6 @@
       flash(2.2, 0.22);
       caption("#cap2", 2.2, 1.6);
       shine(2.3);
-      chip("#c2a", 2.55, 3.8);
 
       // ---------- 3. Pull earbud out ----------
       settle("#sh3", 3.8);
@@ -483,8 +517,6 @@
       caption("#cap4", 5.5, 3.3);
       shine(5.8);
       shine(7.6);
-      chip("#c4a", 6.3, 8.8);
-      chip("#c4b", 6.6, 8.8);
       tl.to("#sh4", { scale: 1.1, duration: 2.6, ease: "none" }, 5.95);
 
       // ---------- 5. Case exterior (two quick shots) ----------
@@ -492,16 +524,10 @@
       tl.to("#sh5", { scale: 1.06, duration: 0.95, ease: "none" }, 9.25);
       settle("#sh6", 10.2, 1.1);
       caption("#cap5", 8.8, 2.6);
-      chip("#c5a", 9.3, 11.4);
 
       // ---------- 6. Back into case -> charging ----------
       settle("#sh7", 11.4);
       caption("#cap6", 11.4, 2.3);
-      tl.fromTo("#batt-svg", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 11.5);
-      tl.fromTo("#batt-fill", { scaleX: 0.05, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 11.6);
-      tl.to("#batt-svg", { scale: 1.12, duration: 0.12, yoyo: true, repeat: 1, ease: "sine.inOut" }, 12.2);
-      tl.to("#batt-svg", { opacity: 0, scale: 0.7, duration: 0.14 }, 12.45);
-      chip("#c6a", 12.55, 13.7);
 
       // ---------- 7. Lid snaps shut ----------
       settle("#sh8", 13.7);
@@ -521,6 +547,61 @@
       tl.to("#cta-btn", { scale: 1.07, duration: 0.32, ease: "sine.inOut", yoyo: true, repeat: 5 }, 16.3);
       tl.fromTo("#arrow-svg", { opacity: 0, x: 40, y: -40 }, { opacity: 1, x: 0, y: 0, duration: 0.3, ease: "power2.out" }, 15.95);
       tl.to("#arrow-svg", { x: -16, y: 16, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 5 }, 16.3);
+
+      // ---------- PIXEL CAT MASCOT (Clippy-style helper) ----------
+      // every sprite frame swap is a tl.set at a fixed time -> seek-safe
+      const show = (on, off, at) => tl.set(on, { opacity: 1 }, at).set(off, { opacity: 0 }, at);
+      tl.set("#cat", { opacity: 0, y: 140 }, 0);
+      // stepped (pixel) pop-in after the hook lands
+      tl.to("#cat", { opacity: 1, duration: 0.01 }, 0.6);
+      tl.to("#cat", { y: -26, duration: 0.18, ease: "steps(4)" }, 0.6);
+      tl.to("#cat", { y: 0, duration: 0.12, ease: "steps(3)" }, 0.78);
+      // idle bob, 2px-per-pixel steps
+      for (let t = 1.0; t < 18.0; t += 0.6) {
+        if (t > 14.4 && t < 15.0) continue; // KLIK jump owns this window
+        tl.set("#cat-svg", { y: -6 }, t).set("#cat-svg", { y: 0 }, t + 0.3);
+      }
+      // tail wag
+      for (let t = 0.6, i = 0; t < 18.2; t += 0.28, i++) {
+        if (i % 2) show("#cat-tail-a", "#cat-tail-b", t);
+        else show("#cat-tail-b", "#cat-tail-a", t);
+      }
+      // blinks
+      [1.9, 4.6, 7.4, 10.6, 13.3, 17.2].forEach((t) => {
+        show("#cat-eyes-shut", "#cat-eyes-open", t);
+        show("#cat-eyes-open", "#cat-eyes-shut", t + 0.12);
+      });
+      // speech bubbles: pop, type, mouth flaps while typing
+      const CPS = 0.032;
+      const say = (id, at, end) => {
+        const chars = document.getElementById(id).querySelectorAll(".ch");
+        const typed = chars.length * CPS;
+        tl.fromTo("#" + id + " .bub-in", { scale: 0, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.16, ease: "steps(4)" }, at);
+        tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.001, stagger: CPS }, at + 0.12);
+        for (let t = at + 0.12, i = 0; t < at + 0.12 + typed; t += 0.09, i++) {
+          if (i % 2) show("#cat-mouth-shut", "#cat-mouth-open", t);
+          else show("#cat-mouth-open", "#cat-mouth-shut", t);
+        }
+        show("#cat-mouth-shut", "#cat-mouth-open", at + 0.12 + typed + 0.02);
+        tl.to("#" + id + " .bub-in", { scale: 0, duration: 0.1, ease: "steps(3)" }, end - 0.1);
+      };
+      say("b0", 0.75, 2.12);
+      say("b1", 2.35, 3.75);
+      say("b2", 5.9, 8.72);
+      say("b3", 9.2, 11.32);
+      say("b4", 11.6, 13.62);
+      say("b5", 15.9, 18.2);
+      // KLIK: cat jumps with a "!"
+      tl.to("#cat", { y: -70, duration: 0.12, ease: "steps(3)" }, 14.56);
+      tl.to("#cat", { y: 0, duration: 0.16, ease: "steps(4)" }, 14.68);
+      tl.set("#cat-alert", { opacity: 1 }, 14.56).set("#cat-alert", { opacity: 0 }, 15.1);
+      show("#cat-eyes-shut", "#cat-eyes-open", 14.56);
+      show("#cat-eyes-open", "#cat-eyes-shut", 14.86);
+      // CTA: wave
+      for (let t = 15.9, i = 0; t < 18.2; t += 0.2, i++) {
+        if (i % 2) show("#cat-paw-down", "#cat-paw-up", t);
+        else show("#cat-paw-up", "#cat-paw-down", t);
+      }
 
       window.__timelines["main"] = tl;
     </script>
