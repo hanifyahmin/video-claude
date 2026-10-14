@@ -103,47 +103,6 @@ MOUTH_SMALL = [(10, 9, "K"), (10, 10, "K")]
 MOUTH_FLAT = [(11, 8, "K"), (11, 9, "K"), (11, 10, "K"), (11, 11, "K")]
 
 # ---- limbs / props: (canvas_x, canvas_y, rows) stamps ----
-PAW_WAVE = (22, 7, [
-    ".KK.",
-    "KLLK",
-    "KLLK",
-    "KOOK",
-    ".KOK",
-    ".KOK",
-    ".KOK",
-    "..KK",
-])
-WAVE_LINES = (22, 2, [
-    "...K",
-    "..K.",
-    "....",
-    ".K.K",
-])
-PAW_HOORAY_L = (0, 8, [
-    ".KK.",
-    "KLLK",
-    "KLLK",
-    "KOOK",
-    "KOK.",
-    "KOK.",
-    "KOK.",
-    "KK..",
-])
-PAW_HOORAY_R = (22, 8, [
-    ".KK.",
-    "KLLK",
-    "KLLK",
-    "KOOK",
-    ".KOK",
-    ".KOK",
-    ".KOK",
-    "..KK",
-])
-PAW_POINT = (18, 18, [
-    "KKKKKK.",
-    "OOOOLLK",
-    "KKKKKK.",
-])
 PAW_CHIN = (15, 14, [
     ".KKK.",
     "KLLLK",
@@ -167,11 +126,6 @@ BANG = (22, 0, [
     "YY",
     "..",
     "YY",
-])
-SWEAT_R = (23, 6, [
-    "N.",
-    "NN",
-    "NN",
 ])
 SWEAT = (2, 7, [
     ".N",
@@ -257,64 +211,14 @@ FISH = (6, 13, [
     "KNNNNNNK.KNK",
     ".KKKKKK..KK.",
 ])
-FISH_PAWS = (7, 17, [
-    ".KK....KK.",
-    "KLLK..KLLK",
-    ".KK....KK.",
-])
-FISH_PAW_R = (17, 13, [
-    ".KK.",
-    "KLLK",
-    "KLLK",
-    ".KK.",
-])
-NOM = (19, 1, [
-    "Y..Y.YYY.Y...Y",
-    "YY.Y.Y.Y.YY.YY",
-    "Y.YY.Y.Y.Y.Y.Y",
-    "Y..Y.YYY.Y...Y",
-])
 CRUMBS = (19, 17, [
     "..L.",
     "L...",
     "...L",
 ])
-RUN_BODY = [
-    "....KOOOLLLLOOOK....",
-    "....KOOLLLLLLOOK....",
-    "....KOOLLLLLLOOK....",
-    "...KOOKLLLLLLKOOK...",
-    "..KOOK.KKKKKK.KOOK..",
-    ".KOOK..........KOOK.",
-    ".KLLK..........KLLK.",
-]
-RUN_TAIL = (0, 15, [
-    "KKK..",
-    "KOOKK",
-    ".KKOOK",
-    "...KK.",
-])
-SPEED = (0, 7, [
-    "GGG.",
-    "....",
-    ".GGG",
-    "....",
-    "GGG.",
-])
-RUN_ARM = (18, 16, [
-    "KKK..",
-    "KOOKK",
-    ".KKLLK",
-    "...KK.",
-])
-RUN_ARM_L = (4, 17, [
-    "KKK",
-    "LLK",
-    "KK.",
-])
 
 
-def build(face, stamps=(), tail=True, headphones=False, body=None):
+def build(face, stamps=(), tail=True, headphones=False):
     g = [["."] * CW for _ in range(CH)]
 
     def put(cells_or_stamp, head_space=False):
@@ -328,7 +232,7 @@ def build(face, stamps=(), tail=True, headphones=False, body=None):
                     if k != ".":
                         g[y0 + dy][x0 + dx] = k
 
-    for r, row in enumerate(HEAD + (body or BODY)):
+    for r, row in enumerate(HEAD + BODY):
         for c, k in enumerate(row):
             if k != ".":
                 g[r + HY][c + HX] = k
@@ -345,12 +249,10 @@ def build(face, stamps=(), tail=True, headphones=False, body=None):
 
 POSES = {
     "Senyum": build(eyes_open() + MOUTH_UU),
-    "Melambai": build(eyes_happy() + MOUTH_TALK, [PAW_WAVE, WAVE_LINES]),
-    "Teruja": build(eyes_sparkle() + MOUTH_BIG, [PAW_HOORAY_L, PAW_HOORAY_R, SPARKS]),
+    "Teruja": build(eyes_sparkle() + MOUTH_BIG, [SPARKS]),
     "Jatuh cinta": build(eyes_heart() + MOUTH_UU, [HEARTS]),
     "Terkejut": build(eyes_shock() + MOUTH_O, [BANG, SWEAT]),
     "Kenyit mata": build(eyes_open(L_EYE) + eyes_happy([R_EYE]) + MOUTH_UU),
-    "Tunjuk": build(eyes_open() + MOUTH_TALK, [PAW_POINT]),
     "Berfikir": build(eyes_think() + MOUTH_FLAT, [PAW_CHIN, QMARK]),
     "Tidur": build(eyes_sleep() + MOUTH_SMALL, [ZZZ]),
     "Layan lagu": build(eyes_happy() + MOUTH_UU, [NOTE], headphones=True),
@@ -359,7 +261,6 @@ POSES = {
     "Thumbs up": build(eyes_open(L_EYE) + eyes_happy([R_EYE]) + MOUTH_UU, [THUMB_ARM, THUMB, TWINKLE]),
     "Makan": build(eyes_happy() + [(10, 2, "B"), (10, 3, "B"), (10, 16, "B"), (10, 17, "B")],
                    [FISH, CRUMBS, TWINKLE]),
-    "Berlari": build(eyes_open() + MOUTH_TALK, [RUN_TAIL, SPEED, SWEAT_R], tail=False, body=RUN_BODY),
 }
 
 
