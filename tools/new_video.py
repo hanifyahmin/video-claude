@@ -1,0 +1,96 @@
+"""Scaffold a new video project from templates/tiktok-9x16.
+
+  python3 tools/new_video.py <name> [--source FILE] [--rotate cw|ccw|none]
+                                    [--kicker TEXT] [--hook TEXT]
+
+Creates videos/<name>/ with the composition, a starter Oyen storyline, the
+shared GSAP + SFX copied into assets/, and (with --source) the footage as
+assets/source.<ext> plus an edit-friendly assets/source-portrait.mp4
+(rotated if --rotate is given; phones often store portrait clips sideways).
+"""
+import argparse
+import datetime as dt
+import json
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+TEMPLATE = REPO / "templates" / "tiktok-9x16"
+SHARED = REPO / "shared"
+
+
+def probe(path):
+    out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                          "stream=width,height:format=duration", "-of", "json", str(path)],
+                         capture_output=True, text=True, check=True).stdout
+    data = json.loads(out)
+    s = data["streams"][0]
+    return s["width"], s["height"], float(data["format"]["duration"])
+
+
+def make_portrait(src, dst, rotate):
+    vf = {"cw": ["-vf", "transpose=1"], "ccw": ["-vf", "transpose=2"], "none": []}[rotate]
+    # dense keyframes (-g 15) keep frame-accurate seeking cheap in the browser
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), *vf, "-c:v", "libx264", "-crf", "16",
+                    "-preset", "medium", "-g", "15", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k",
+                    "-movflags", "+faststart", str(dst)], check=True)
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("name", help="kebab-case project name, e.g. tumbler-stanley")
+    ap.add_argument("--source", type=Path, help="footage file to copy into assets/")
+    ap.add_argument("--rotate", choices=["cw", "ccw", "none"], default="none",
+                    help="rotate the footage into portrait (check a frame first)")
+    ap.add_argument("--kicker", default="PRODUK NI…")
+    ap.add_argument("--hook", default="WAJIB ADA!")
+    args = ap.parse_args(argv)
+
+    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", args.name):
+        ap.error("name must be kebab-case: lowercase letters, digits and dashes")
+    dest = REPO / "videos" / args.name
+    if dest.exists():
+        ap.error(f"{dest} already exists")
+
+    shutil.copytree(TEMPLATE, dest)
+    subs = {"{{NAME}}": args.name, "{{KICKER}}": args.kicker, "{{HOOK}}": args.hook,
+            "{{CREATED_AT}}": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+            "{{SOURCE_NOTE}}": f"`{args.source.name}`" if args.source else "add with --source"}
+    for f in dest.iterdir():
+        if f.suffix in {".html", ".py", ".json", ".md"}:
+            text = f.read_text()
+            for k, v in subs.items():
+                text = text.replace(k, v)
+            f.write_text(text)
+
+    (dest / "assets" / "vendor").mkdir(parents=True)
+    shutil.copy2(SHARED / "vendor" / "gsap.min.js", dest / "assets" / "vendor")
+    shutil.copytree(SHARED / "sfx", dest / "assets" / "sfx")
+
+    if args.source:
+        raw = dest / "assets" / f"source{args.source.suffix.lower()}"
+        shutil.copy2(args.source, raw)
+        w, h, dur = probe(raw)
+        print(f"source: {w}x{h}, {dur:.1f}s")
+        if w > h and args.rotate == "none":
+            print("  note: footage is landscape; if it was filmed upright, rerun make_portrait with --rotate cw/ccw")
+        make_portrait(raw, dest / "assets" / "source-portrait.mp4", args.rotate)
+        pw, ph, _ = probe(dest / "assets" / "source-portrait.mp4")
+        print(f"assets/source-portrait.mp4: {pw}x{ph}")
+
+    print(f"""
+created {dest.relative_to(REPO)}
+next:
+  1. edit videos/{args.name}/index.html   (footage shots, captions, CTA, root data-duration)
+  2. edit videos/{args.name}/storyline.py (Oyen beats; must end at the root duration)
+  3. python3 -m oyen storyboard videos/{args.name} && python3 -m oyen install videos/{args.name}
+  4. cd videos/{args.name} && npx --yes hyperframes@0.8.150 check
+""")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

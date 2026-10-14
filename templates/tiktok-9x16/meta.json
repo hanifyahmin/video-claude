@@ -1,0 +1,5 @@
+{
+  "id": "{{NAME}}",
+  "name": "{{NAME}}",
+  "createdAt": "{{CREATED_AT}}"
+}

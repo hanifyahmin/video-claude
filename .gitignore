@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+node_modules/
+.hyperframes/
+# per-video build outputs and source footage (footage lives in Drive; see each video's README/.gitignore)
+videos/*/renders/
+videos/*/snapshots/
+videos/*/assets/source*.mp4
+videos/*/assets/source*.mov

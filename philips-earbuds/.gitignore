@@ -1,8 +1,0 @@
-# source footage (not committed): Drive original -> assets/source.mp4; rotated 90deg CW -> assets/source-portrait.mp4
-#   ffmpeg -i assets/source.mp4 -vf transpose=1 -c:v libx264 -crf 16 -g 15 -c:a aac assets/source-portrait.mp4
-assets/source.mp4
-renders/
-snapshots/
-.hyperframes/
-node_modules/
-assets/source-portrait.mp4
