@@ -228,17 +228,22 @@ BAG_PAW = (16, 17, [
     "LK",
 ])
 
-THUMB = (21, 8, [
-    "..KK...",
-    ".KLLK..",
-    ".KLLK..",
-    "KKLLKKK",
-    "KLLLLLK",
-    "KLLLLLK",
-    "KKKKKKK",
-    ".KOOK..",
-    ".KOOK..",
-    "..KOK..",
+THUMB = (20, 13, [  # classic 👍: thumb up, curled fingers notched on the right
+    "..KK....",
+    ".KLLK...",
+    ".KLLK...",
+    "KKLLKKK.",
+    "KLLLLLLK",
+    "KLLLLLKK",
+    "KLLLLLLK",
+    "KLLLLLKK",
+    ".KKKKKK.",
+])
+THUMB_ARM = (18, 17, [
+    "KK.",
+    "OOK",
+    "OOK",
+    "KK.",
 ])
 TWINKLE = (24, 2, [
     ".Y.",
@@ -351,7 +356,7 @@ POSES = {
     "Layan lagu": build(eyes_happy() + MOUTH_UU, [NOTE], headphones=True),
     "Shopping": build(eyes_sparkle() + MOUTH_UU, [BAG, BAG_PAW], tail=False),
     "Bercakap": build(eyes_open() + MOUTH_TALK),
-    "Thumbs up": build(eyes_open(L_EYE) + eyes_happy([R_EYE]) + MOUTH_UU, [THUMB, TWINKLE]),
+    "Thumbs up": build(eyes_open(L_EYE) + eyes_happy([R_EYE]) + MOUTH_UU, [THUMB_ARM, THUMB, TWINKLE]),
     "Makan": build(eyes_happy() + [(10, 2, "B"), (10, 3, "B"), (10, 16, "B"), (10, 17, "B")],
                    [FISH, CRUMBS, TWINKLE]),
     "Berlari": build(eyes_open() + MOUTH_TALK, [RUN_TAIL, SPEED, SWEAT_R], tail=False, body=RUN_BODY),
