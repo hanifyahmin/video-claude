@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from oyen_sprites import PAL, to_image
 
-CW, CH = 26, 24
+CW, CH = 28, 24
 HX, HY = 3, 3  # where the head's (0,0) lands on the canvas
 
 HEAD = [
@@ -168,6 +168,11 @@ BANG = (22, 0, [
     "..",
     "YY",
 ])
+SWEAT_R = (23, 6, [
+    "N.",
+    "NN",
+    "NN",
+])
 SWEAT = (2, 7, [
     ".N",
     "NN",
@@ -223,8 +228,88 @@ BAG_PAW = (16, 17, [
     "LK",
 ])
 
+THUMB = (21, 8, [
+    "..KK...",
+    ".KLLK..",
+    ".KLLK..",
+    "KKLLKKK",
+    "KLLLLLK",
+    "KLLLLLK",
+    "KKKKKKK",
+    ".KOOK..",
+    ".KOOK..",
+    "..KOK..",
+])
+TWINKLE = (24, 2, [
+    ".Y.",
+    "YWY",
+    ".Y.",
+])
+FISH = (6, 13, [
+    ".KKKKKK..KK.",
+    "KNNNNNNK.KNK",
+    "KNWENNNNKNNK",
+    "KNNNNNNK.KNK",
+    ".KKKKKK..KK.",
+])
+FISH_PAWS = (7, 17, [
+    ".KK....KK.",
+    "KLLK..KLLK",
+    ".KK....KK.",
+])
+FISH_PAW_R = (17, 13, [
+    ".KK.",
+    "KLLK",
+    "KLLK",
+    ".KK.",
+])
+NOM = (19, 1, [
+    "Y..Y.YYY.Y...Y",
+    "YY.Y.Y.Y.YY.YY",
+    "Y.YY.Y.Y.Y.Y.Y",
+    "Y..Y.YYY.Y...Y",
+])
+CRUMBS = (19, 17, [
+    "..L.",
+    "L...",
+    "...L",
+])
+RUN_BODY = [
+    "....KOOOLLLLOOOK....",
+    "....KOOLLLLLLOOK....",
+    "....KOOLLLLLLOOK....",
+    "...KOOKLLLLLLKOOK...",
+    "..KOOK.KKKKKK.KOOK..",
+    ".KOOK..........KOOK.",
+    ".KLLK..........KLLK.",
+]
+RUN_TAIL = (0, 15, [
+    "KKK..",
+    "KOOKK",
+    ".KKOOK",
+    "...KK.",
+])
+SPEED = (0, 7, [
+    "GGG.",
+    "....",
+    ".GGG",
+    "....",
+    "GGG.",
+])
+RUN_ARM = (18, 16, [
+    "KKK..",
+    "KOOKK",
+    ".KKLLK",
+    "...KK.",
+])
+RUN_ARM_L = (4, 17, [
+    "KKK",
+    "LLK",
+    "KK.",
+])
 
-def build(face, stamps=(), tail=True, headphones=False):
+
+def build(face, stamps=(), tail=True, headphones=False, body=None):
     g = [["."] * CW for _ in range(CH)]
 
     def put(cells_or_stamp, head_space=False):
@@ -238,7 +323,7 @@ def build(face, stamps=(), tail=True, headphones=False):
                     if k != ".":
                         g[y0 + dy][x0 + dx] = k
 
-    for r, row in enumerate(HEAD + BODY):
+    for r, row in enumerate(HEAD + (body or BODY)):
         for c, k in enumerate(row):
             if k != ".":
                 g[r + HY][c + HX] = k
@@ -266,6 +351,10 @@ POSES = {
     "Layan lagu": build(eyes_happy() + MOUTH_UU, [NOTE], headphones=True),
     "Shopping": build(eyes_sparkle() + MOUTH_UU, [BAG, BAG_PAW], tail=False),
     "Bercakap": build(eyes_open() + MOUTH_TALK),
+    "Thumbs up": build(eyes_open(L_EYE) + eyes_happy([R_EYE]) + MOUTH_UU, [THUMB, TWINKLE]),
+    "Makan": build(eyes_happy() + [(10, 2, "B"), (10, 3, "B"), (10, 16, "B"), (10, 17, "B")],
+                   [FISH, CRUMBS, TWINKLE]),
+    "Berlari": build(eyes_open() + MOUTH_TALK, [RUN_TAIL, SPEED, SWEAT_R], tail=False, body=RUN_BODY),
 }
 
 
