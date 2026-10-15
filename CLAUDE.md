@@ -28,3 +28,7 @@ The user writes in Malay; reply in Malay unless they switch.
 - Don't put `data-start` on both a `<video>` and its wrapper. Keep `id` on every `<audio>`.
 - TikTok UI: keep text below ~150px from the top, away from the right edge (buttons) and the bottom ~400px (caption, product link).
 - Don't invent product claims; ask the user or use what is visible in the footage.
+
+## User preferences
+- End/CTA scene: no arrow (the old pointer to the beg kuning). Use the template CTA: NAK SATU? / TEKAN / BEG KUNING + "CHECK HARGA PROMO" button, with Oyen beside it.
+- Every final delivery includes `promo/thumbnail.png` + caption (workflow step 7).
