@@ -2,7 +2,7 @@
 
 Footage: assets/source-portrait.mp4 (195s, sound removed). Usable moments:
 box 0-3.5s, out of blister 25-34s, hanging + "Max.50kg/110lb" 43-50s,
-LCD/buttons 50-53s, strap buckle 57-61s, coin battery 83-86s / 152-160s,
+LCD/buttons 50-53s, strap buckle 57-61s, coin battery (included in the pack) 28-30s / 83-86s / 152-160s,
 LCD lit + UNIT kg -> 37°C -> 99°F 167-181s. The rest is empty wall.
 No footage of a bag being weighed, so no accuracy claims.
 
@@ -27,14 +27,14 @@ STORYLINE = Storyline(
              "Close-up tulisan Max.50kg/110lb. Caption: TAHAN SAMPAI / 50KG", src=49.0),
         Beat(9.0, 10.6, "5 Strap", "Bercakap", "Sangkut kat beg je!",
              "Strap + cangkuk logam. Caption: STRAP / + CANGKUK", src=59.0),
-        Beat(10.6, 12.6, "6 Bateri", "Berfikir", "Bateri syiling je~",
-             "Bateri syiling dalam petak bateri. Caption: GUNA / BATERI SYILING", src=154.5),
+        Beat(10.6, 12.6, "6 Bateri", "Thumbs up", "Bateri dah sedia~",
+             "Bateri syiling yang datang sekali dalam pek. Caption: BATERI SYILING / DAH DISEDIAKAN", src=84.6),
         Beat(12.6, 15.6, "7 LCD", "Jatuh cinta", "Siap ada suhu!",
              "Tekan UNIT: kg -> 37°C -> 99°F (2x laju). Caption: LCD MENYALA / KG • LB • °C • °F", src=175.5),
         Beat(15.6, 17.7, "8 CTA", "Shopping", "Jom checkout!",
              "Oyen pegang beg kuning sebelah butang CTA.", src=170.5),
-        Beat(17.7, 18.5, "8 CTA", "Thumbs up", None,
-             "Penutup: thumbs up + kenyit.", src=172.0),
+        Beat(17.7, 18.5, "8 CTA", "Kenyit mata", None,
+             "Penutup: Oyen kenyit mata.", src=172.0),
     ],
     blinks=[5.0, 10.35],
     jumps=[0.5],
