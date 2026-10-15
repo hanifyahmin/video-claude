@@ -15,9 +15,9 @@ STORYLINE = Storyline(
     title="Luggage scale digital (18.5s)",
     source="assets/source-portrait.mp4",
     beats=[
-        Beat(0.0, 0.5, "1 Hook", "Tidur", None,
+        Beat(0.0, 0.7, "1 Hook", "Tidur", None,
              "Oyen tidur. Skrin LCD belum menyala.", src=167.6),
-        Beat(0.5, 2.2, "1 Hook", "Terkejut", "Bagasi overweight?!",
+        Beat(0.7, 2.2, "1 Hook", "Terkejut", "Bagasi overweight?!",
              "LCD menyala hijau + bass hit, Oyen terjaga. Caption: NAK FLY? / TIMBANG DULU!", src=168.9),
         Beat(2.2, 3.8, "2 Kotak", "Teruja", "Jom unboxing!",
              "Kotak produk. Caption: LUGGAGE SCALE / DIGITAL", src=1.0),
@@ -37,5 +37,5 @@ STORYLINE = Storyline(
              "Penutup: Oyen kenyit mata.", src=172.0),
     ],
     blinks=[5.0, 10.35],
-    jumps=[0.5],
+    jumps=[0.7],  # wakes when the LCD lights up
 )
