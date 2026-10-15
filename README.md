@@ -11,12 +11,15 @@ oyen/                  pakej maskot (dikongsi semua video)
   storyboard.py        storyboard PNG + STORYLINE.md untuk semakan
   sheet.py             galeri postur → oyen/gallery/poses/
   gallery/             imej postur + eksplorasi reka bentuk awal
+promo/                 thumbnail cover + caption TikTok untuk setiap video
 shared/                aset dikongsi (gsap.min.js, SFX + CREDITS)
 templates/tiktok-9x16/ template video baru (komposisi + storyline permulaan)
 tools/new_video.py     cipta video baru dari template
 videos/<nama>/         satu projek HyperFrames bagi setiap video
   index.html           komposisi (shot, caption, CTA, SFX)
   storyline.py         apa Oyen buat & cakap, ikut masa
+  promo.py             teks thumbnail + caption post
+  promo/               thumbnail.png + caption.txt (dijana)
   storyboard/          storyboard + STORYLINE.md (dijana)
   assets/              sfx, vendor, footage (footage tidak masuk git)
 tests/                 ujian unit Oyen
@@ -41,6 +44,9 @@ cd videos/nama-produk
 npx --yes hyperframes@0.8.150 check
 npx --yes hyperframes@0.8.150 render -q draft -o renders/draft.mp4        # preview
 npx --yes hyperframes@0.8.150 render -q delivery -o renders/final.mp4     # final (lepas approve)
+
+# 6. thumbnail + caption (bersama final)
+cd ../.. && python3 -m promo videos/nama-produk    # → videos/nama-produk/promo/thumbnail.png + caption.txt
 ```
 
 ## Oyen

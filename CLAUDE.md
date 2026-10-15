@@ -8,8 +8,9 @@ The user writes in Malay; reply in Malay unless they switch.
 - `oyen/` — product-agnostic mascot package (character, storyline model, installer, storyboard, gallery). CLI: `python3 -m oyen {poses|check|storyboard|install} [videos/<name>]`, run from repo root.
 - `videos/<name>/` — one HyperFrames project per video: `index.html`, `storyline.py` (`STORYLINE = Storyline(...)`), `storyboard/`, `assets/`.
 - `templates/tiktok-9x16/` + `tools/new_video.py <name> [--source F --rotate cw|ccw]` — scaffold a new video.
+- `promo/` — post assets: `python3 -m promo videos/<name>` renders `promo/thumbnail.png` (1080x1920 cover, via HyperFrames snapshot) and `promo/caption.txt` from `videos/<name>/promo.py` (`PROMO = Promo(...)`).
 - `shared/` — `vendor/gsap.min.js`, `sfx/*.mp3` (Pixabay licence, see CREDITS). New videos get copies in `assets/`.
-- Tests: `python3 -m unittest discover -s tests` (also checks every `videos/*/storyline.py`).
+- Tests: `python3 -m unittest discover -s tests` (also checks every `videos/*/storyline.py` and `promo.py`).
 
 ## Workflow for a new video
 1. Get footage (Drive via `pip install gdown; gdown <folder-url>` into the scratchpad). Probe it; phone clips are often portrait stored landscape: extract a frame both ways and check text orientation before choosing `--rotate`.
@@ -18,6 +19,7 @@ The user writes in Malay; reply in Malay unless they switch.
 4. Plan Oyen in `storyline.py`, review `python3 -m oyen storyboard`, then `python3 -m oyen install`.
 5. `npx --yes hyperframes@0.8.150 check`, snapshots (`snapshot --at ...`, `--zoom x,y,w,h`) and look at them.
 6. Send a **draft preview** (`render -q draft`, scaled to 720p with a PREVIEW label). Render `-q delivery` only after the user approves. Don't commit renders or footage.
+7. **Every final delivery also ships a cover thumbnail and a post caption** (user request): fill `promo.py` (best product frame, hook headline, Oyen pose, visible-fact badge; caption = hook + key facts + beg-kuning CTA + hashtags), run `python3 -m promo videos/<name>`, look at the PNG (keep the product, headline and Oyen clear of each other and inside the 3:4 grid crop y 240-1680), then send the MP4, `thumbnail.png` and paste the caption text in the reply. Commit `promo/` outputs.
 
 ## Gotchas learned
 - `cdn.jsdelivr.net` is blocked by the proxy: load GSAP from `assets/vendor/gsap.min.js`.
