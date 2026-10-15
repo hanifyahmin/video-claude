@@ -1,12 +1,13 @@
 """Scaffold a new video project from templates/tiktok-9x16.
 
-  python3 tools/new_video.py <name> [--source FILE] [--rotate cw|ccw|none]
+  python3 tools/new_video.py <name> [--source FILE] [--rotate cw|ccw|none] [--mute]
                                     [--kicker TEXT] [--hook TEXT]
 
 Creates videos/<name>/ with the composition, a starter Oyen storyline, the
 shared GSAP + SFX copied into assets/, and (with --source) the footage as
 assets/source.<ext> plus an edit-friendly assets/source-portrait.mp4
-(rotated if --rotate is given; phones often store portrait clips sideways).
+(rotated if --rotate is given; phones often store portrait clips sideways;
+--mute drops the camera sound from the edit copy).
 """
 import argparse
 import datetime as dt
@@ -23,19 +24,25 @@ SHARED = REPO / "shared"
 
 
 def probe(path):
+    """(width, height, duration) as displayed, i.e. after rotation metadata."""
     out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
-                          "stream=width,height:format=duration", "-of", "json", str(path)],
+                          "stream=width,height:stream_side_data=rotation:format=duration", "-of", "json", str(path)],
                          capture_output=True, text=True, check=True).stdout
     data = json.loads(out)
     s = data["streams"][0]
-    return s["width"], s["height"], float(data["format"]["duration"])
+    w, h = s["width"], s["height"]
+    if any(abs(int(sd.get("rotation", 0))) == 90 for sd in s.get("side_data_list", [])):
+        w, h = h, w
+    return w, h, float(data["format"]["duration"])
 
 
-def make_portrait(src, dst, rotate):
+def make_portrait(src, dst, rotate, mute=False):
+    """Edit copy of the footage. ffmpeg already applies rotation metadata; --rotate is for clips without it."""
     vf = {"cw": ["-vf", "transpose=1"], "ccw": ["-vf", "transpose=2"], "none": []}[rotate]
+    audio = ["-an"] if mute else ["-c:a", "aac", "-b:a", "160k"]
     # dense keyframes (-g 15) keep frame-accurate seeking cheap in the browser
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), *vf, "-c:v", "libx264", "-crf", "16",
-                    "-preset", "medium", "-g", "15", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k",
+                    "-preset", "medium", "-g", "15", "-pix_fmt", "yuv420p", *audio,
                     "-movflags", "+faststart", str(dst)], check=True)
 
 
@@ -45,6 +52,7 @@ def main(argv=None):
     ap.add_argument("--source", type=Path, help="footage file to copy into assets/")
     ap.add_argument("--rotate", choices=["cw", "ccw", "none"], default="none",
                     help="rotate the footage into portrait (check a frame first)")
+    ap.add_argument("--mute", action="store_true", help="drop the footage's sound in the edit copy")
     ap.add_argument("--kicker", default="PRODUK NI…")
     ap.add_argument("--hook", default="WAJIB ADA!")
     args = ap.parse_args(argv)
@@ -77,7 +85,7 @@ def main(argv=None):
         print(f"source: {w}x{h}, {dur:.1f}s")
         if w > h and args.rotate == "none":
             print("  note: footage is landscape; if it was filmed upright, rerun make_portrait with --rotate cw/ccw")
-        make_portrait(raw, dest / "assets" / "source-portrait.mp4", args.rotate)
+        make_portrait(raw, dest / "assets" / "source-portrait.mp4", args.rotate, args.mute)
         pw, ph, _ = probe(dest / "assets" / "source-portrait.mp4")
         print(f"assets/source-portrait.mp4: {pw}x{ph}")
 
