@@ -36,17 +36,14 @@ RULES = {
         width: 1080px;
         height: 1920px;
         overflow: hidden;
-        background: #fff6ee;""",
+        background: #fff;""",
     "#root": f"""position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
         font-family: Fredoka, sans-serif;
         color: {INK};
-        background:
-          radial-gradient(circle at 10% 4%, rgba(255, 168, 204, 0.6), rgba(255, 168, 204, 0) 30%),
-          radial-gradient(circle at 92% 6%, rgba(255, 214, 102, 0.65), rgba(255, 214, 102, 0) 30%),
-          linear-gradient(180deg, #fff6ee, #ffeef3);""",
+        background: #fff;""",
     "#card": """position: absolute;
         left: 0;
         top: 220px;
@@ -54,14 +51,14 @@ RULES = {
         height: 1700px;
         overflow: hidden;
         border-radius: 56px 56px 0 0;
-        background: #fff1e8;""",
+        background: #fff;""",
     "#card-edge-top": """position: absolute;
         left: 0;
         top: 220px;
         width: 1080px;
         height: 200px;
         border-radius: 56px 56px 0 0;
-        background: linear-gradient(180deg, rgba(255, 246, 238, 0.8), rgba(255, 246, 238, 0));""",
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));""",
     ".kick": f"""position: relative;
         z-index: 2;
         display: block;
