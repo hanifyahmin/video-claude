@@ -25,7 +25,7 @@ STORYLINE = Storyline(
         Beat(1.4, 3.0, "1 Hook", "Teruja", "Jom tengok ni!",
              "Botol ditarik keluar dari kotak (1.5x). Caption: TROPIKA I'M RABBY / HAIR & BODY OIL", src=40.2),
         Beat(3.0, 5.4, "2 Ramuan", "Bercakap", "Ada rose tau~",
-             "Label belakang botol. Caption: MINYAK KELAPA DARA / + ROSE", src=45.0),
+             "Label belakang botol (teks VCO + rose), zoom. Caption: MINYAK KELAPA DARA / + ROSE", src=44.5),
         Beat(5.4, 8.0, "3 Tanpa", "Senyum", "Tanpa pengawet!",
              "Teks BM belakang kotak, zoom. Caption: TANPA BAHAN KIMIA / & PENGAWET", src=21.5),
         Beat(8.0, 10.4, "4 Fungsi", "Jatuh cinta", "Rambut lebat~",
