@@ -33,7 +33,7 @@ STORYLINE = Storyline(
         Beat(7.4, 9.4, "4 Ikon", "Kenyit mata", "Halal & vegan~",
              "Ikon Halal / Vegan / Not tested. Caption: TAK DIUJI PADA HAIWAN / HALAL & VEGAN", src=21.0),
         Beat(9.4, 11.4, "5 Picit", "Senyum", None,
-             "Buka penutup, picit atas tangan. Caption: KRIM PUTIH / LEMBUT", src=34.5),
+             "Buka penutup, picit atas tangan. Caption: PICIT SIKIT / KRIM PUTIH", src=34.5),
         Beat(11.4, 12.6, "6 Sapu", "Bercakap", "Tengok ni!",
              "Titik krim atas kulit (1x). Caption: SAPU SIKIT / ATAS KULIT", src=54.6),
         Beat(12.6, 14.6, "6 Sapu", "Senyum", None,
