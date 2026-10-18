@@ -4,7 +4,7 @@
                                     [--kicker TEXT] [--hook TEXT]
 
 Creates videos/<name>/ with the composition, a starter Oyen storyline, the
-shared GSAP + SFX copied into assets/, and (with --source) the footage as
+shared GSAP, SFX and fonts copied into assets/, and (with --source) the footage as
 assets/source.<ext> plus an edit-friendly assets/source-portrait.mp4
 (rotated if --rotate is given; phones often store portrait clips sideways;
 --mute drops the camera sound from the edit copy).
@@ -77,6 +77,7 @@ def main(argv=None):
     (dest / "assets" / "vendor").mkdir(parents=True)
     shutil.copy2(SHARED / "vendor" / "gsap.min.js", dest / "assets" / "vendor")
     shutil.copytree(SHARED / "sfx", dest / "assets" / "sfx")
+    shutil.copytree(SHARED / "fonts", dest / "assets" / "fonts")
 
     if args.source:
         raw = dest / "assets" / f"source{args.source.suffix.lower()}"

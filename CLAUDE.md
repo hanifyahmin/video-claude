@@ -9,7 +9,7 @@ The user writes in Malay; reply in Malay unless they switch.
 - `videos/<name>/` — one HyperFrames project per video: `index.html`, `storyline.py` (`STORYLINE = Storyline(...)`), `storyboard/`, `assets/`.
 - `templates/tiktok-9x16/` + `tools/new_video.py <name> [--source F --rotate cw|ccw]` — scaffold a new video.
 - `promo/` — post assets: `python3 -m promo videos/<name>` renders `promo/thumbnail.png` (1080x1920 cover, via HyperFrames snapshot) and `promo/caption.txt` from `videos/<name>/promo.py` (`PROMO = Promo(...)`).
-- `shared/` — `vendor/gsap.min.js`, `sfx/*.mp3` (Pixabay licence, see CREDITS). New videos get copies in `assets/`.
+- `shared/` — `vendor/gsap.min.js`, `sfx/*.mp3` (Pixabay licence, see CREDITS), `fonts/fredoka-latin.woff2` (OFL). New videos get copies in `assets/`.
 - Tests: `python3 -m unittest discover -s tests` (also checks every `videos/*/storyline.py` and `promo.py`).
 
 ## Workflow for a new video
@@ -32,4 +32,5 @@ The user writes in Malay; reply in Malay unless they switch.
 ## User preferences
 - End/CTA scene: no arrow (the old pointer to the beg kuning). Use the template CTA: NAK SATU? / TEKAN / BEG KUNING + "CHECK HARGA PROMO" button, with Oyen beside it.
 - Every final delivery includes `promo/thumbnail.png` + caption (workflow step 7).
+- Videos use the same cute look as the covers (user request): Fredoka, white kicker sticker + yellow big sticker with sunburst dashes, sentence-case captions, pastel backdrop, pink CTA button, Oyen with white outline + cloud bubble (`Layout.style`, default `cute`). The template has it; restyle an older video with `python3 tools/cute_theme.py videos/<name>`, then sentence-case its captions and rerun `oyen install`. Fredoka must come from the bundled `@font-face` (HyperFrames does not auto-resolve it).
 - Cover style is `cute` (user's reference: bright pastel sticker look, cut-out product with white outline, pink fact tags, feature-icon row). The product is cut out with `hyperframes remove-background` (a people model: check the PNG; when it keeps the hands but drops the product, e.g. a silver/black gadget on a grey wall, set `cutout=False` for a rounded photo card, as in luggage-scale); use `product_crop` to drop a holding hand. `style="classic"` is the old dark full-frame cover.

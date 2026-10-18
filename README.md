@@ -50,6 +50,10 @@ cd ../.. && python3 -m promo videos/nama-produk    # → videos/nama-produk/prom
 # gaya cover lalai "cute": produk dipotong (remove-background), sticker headline, tag pink, barisan ikon ciri
 ```
 
+## Gaya comel
+
+Video dan thumbnail berkongsi gaya yang sama: font Fredoka (`shared/fonts`), caption sticker putih + kuning, latar pastel, butang CTA pink. Template sudah guna gaya ini; untuk video lama: `python3 tools/cute_theme.py videos/nama-produk`, tukar caption kepada huruf ayat, kemudian `python3 -m oyen install videos/nama-produk`.
+
 ## Oyen
 
 Postur yang ada: lihat `oyen/gallery/poses/oyen-postur.png`.

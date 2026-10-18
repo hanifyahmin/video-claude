@@ -128,6 +128,7 @@ def render(promo, video_dir, out_dir):
         make = cut_out if promo.cutout else photo_card
         make(work / "frame.png", work / "product.png", promo.product_crop)
     shutil.copy2(REPO / "shared" / "vendor" / "gsap.min.js", work / "gsap.min.js")
+    shutil.copy2(REPO / "shared" / "fonts" / "fredoka-latin.woff2", work)  # cute style's font (shared/fonts/CREDITS.md)
     page = build_html(promo).replace("<style>", '<script src="gsap.min.js"></script>\n    <style>', 1)
     (work / "index.html").write_text(page)
     (work / "hyperframes.json").write_text('{"paths": {"assets": "."}}\n')

@@ -6,6 +6,11 @@
     <!-- local copy: cdn.jsdelivr.net may be blocked in cloud sessions -->
     <script src="assets/vendor/gsap.min.js"></script>
     <style>
+      @font-face {
+        font-family: "Fredoka";
+        src: url("assets/fonts/fredoka-latin.woff2") format("woff2");
+        font-weight: 300 700;
+      }
       * {
         margin: 0;
         padding: 0;
@@ -17,17 +22,19 @@
         width: 1080px;
         height: 1920px;
         overflow: hidden;
-        background: #07080a;
+        background: #fff6ee;
       }
       #root {
         position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        font-family: Montserrat, sans-serif;
+        font-family: Fredoka, sans-serif;
+        color: #2a1f1a;
         background:
-          radial-gradient(ellipse 80% 40% at 50% 26%, rgba(255, 214, 10, 0.14), transparent 70%),
-          radial-gradient(ellipse 120% 70% at 50% 50%, #1c2027 0%, #0b0d10 60%, #050607 100%);
+          radial-gradient(circle at 10% 4%, rgba(255, 168, 204, 0.6), rgba(255, 168, 204, 0) 30%),
+          radial-gradient(circle at 92% 6%, rgba(255, 214, 102, 0.65), rgba(255, 214, 102, 0) 30%),
+          linear-gradient(180deg, #fff6ee, #ffeef3);
       }
 
       /* ---------- footage card: portrait footage under the caption band ---------- */
@@ -38,7 +45,8 @@
         width: 1080px;
         height: 1700px;
         overflow: hidden;
-        background: #000;
+        border-radius: 56px 56px 0 0;
+        background: #fff1e8;
       }
       .shot {
         position: absolute;
@@ -60,7 +68,8 @@
         top: 220px;
         width: 1080px;
         height: 200px;
-        background: linear-gradient(180deg, rgba(7, 8, 10, 0.92), rgba(7, 8, 10, 0));
+        border-radius: 56px 56px 0 0;
+        background: linear-gradient(180deg, rgba(255, 246, 238, 0.8), rgba(255, 246, 238, 0));
       }
       #flash {
         position: absolute;
@@ -84,22 +93,55 @@
         text-align: center;
       }
       .kick {
+        position: relative;
+        z-index: 2;
         display: block;
-        font-weight: 900;
-        font-size: 44px;
-        letter-spacing: 0.06em;
-        color: #ffffff;
-        text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+        margin-bottom: -12px;
+        padding: 4px 30px 10px;
+        border-radius: 40px 64px 46px 72px / 58px 40px 66px 46px;
+        background: #fff;
+        box-shadow: 0 8px 0 rgba(42, 31, 26, 0.1), 0 14px 30px rgba(42, 31, 26, 0.18);
+        font-weight: 700;
+        font-size: 46px;
+        line-height: 1.1;
+        color: #2a1f1a;
+        white-space: nowrap;
+        transform: rotate(-3deg);
       }
       .big {
+        position: relative;
         display: block;
-        font-family: "Archivo Black", sans-serif;
-        font-size: 104px;
+        padding: 4px 42px 14px;
+        border-radius: 46px 70px 52px 80px / 64px 46px 74px 50px;
+        background: #ffe46b;
+        box-shadow: 0 10px 0 rgba(42, 31, 26, 0.1), 0 18px 36px rgba(42, 31, 26, 0.2);
+        font-family: Fredoka, sans-serif;
+        font-weight: 700;
+        font-size: 116px;
         line-height: 1.02;
-        color: #ffd60a;
-        text-shadow:
-          0 6px 0 rgba(0, 0, 0, 0.55),
-          0 10px 30px rgba(0, 0, 0, 0.6);
+        color: #2a1f1a;
+        white-space: nowrap;
+        transform: rotate(-1.5deg);
+      }
+      .big::before,
+      .big::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 70px;
+        height: 90px;
+        margin-top: -45px;
+      }
+      .big.white {
+        background: #fff;
+      }
+      .big::before {
+        left: -84px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M60 14L34 28M58 45H18M60 76L34 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+      }
+      .big::after {
+        right: -84px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M10 14L36 28M12 45H52M10 76L36 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
       }
 
       /* ---------- CTA ---------- */
@@ -116,27 +158,30 @@
         text-align: center;
       }
       #cta .kick {
-        font-size: 58px;
+        font-size: 60px;
       }
       #cta .big {
-        font-size: 128px;
+        margin-top: 8px;
+        font-size: 120px;
       }
       #cta .big.white {
-        color: #fff;
+        background: #fff;
+        transform: rotate(2deg);
       }
       #cta-btn {
-        margin-top: 46px;
+        margin-top: 54px;
         display: flex;
         align-items: center;
-        gap: 22px;
-        height: 132px;
-        padding: 0 54px 0 40px;
-        border-radius: 66px;
-        background: #ffd60a;
-        font-weight: 900;
-        font-size: 50px;
-        color: #0b0d10;
-        box-shadow: 0 18px 50px rgba(255, 214, 10, 0.35);
+        gap: 20px;
+        height: 128px;
+        padding: 0 50px 0 38px;
+        border: 8px solid #fff;
+        border-radius: 64px;
+        background: #ffb6cf;
+        font-weight: 700;
+        font-size: 52px;
+        color: #2a1f1a;
+        box-shadow: 0 16px 36px rgba(232, 72, 127, 0.3);
       }
 
       /* OYEN:CSS:START */
@@ -170,16 +215,16 @@
 
       <!-- ================= CTA (no arrow: the user asked for none in the end scene) ================= -->
       <div id="cta" class="clip" data-start="3" data-duration="3" data-track-index="5">
-        <span class="kick" id="cta-k">NAK SATU?</span>
-        <span class="big white" id="cta-b1">TEKAN</span>
-        <span class="big" id="cta-b2">BEG KUNING</span>
+        <span class="kick" id="cta-k">Nak satu?</span>
+        <span class="big white" id="cta-b1">Tekan</span>
+        <span class="big" id="cta-b2">beg kuning</span>
         <div id="cta-btn">
           <svg width="64" height="64" viewBox="0 0 24 24">
-            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="#0b0d10" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="9.5" cy="20" r="1.6" fill="#0b0d10" />
-            <circle cx="17" cy="20" r="1.6" fill="#0b0d10" />
+            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="#2a1f1a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9.5" cy="20" r="1.6" fill="#2a1f1a" />
+            <circle cx="17" cy="20" r="1.6" fill="#2a1f1a" />
           </svg>
-          CHECK HARGA PROMO
+          Check harga promo
         </div>
       </div>
 

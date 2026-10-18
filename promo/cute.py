@@ -83,6 +83,7 @@ def build_html(p):
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
     <style>
+      @font-face {{ font-family: "Fredoka"; src: url("fredoka-latin.woff2") format("woff2"); font-weight: 300 700; }}
       * {{ margin: 0; padding: 0; box-sizing: border-box; }}
       html, body {{ width: 1080px; height: 1920px; overflow: hidden; background: #fff8f1; }}
       #root {{ position: relative; width: 100%; height: 100%; overflow: hidden; font-family: Fredoka, sans-serif; color: {INK}; }}
