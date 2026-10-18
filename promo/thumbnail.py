@@ -37,6 +37,8 @@ def build_html(p):
     bubble_room = 1040 - C.CW * SCALE - 30 - 60
     bubble_size = min(44, int(bubble_room / (0.6 * max(len(p.bubble or ""), 1))))
     # + shift: background moves up and is enlarged to keep the bottom filled; - shift: it moves down
+    # Archivo Black caps are ~0.8em wide: fit the longest badge word inside the 220px disc
+    badge_size = min(50, int(220 / (0.8 * max((len(w) for w in (p.badge or "x").split()), default=1))))
     bg_height = 1920 + max(p.frame_shift, 0)
     # a frame moved down leaves a gap at the top: fade it into the backdrop instead of a hard edge
     bg_fade = (f"-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 {min(-p.frame_shift, 260)}px);"
@@ -67,7 +69,7 @@ def build_html(p):
         background: #ffd60a; border: 10px solid {INK}; transform: rotate(-10deg);
         display: flex; align-items: center; justify-content: center; text-align: center;
         box-shadow: 12px 12px 0 rgba(0,0,0,0.45); }}
-      #badge span {{ font-family: "Archivo Black", sans-serif; font-size: 50px; line-height: 1.0; color: {INK}; width: 220px; }}
+      #badge span {{ font-family: "Archivo Black", sans-serif; font-size: {badge_size}px; line-height: 1.0; color: {INK}; width: 220px; }}
       #oyen {{ position: absolute; left: 20px; top: {1640 - C.CH * SCALE}px; width: {C.CW * SCALE}px; height: {C.CH * SCALE}px; }}
       #oyen svg {{ display: block; filter: drop-shadow(10px 10px 0 rgba(0,0,0,0.5)); }}
       #bubble {{ position: absolute; left: {20 + C.CW * SCALE + 10}px; top: {1640 - C.CH * SCALE + 70}px;
