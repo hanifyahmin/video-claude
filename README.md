@@ -47,6 +47,7 @@ npx --yes hyperframes@0.8.150 render -q delivery -o renders/final.mp4     # fina
 
 # 6. thumbnail + caption (bersama final)
 cd ../.. && python3 -m promo videos/nama-produk    # → videos/nama-produk/promo/thumbnail.png + caption.txt
+# gaya cover lalai "cute": produk dipotong (remove-background), sticker headline, tag pink, barisan ikon ciri
 ```
 
 ## Oyen

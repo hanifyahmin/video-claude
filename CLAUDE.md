@@ -19,7 +19,7 @@ The user writes in Malay; reply in Malay unless they switch.
 4. Plan Oyen in `storyline.py`, review `python3 -m oyen storyboard`, then `python3 -m oyen install`.
 5. `npx --yes hyperframes@0.8.150 check`, snapshots (`snapshot --at ...`, `--zoom x,y,w,h`) and look at them.
 6. Send a **draft preview** (`render -q draft`, scaled to 720p with a PREVIEW label). Render `-q delivery` only after the user approves. Don't commit renders or footage.
-7. **Every final delivery also ships a cover thumbnail and a post caption** (user request): fill `promo.py` (best product frame, hook headline, Oyen pose, visible-fact badge; caption = hook + key facts + beg-kuning CTA + hashtags), run `python3 -m promo videos/<name>`, look at the PNG (keep the product, headline and Oyen clear of each other and inside the 3:4 grid crop y 240-1680), then send the MP4, `thumbnail.png` and paste the caption text in the reply. Commit `promo/` outputs.
+7. **Every final delivery also ships a cover thumbnail and a post caption** (user request): fill `promo.py` (best product frame, hook headline, Oyen pose, visible-fact tags/features; caption = hook + key facts + beg-kuning CTA + hashtags), run `python3 -m promo videos/<name>`, look at the PNG (keep the product, headline and Oyen clear of each other and inside the 3:4 grid crop y 240-1680), then send the MP4, `thumbnail.png` and paste the caption text in the reply. Commit `promo/` outputs.
 
 ## Gotchas learned
 - `cdn.jsdelivr.net` is blocked by the proxy: load GSAP from `assets/vendor/gsap.min.js`.
@@ -32,3 +32,4 @@ The user writes in Malay; reply in Malay unless they switch.
 ## User preferences
 - End/CTA scene: no arrow (the old pointer to the beg kuning). Use the template CTA: NAK SATU? / TEKAN / BEG KUNING + "CHECK HARGA PROMO" button, with Oyen beside it.
 - Every final delivery includes `promo/thumbnail.png` + caption (workflow step 7).
+- Cover style is `cute` (user's reference: bright pastel sticker look, cut-out product with white outline, pink fact tags, feature-icon row). The product is cut out with `hyperframes remove-background`; use `product_crop` to drop a holding hand. `style="classic"` is the old dark full-frame cover (luggage-scale).

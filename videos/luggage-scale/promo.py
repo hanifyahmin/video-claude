@@ -7,6 +7,7 @@ from promo import Promo
 PROMO = Promo(
     frame_src=171.0,          # LCD lit, 0.00 kg
     frame_shift=60,
+    style="classic",               # delivered with the dark full-frame cover
     kicker="NAK FLY?",
     headline=["BAGASI", "*OVERWEIGHT?*"],
     badge="MAX 50KG",

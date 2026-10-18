@@ -9,13 +9,13 @@ from promo import Promo
 
 PROMO = Promo(
     frame_src=6.0,                    # front of the tube, teddy label square on
-    frame_shift=-400,                 # tube moves down: teddy clears the headline
-    kicker="PERUT BABY ASYIK",
-    headline=["MASUK", "*ANGIN?*"],
-    badge="DIJAMIN HALAL",
-    badge_xy=(790, 860),
+    product_crop=(60, 150, 820, 1550),  # tube; the holding hand fades out
+    kicker="Perut baby asyik",
+    headline=["*masuk angin?*"],
+    tags=("8 in 1",),                 # printed on the tube
     pose="Teruja",
     bubble="Cuba ni mommy!",
+    features=(("leaf", "Halia &\nmentol"), ("drop", "Terus\nmeresap"), ("check", "Dijamin\nhalal")),
     caption=(
         "Perut baby asyik masuk angin? 😣 Cuba krim herba Tropika I'm Teddy 🧸\n"
         "Ada minyak kelapa dara + halia, eucalyptus & mentol. Sapu lembut, terus meresap, tak berbekas ✨ "

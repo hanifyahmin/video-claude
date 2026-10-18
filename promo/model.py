@@ -6,9 +6,14 @@ from pathlib import Path
 
 from oyen.character import POSE_SPECS
 
+from .icons import ICONS
+
 CAPTION_MAX = 2200        # TikTok post caption limit
 CAPTION_VISIBLE = 120     # roughly what shows before "more" on the feed
 HEADLINE_MAX = 14         # characters per headline line at cover size
+STYLES = ("cute", "classic")  # cute: bright sticker cover with a cut-out product; classic: dark full-frame
+TAG_MAX = 10              # characters per pink size/fact tag
+FEATURE_LINE_MAX = 12     # characters per line of a feature-row label
 
 
 @dataclass(frozen=True)
@@ -20,8 +25,12 @@ class Promo:
     pose: str = "Teruja"             # Oyen pose on the cover
     bubble: str = None               # Oyen's speech bubble on the cover (optional)
     badge: str = None                # round sticker, e.g. "MAX 50KG" (optional, keep it a visible fact)
-    badge_xy: tuple = (770, 1400)    # badge top-left; keep it off the product
-    frame_shift: int = 0             # px to move the background up (+) or down (-) so the product clears the text
+    badge_xy: tuple = None           # badge top-left; None = the style's default spot
+    frame_shift: int = 0             # classic: px to move the background up (+) or down (-) so the product clears the text
+    style: str = "cute"
+    tags: tuple = ()                 # cute: up to 2 pink fact tags beside the product, e.g. ("30ml",)
+    product_crop: tuple = None       # cute: (x, y, w, h) of the 1080x1920 frame to keep, e.g. to drop most of a hand
+    features: tuple = ()             # cute: up to 3 (icon, "line 1\nline 2") items for the bottom row; icons in promo/icons.py
     source: str = "assets/source-portrait.mp4"
     # --- post ---
     caption: str = ""                # first ~120 chars are what people see: hook + key fact + CTA
@@ -36,6 +45,21 @@ class Promo:
         for line in self.headline:
             if len(line.replace("*", "")) > HEADLINE_MAX:
                 out.append(f"headline line {line!r} is over {HEADLINE_MAX} chars; split it")
+        if self.style not in STYLES:
+            out.append(f"unknown style {self.style!r}; choose from {STYLES}")
+        if len(self.tags) > 2:
+            out.append("at most 2 tags")
+        for tag in self.tags:
+            if len(tag) > TAG_MAX:
+                out.append(f"tag {tag!r} is over {TAG_MAX} chars")
+        if len(self.features) > 3:
+            out.append("at most 3 features")
+        for icon, label in self.features:
+            if icon not in ICONS:
+                out.append(f"unknown feature icon {icon!r}; choose from {list(ICONS)}")
+            lines = label.split("\n")
+            if len(lines) > 2 or any(len(line) > FEATURE_LINE_MAX for line in lines):
+                out.append(f"feature label {label!r} needs <= 2 lines of <= {FEATURE_LINE_MAX} chars")
         if self.bubble and len(self.bubble) > 20:
             out.append(f"bubble {self.bubble!r} is over 20 chars")
         if not self.caption:

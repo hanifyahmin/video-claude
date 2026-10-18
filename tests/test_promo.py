@@ -24,11 +24,26 @@ class PromoTest(unittest.TestCase):
         for expected in ("unknown pose", "over 14 chars", "bubble", "caption is empty", "must start with #"):
             self.assertIn(expected, text)
 
+    def test_cute_problems(self):
+        p = promo(tags=("x" * 12, "a", "b"), features=(("nope", "ok"), ("leaf", "far too long line"), ("check", "a\nb\nc"), ("leaf", "x")))
+        text = "\n".join(p.problems())
+        for expected in ("tag", "at most 2 tags", "at most 3 features", "unknown feature icon", "needs <= 2 lines"):
+            self.assertIn(expected, text)
+        self.assertIn("unknown style", "\n".join(promo(style="fancy").problems()))
+
+    def test_cute_html(self):
+        page = build_html(promo(kicker="A&B", headline=["*YES*"], tags=("30ml",), features=(("leaf", "Satu\ndua"),)))
+        self.assertIn('<span class="hl">YES</span>', page)
+        self.assertIn("A&amp;B", page)
+        self.assertIn("product.png", page)
+        self.assertIn("Satu<br />dua", page)
+        self.assertIn('class="tag"', page)
+
     def test_caption_text(self):
         self.assertEqual(promo(caption=" Hai \n", hashtags=["#a", "#b"]).caption_text(), "Hai\n\n#a #b\n")
 
     def test_html_highlights_and_escapes(self):
-        page = build_html(promo(headline=["A&B", "*YES*"], badge="MAX <50>"))
+        page = build_html(promo(style="classic", headline=["A&B", "*YES*"], badge="MAX <50>"))
         self.assertIn('<span class="hl">YES</span>', page)
         self.assertIn("A&amp;B", page)
         self.assertIn("MAX &lt;50&gt;", page)
