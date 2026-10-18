@@ -12,10 +12,10 @@ PROMO = Promo(
     product_crop=(60, 150, 820, 1550),  # tube; the holding hand fades out
     kicker="Perut baby asyik",
     headline=["*masuk angin?*"],
-    tags=("8 in 1",),                 # printed on the tube
+    tags=("Dijamin\nhalal",),         # Halal JAKIM logo on the label
     pose="Teruja",
     bubble="Cuba ni mommy!",
-    features=(("leaf", "Halia &\nmentol"), ("drop", "Terus\nmeresap"), ("check", "Dijamin\nhalal")),
+    features=(("leaf", "Halia &\nmentol"), ("drop", "Terus\nmeresap"), ("heart", "Tak diuji\npada haiwan")),
     caption=(
         "Perut baby asyik masuk angin? 😣 Cuba krim herba Tropika I'm Teddy 🧸\n"
         "Ada minyak kelapa dara + halia, eucalyptus & mentol. Sapu lembut, terus meresap, tak berbekas ✨ "

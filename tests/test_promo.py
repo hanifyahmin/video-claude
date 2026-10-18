@@ -25,9 +25,9 @@ class PromoTest(unittest.TestCase):
             self.assertIn(expected, text)
 
     def test_cute_problems(self):
-        p = promo(tags=("x" * 12, "a", "b"), features=(("nope", "ok"), ("leaf", "far too long line"), ("check", "a\nb\nc"), ("leaf", "x")))
+        p = promo(tags=("x" * 12, "a\nb\nc", "b"), features=(("nope", "ok"), ("leaf", "far too long line"), ("check", "a\nb\nc"), ("leaf", "x")))
         text = "\n".join(p.problems())
-        for expected in ("tag", "at most 2 tags", "at most 3 features", "unknown feature icon", "needs <= 2 lines"):
+        for expected in ("needs <= 2 lines of <= 10", "at most 2 tags", "at most 3 features", "unknown feature icon", "needs <= 2 lines"):
             self.assertIn(expected, text)
         self.assertIn("unknown style", "\n".join(promo(style="fancy").problems()))
 

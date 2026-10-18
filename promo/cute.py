@@ -49,7 +49,10 @@ def build_html(p):
               BURST.format(side="r", x1=25, x2=65, x1b=30, x2b=90))
     tag_spots = [("left: 60px; top: 700px; transform: rotate(-7deg);"),
                  ("right: 60px; top: 720px; transform: rotate(6deg);")]
-    tags = "".join(f'<div class="tag" style="{tag_spots[i]}">{html.escape(t)}</div>' for i, t in enumerate(p.tags))
+    tags = "".join(
+        f'<div class="tag{" two" if "\n" in t else ""}" style="{tag_spots[i]}">'
+        + "<br />".join(html.escape(x) for x in t.split("\n")) + "</div>"
+        for i, t in enumerate(p.tags))
     bx, by = p.badge_xy or (790, 1170)
     badge = (f'<div id="badge" style="left: {bx}px; top: {by}px"><span>{html.escape(p.badge)}</span></div>'
              if p.badge else "")
@@ -108,6 +111,7 @@ def build_html(p):
       .tag {{ position: absolute; padding: 10px 40px 16px; border-radius: 60px; background: #ffb6cf;
         border: 7px solid #fff; font-weight: 700; font-size: 66px; color: {INK};
         box-shadow: 0 10px 22px rgba(232, 72, 127, 0.25); }}
+      .tag.two {{ font-size: 54px; line-height: 1.0; text-align: center; padding: 14px 36px 20px; border-radius: 52px; }}
       #badge {{ position: absolute; width: 240px; height: 240px; border-radius: 50%; background: #ffe46b;
         border: 9px solid #fff; transform: rotate(9deg); display: flex; align-items: center; justify-content: center;
         text-align: center; box-shadow: 0 14px 30px rgba(42, 31, 26, 0.2); }}
