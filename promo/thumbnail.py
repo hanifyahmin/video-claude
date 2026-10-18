@@ -33,6 +33,14 @@ def build_html(p):
     oyen = svg_rects(C.POSES[p.pose])
     bubble = (f'<div id="bubble">{html.escape(p.bubble)}</div>' if p.bubble else "")
     badge = (f'<div id="badge"><span>{html.escape(p.badge)}</span></div>' if p.badge else "")
+    # Space Mono is ~0.6em per glyph: shrink long bubbles so they stay on one line inside the box
+    bubble_room = 1040 - C.CW * SCALE - 30 - 60
+    bubble_size = min(44, int(bubble_room / (0.6 * max(len(p.bubble or ""), 1))))
+    # + shift: background moves up and is enlarged to keep the bottom filled; - shift: it moves down
+    bg_height = 1920 + max(p.frame_shift, 0)
+    # a frame moved down leaves a gap at the top: fade it into the backdrop instead of a hard edge
+    bg_fade = (f"-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 {min(-p.frame_shift, 260)}px);"
+               if p.frame_shift < 0 else "")
     return f"""<!doctype html>
 <html lang="ms">
   <head>
@@ -41,8 +49,9 @@ def build_html(p):
     <style>
       * {{ margin: 0; padding: 0; box-sizing: border-box; }}
       html, body {{ width: 1080px; height: 1920px; overflow: hidden; background: #07080a; }}
-      #root {{ position: relative; width: 100%; height: 100%; overflow: hidden; font-family: Montserrat, sans-serif; }}
-      #bg {{ position: absolute; left: 0; top: {-p.frame_shift}px; width: 1080px; height: {1920 + p.frame_shift}px; object-fit: cover; }}
+      #root {{ position: relative; width: 100%; height: 100%; overflow: hidden; font-family: Montserrat, sans-serif;
+        background: radial-gradient(ellipse 80% 30% at 50% 12%, rgba(255, 214, 10, 0.16), transparent 70%), #0b0d10; }}
+      #bg {{ position: absolute; left: 0; top: {-p.frame_shift}px; width: 1080px; height: {bg_height}px; object-fit: cover; {bg_fade} }}
       #shade-top {{ position: absolute; left: 0; top: 0; width: 1080px; height: 900px;
         background: linear-gradient(180deg, rgba(7,8,10,0.92) 0%, rgba(7,8,10,0.75) 45%, rgba(7,8,10,0) 100%); }}
       #shade-bot {{ position: absolute; left: 0; top: 1300px; width: 1080px; height: 620px;
@@ -63,7 +72,7 @@ def build_html(p):
       #oyen svg {{ display: block; filter: drop-shadow(10px 10px 0 rgba(0,0,0,0.5)); }}
       #bubble {{ position: absolute; left: {20 + C.CW * SCALE + 10}px; top: {1640 - C.CH * SCALE + 70}px;
         max-width: {1040 - C.CW * SCALE - 30}px; padding: 24px 30px; background: {PAPER};
-        font-family: "Space Mono", monospace; font-weight: 700; font-size: 44px; color: {INK}; white-space: nowrap;
+        font-family: "Space Mono", monospace; font-weight: 700; font-size: {bubble_size}px; color: {INK}; white-space: nowrap;
         box-shadow: 0 -8px 0 0 {INK}, 0 8px 0 0 {INK}, -8px 0 0 0 {INK}, 8px 0 0 0 {INK}, 14px 14px 0 0 rgba(0,0,0,0.35); }}
     </style>
   </head>

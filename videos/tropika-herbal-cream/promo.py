@@ -1,21 +1,26 @@
-"""Cover thumbnail + TikTok caption for tropika-herbal-cream. Make with the final render.
+"""Cover thumbnail + TikTok caption for TROPIKA I'm Teddy Baby Herbal Cream.
 
   python3 -m promo videos/tropika-herbal-cream   -> promo/thumbnail.png + promo/caption.txt
 
-Only claim what the footage shows or the user confirmed.
+Hook is the user's; facts are from the label (ingredients, Halal, Vegan,
+Not Tested on Animals) and the rub test shown in the video.
 """
 from promo import Promo
 
 PROMO = Promo(
-    frame_src=0.0,                    # source second with the best product shot
-    frame_shift=0,                    # move the background up so the product clears the headline
-    kicker="KULIT BABY KERING?",
-    headline=["CUBA NI MOMMY!"],            # 1-3 lines, <= 14 chars each; *word* = yellow
-    badge=None,                       # e.g. "MAX 50KG"
+    frame_src=6.0,                    # front of the tube, teddy label square on
+    frame_shift=-400,                 # tube moves down: teddy clears the headline
+    kicker="PERUT BABY ASYIK",
+    headline=["MASUK", "*ANGIN?*"],
+    badge="HALAL & VEGAN",
+    badge_xy=(790, 860),
     pose="Teruja",
-    bubble="Jom tengok!",
+    bubble="Cuba ni mommy!",
     caption=(
-        "Hook soalan/masalah + 1 fakta produk + ajakan tekan beg kuning."
+        "Perut baby asyik masuk angin? 😣 Cuba krim herba Tropika I'm Teddy 🧸\n"
+        "Ada minyak kelapa dara + halia, eucalyptus & mentol. Sapu lembut, terus meresap, tak berbekas ✨ "
+        "Halal & vegan, tak diuji pada haiwan. Tekan beg kuning untuk check harga promo 💛"
     ),
-    hashtags=["#tiktokshopmalaysia", "#fyp", "#oyen"],
+    hashtags=["#tropika", "#babyherbalcream", "#krimbaby", "#perutmasukangin", "#mommyhacks",
+              "#tiktokshopmalaysia", "#fyp", "#oyen"],
 )

@@ -21,7 +21,7 @@ class Promo:
     bubble: str = None               # Oyen's speech bubble on the cover (optional)
     badge: str = None                # round sticker, e.g. "MAX 50KG" (optional, keep it a visible fact)
     badge_xy: tuple = (770, 1400)    # badge top-left; keep it off the product
-    frame_shift: int = 0             # px to move the background up (+) so the product clears the text
+    frame_shift: int = 0             # px to move the background up (+) or down (-) so the product clears the text
     source: str = "assets/source-portrait.mp4"
     # --- post ---
     caption: str = ""                # first ~120 chars are what people see: hook + key fact + CTA
