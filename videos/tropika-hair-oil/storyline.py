@@ -1,15 +1,15 @@
-"""Oyen storyline for TROPIKA I'm Rabby Baby Hair & Body Oil Sweet (~20s).
+"""Oyen storyline for TROPIKA I'm Rabby Baby Hair & Body Oil Sweet (~18s).
 
 Footage: assets/source-portrait.mp4 (105s, camera sound removed). Usable:
 box front 1-7s, box back text + icons 20.5-24.5s, unboxing 32-43s (bottle
 slides out 38.8-41.5s), bottle back 43.5-47.5s, cap twist 54-58.5s, open
-bottle 58.5-62s, bottle front standing 76-81.5s, EXP 09-2028 85-88.5s,
+bottle 58.5-62s, bottle front standing 76-81.5s,
 bottle back icons + 30ml 94-100.5s. The rest is empty wall. No use demo.
 
 Claims come from the printed label: virgin coconut oil + rose, "tanpa sebarang
 bahan kimia dan pengawet", "melembapkan kulit sensitif, melindungi kulit
 daripada kering", "pertumbuhan rambut yang sihat dan lebat", Halal (JAKIM),
-Vegan, Not Tested on Animals, 30ml, EXP 09-2028 (printed on the bottle).
+Vegan, Not Tested on Animals, 30ml.
 
   python3 -m oyen storyboard videos/tropika-hair-oil
   python3 -m oyen install videos/tropika-hair-oil
@@ -17,7 +17,7 @@ Vegan, Not Tested on Animals, 30ml, EXP 09-2028 (printed on the bottle).
 from oyen.storyline import Beat, Storyline
 
 STORYLINE = Storyline(
-    title="Tropika Hair & Body Oil (20s)",
+    title="Tropika Hair & Body Oil (18s)",
     source="assets/source-portrait.mp4",
     beats=[
         Beat(0.0, 1.4, "1 Hook", "Terkejut", None,
@@ -34,11 +34,9 @@ STORYLINE = Storyline(
              "Ikon Halal / Vegan / Not tested + 30ml. Caption: TAK DIUJI PADA HAIWAN / HALAL & VEGAN", src=98.5),
         Beat(12.4, 15.0, "6 Buka", "Bercakap", "Kecik je, 30ml!",
              "Pusing penutup (1.7x), botol terbuka. Caption: SAIZ 30ML / MUDAH BAWA", src=59.0),
-        Beat(15.0, 17.0, "7 Luput", "Thumbs up", "Lama lagi luput!",
-             "Botol melintang, tarikh luput. Caption: TARIKH LUPUT / 09/2028", src=86.5),
-        Beat(17.0, 19.2, "8 CTA", "Shopping", "Jom checkout!",
+        Beat(15.0, 17.2, "7 CTA", "Shopping", "Jom checkout!",
              "CTA beg kuning (tanpa anak panah), botol di belakang.", src=79.0),
-        Beat(19.2, 20.0, "8 CTA", "Kenyit mata", None,
+        Beat(17.2, 18.0, "7 CTA", "Kenyit mata", None,
              "Penutup: Oyen kenyit mata.", src=80.0),
     ],
     blinks=[6.6, 13.6],
