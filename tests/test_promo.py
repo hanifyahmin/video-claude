@@ -38,6 +38,8 @@ class PromoTest(unittest.TestCase):
         self.assertIn("product.png", page)
         self.assertIn("Satu<br />dua", page)
         self.assertIn('class="tag"', page)
+        self.assertNotIn('class="photo"', page)
+        self.assertIn('class="photo"', build_html(promo(cutout=False)))
 
     def test_caption_text(self):
         self.assertEqual(promo(caption=" Hai \n", hashtags=["#a", "#b"]).caption_text(), "Hai\n\n#a #b\n")

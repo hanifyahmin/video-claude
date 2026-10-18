@@ -32,4 +32,4 @@ The user writes in Malay; reply in Malay unless they switch.
 ## User preferences
 - End/CTA scene: no arrow (the old pointer to the beg kuning). Use the template CTA: NAK SATU? / TEKAN / BEG KUNING + "CHECK HARGA PROMO" button, with Oyen beside it.
 - Every final delivery includes `promo/thumbnail.png` + caption (workflow step 7).
-- Cover style is `cute` (user's reference: bright pastel sticker look, cut-out product with white outline, pink fact tags, feature-icon row). The product is cut out with `hyperframes remove-background`; use `product_crop` to drop a holding hand. `style="classic"` is the old dark full-frame cover (luggage-scale).
+- Cover style is `cute` (user's reference: bright pastel sticker look, cut-out product with white outline, pink fact tags, feature-icon row). The product is cut out with `hyperframes remove-background` (a people model: check the PNG; when it keeps the hands but drops the product, e.g. a silver/black gadget on a grey wall, set `cutout=False` for a rounded photo card, as in luggage-scale); use `product_crop` to drop a holding hand. `style="classic"` is the old dark full-frame cover.

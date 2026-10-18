@@ -2,7 +2,7 @@
 with a white outline, pink fact tags, a cloud bubble for Oyen and a feature row.
 
 Needs product.png (the frame with its background removed, cropped to the
-product) and frame.png next to the page; thumbnail.render() makes both.
+product; see cutout.py) and frame.png next to the page; thumbnail.render() makes both.
 Key content stays in the 3:4 grid crop (y 240-1680).
 """
 import html
@@ -58,6 +58,7 @@ def build_html(p):
              if p.badge else "")
     badge_size = min(46, int(190 / (0.62 * max((len(w) for w in (p.badge or "x").split()), default=1))))
     bubble = (f'<div id="bubble">{html.escape(p.bubble)}</div>' if p.bubble else "")
+    photo = "" if p.cutout else ' class="photo"'
     feats = []
     for i, (icon, label) in enumerate(p.features):
         fill, stroke = TINTS[i % len(TINTS)]
@@ -107,7 +108,9 @@ def build_html(p):
       #product {{ position: absolute; left: 140px; top: 690px; width: 800px; height: 760px;
         display: flex; align-items: flex-end; justify-content: center; }}
       #product img {{ max-width: 760px; max-height: 760px; object-fit: contain;
-        filter: drop-shadow(0 22px 26px rgba(42, 31, 26, 0.22)); }}  /* white outline is baked into product.png */
+        filter: drop-shadow(0 22px 26px rgba(42, 31, 26, 0.22)); }}  /* white outline is baked into product.png (cutout.py) */
+      #product img.photo {{ max-width: 720px; max-height: 640px; border: 14px solid #fff; border-radius: 48px;
+        transform: rotate(-3deg); margin-bottom: 40px; box-shadow: 0 22px 40px rgba(42, 31, 26, 0.22); filter: none; }}
       .tag {{ position: absolute; padding: 10px 40px 16px; border-radius: 60px; background: #ffb6cf;
         border: 7px solid #fff; font-weight: 700; font-size: 66px; color: {INK};
         box-shadow: 0 10px 22px rgba(232, 72, 127, 0.25); }}
@@ -137,7 +140,7 @@ def build_html(p):
     <div id="root" data-composition-id="cover" data-start="0" data-duration="1" data-width="1080" data-height="1920">
       <img id="bg" src="frame.png" alt="" />
       <div id="wash"></div>
-      <div id="product"><img src="product.png" alt="" /></div>
+      <div id="product"><img{photo} src="product.png" alt="" /></div>
       {tags}
       {badge}
       {doodles}

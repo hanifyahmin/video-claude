@@ -30,6 +30,8 @@ class Promo:
     style: str = "cute"
     tags: tuple = ()                 # cute: up to 2 pink fact tags beside the product, e.g. ("30ml", "Dijamin\nhalal")
     product_crop: tuple = None       # cute: (x, y, w, h) of the 1080x1920 frame to keep, e.g. to drop most of a hand
+    cutout: bool = True              # cute: cut the product out; False = show the frame as a rounded photo card
+                                     # (for products the people-trained background model cannot separate)
     features: tuple = ()             # cute: up to 3 (icon, "line 1\nline 2") items for the bottom row; icons in promo/icons.py
     source: str = "assets/source-portrait.mp4"
     # --- post ---
