@@ -9,7 +9,7 @@ from promo import Promo
 PROMO = Promo(
     frame_src=0.0,                    # source second with the best product shot (background is cut away)
     product_crop=None,                # (x, y, w, h) to keep, e.g. to drop most of a holding hand; it fades at the edges
-    kicker="Baju penuh almari?",              # white sticker line, sentence case looks cuter
+    kicker="Beg luggage tak muat?!",              # white sticker line, sentence case looks cuter
     headline=["Sedut,", "*terus leper!*"],          # 1-3 lines, <= 14 chars each; a line with *word* is a yellow sticker
     tags=(),                          # up to 2 pink fact tags beside the product, e.g. ("30ml",)
     badge=None,                       # optional round sticker, e.g. "MAX 50KG"
