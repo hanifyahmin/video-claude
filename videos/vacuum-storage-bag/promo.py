@@ -7,17 +7,21 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
-    frame_src=0.0,                    # source second with the best product shot (background is cut away)
-    product_crop=None,                # (x, y, w, h) to keep, e.g. to drop most of a holding hand; it fades at the edges
-    kicker="Beg luggage tak muat?!",              # white sticker line, sentence case looks cuter
-    headline=["Sedut,", "*terus leper!*"],          # 1-3 lines, <= 14 chars each; a line with *word* is a yellow sticker
-    tags=(),                          # up to 2 pink fact tags beside the product, e.g. ("30ml",)
-    badge=None,                       # optional round sticker, e.g. "MAX 50KG"
+    frame_src=126.8,                  # flat, vacuumed bag of clothes, top-down, no hand
+    cutout=False,                     # clear plastic on tiles: the background model drops it, so a photo card
+    product_crop=(40, 160, 1000, 1200),
+    kicker="Beg luggage tak muat?!",
+    headline=["Sedut,", "*terus leper!*"],
+    tags=("4 saiz",),
     pose="Teruja",
-    bubble="Jom tengok!",
-    features=(),                      # up to 3 (icon, "line 1\nline 2"); icons: promo/icons.py
+    bubble="Walaweh mantap do!",
+    features=(("bag", "Siap ada\npam elektrik"), ("check", "Adapter\n3 pin"), ("star", "Mini\nsampai LL")),
     caption=(
-        "Hook soalan/masalah + 1 fakta produk + ajakan tekan beg kuning."
+        "Beg luggage tak muat?! 😩 Sedut dengan vacuum storage bag, terus leper! 🧳\n"
+        "Satu set siap ada pam elektrik + adapter 3 pin (plug asal 2 pin). 4 saiz: Mini 60x40, S 70x50, "
+        "L 100x70, LL 100x80 cm. Zip, pusing kiri, sedut, pusing kanan untuk lock. Nak buka balik pun senang. "
+        "Tekan beg kuning untuk check harga promo 💛"
     ),
-    hashtags=["#tiktokshopmalaysia", "#fyp", "#oyen"],
+    hashtags=["#vacuumbag", "#vacuumstoragebag", "#begvakum", "#travelhacks", "#packingtips",
+              "#tiktokshopmalaysia", "#fyp", "#oyen"],
 )
