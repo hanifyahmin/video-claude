@@ -1,4 +1,4 @@
-"""Oyen storyline for the vacuum storage bag set (~24s).
+"""Oyen storyline for the vacuum storage bag set (~27.2s).
 
 Footage: assets/source-portrait.mp4 = the 10 phone clips joined in order (camera
 sound removed). Clip offsets in the joined file:
@@ -8,11 +8,12 @@ sound removed). Clip offsets in the joined file:
   40.4  153248 universal adapter 0.5-2.5 (front 0.5-1.2, side with its 3-pin prongs 1.2-2.1), pump in hand 7-11
   53.4  153521 bag front + valve 1-7.5, printed steps 1 Seal / 2 Unlock / 3 Vacuum / 4 Lock 8-11.5
   66.87 153800 pump's flat 2-pin plug, steady 1.75-4.5
-  71.6  154023 closing the zip seal 0-12
+  71.6  154023 closing the zip seal 0-12 (step 1)
   84.5  154154 opening the valve on a full bag 0-3.9
   88.43 154256 pump on the valve 1-3, bag shrinks 3-10, lock 14.5-18, flat bag 19-41
-  130.2 154356 full bag, valve, zipping 9-18, puffy bag 19-22.9
-Claims come from the labels/footage only: 4 sizes, pump + adapter in the set, the pump's
+  130.2 154356 reopening: flat bag 0-1, turn valve left 2-5 (air back in), bag loosens 5-8,
+              unzip 11-15, bag mouth open 15.5-17.5 (19-22.9 is a flat bag again)
+Claims come from the labels/footage only: 4 sizes, pump + adapter in the set, reopening (valve left, unzip) on camera, the pump's
 flat 2-pin plug (does not fit Malaysian 3-pin sockets, hence the adapter: user's point), the
 printed 4 steps, and the bag going flat on camera.
 
@@ -22,7 +23,7 @@ printed 4 steps, and the bag going flat on camera.
 from oyen.storyline import Beat, Storyline
 
 STORYLINE = Storyline(
-    title="Vacuum Storage Bag (24s)",
+    title="Vacuum Storage Bag (27.2s)",
     source="assets/source-portrait.mp4",
     beats=[
         Beat(0.0, 0.8, "1 Hook", "Terkejut", None,
@@ -43,14 +44,19 @@ STORYLINE = Storyline(
              "Adapter: depan, lalu sisi tunjuk pin 3 pin. Lencana hijau tick. Caption: Adapter 3 pin / dah siap disertakan!",
              src=41.9),
         Beat(12.4, 15.2, "6 Cara", "Bercakap", "Zip, pusing kiri~",
-             "Langkah 1 zip rapat (3x) + langkah 2 pusing injap ke kiri. Caption: 1 Zip rapat / 2 Pusing kiri untuk unlock", src=141.5),
+             "Langkah 1 zip rapat (3x) + langkah 2 pusing injap ke kiri. Caption: 1 Zip rapat / 2 Pusing kiri untuk unlock", src=78.0),
         Beat(15.2, 18.6, "7 Sedut", "Teruja", "Sedut... siap!",
              "Langkah 3 pam di injap + langkah 4 pusing injap ke kanan. Caption: 3 Sedut udara / 4 Pusing kanan untuk lock", src=89.6),
         Beat(18.6, 21.2, "8 Hasil", "Thumbs up", "Jimat ruang!",
              "Beg leper dipegang + inset SEBELUM (beg kembung). Caption: Jimat ruang / leper & kemas!", src=112.4),
-        Beat(21.2, 23.4, "9 CTA", "Shopping", "Jom checkout!",
+        Beat(21.2, 22.8, "9 Buka", "Berfikir", "Nak buka balik?",
+             "Pusing injap ke kiri (2x), beg kembali longgar. Caption: Nak buka balik? / Pusing kiri, udara masuk",
+             src=133.0),
+        Beat(22.8, 24.4, "9 Buka", "Senyum", "Senang je~",
+             "Buka zip (2.5x) sampai mulut beg terbuka. Caption: Buka zip, / keluarkan baju!", src=143.5),
+        Beat(24.4, 26.6, "10 CTA", "Shopping", "Jom checkout!",
              "CTA beg kuning (tanpa anak panah), beg leper di belakang.", src=127.0),
-        Beat(23.4, 24.0, "9 CTA", "Kenyit mata", None,
+        Beat(26.6, 27.2, "10 CTA", "Kenyit mata", None,
              "Penutup: Oyen kenyit mata.", src=128.0),
     ],
     blinks=[3.4, 14.0],
