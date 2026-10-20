@@ -7,17 +7,21 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
-    frame_src=0.0,                    # source second with the best product shot (background is cut away)
-    product_crop=None,                # (x, y, w, h) to keep, e.g. to drop most of a holding hand; it fades at the edges
-    kicker="Lantai kotor?",              # white sticker line, sentence case looks cuter
-    headline=["Mop", "*pakai buang!*"],          # 1-3 lines, <= 14 chars each; a line with *word* is a yellow sticker
-    tags=(),                          # up to 2 pink fact tags beside the product, e.g. ("30ml",)
-    badge=None,                       # optional round sticker, e.g. "MAX 50KG"
+    frame_src=78.0,                   # whole mop with a sheet fitted, on the floor
+    cutout=False,                     # white mop on pale tiles: shown as a photo card
+    product_crop=(0, 560, 1080, 1000),
+    kicker="Malas cuci kain mop?",
+    headline=["Pakai,", "*terus buang!*"],
+    tags=("30 helai",),
     pose="Teruja",
-    bubble="Jom tengok!",
-    features=(),                      # up to 3 (icon, "line 1\nline 2"); icons: promo/icons.py
+    bubble="Tak payah cuci!",
+    features=(("sparkle", "Tangkap\nhabuk"), ("drop", "Ada tisu\nbasah"), ("check", "Tekan\npenjuru je")),
     caption=(
-        "Hook soalan/masalah + 1 fakta produk + ajakan tekan beg kuning."
+        "Malas cuci kain mop? 😮‍💨 Pakai tisu, dah kotor tarik & terus buang! 🧹\n"
+        "Satu set: kepala mop + batang + tisu kering 30 helai (tangkap habuk & rambut) + tisu basah untuk lap lantai. "
+        "Pasang senang: letak tisu, letak mop, tekan 4 penjuru. "
+        "Tekan beg kuning untuk check harga promo 💛"
     ),
-    hashtags=["#tiktokshopmalaysia", "#fyp", "#oyen"],
+    hashtags=["#mop", "#moppakaibuang", "#tisumop", "#cleaninghacks", "#rumahbersih",
+              "#tiktokshopmalaysia", "#fyp", "#oyen"],
 )
