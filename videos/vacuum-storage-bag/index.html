@@ -343,7 +343,7 @@
       <!-- ================= FOOTAGE (10 clips joined, muted; one .shot per cut) ================= -->
       <div id="card">
         <div class="shot" data-layout-allow-overflow id="sh1" style="transform-origin: 50% 40%">
-          <video id="v1" class="clip" src="assets/source-portrait.mp4" data-start="0" data-duration="2.4" data-media-start="91.2" data-playback-rate="3.6" data-track-index="0" muted playsinline></video>
+          <video id="v1" class="clip" src="assets/source-portrait.mp4" data-start="0" data-duration="2.4" data-media-start="94.0" data-track-index="0" muted playsinline></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh2">
           <video id="v2" class="clip" src="assets/source-portrait.mp4" data-start="2.4" data-duration="2" data-media-start="1.2" data-track-index="0" muted playsinline></video>
@@ -580,7 +580,7 @@
       const sticker = (sel, at, rot = 0) =>
         tl.fromTo(sel, { opacity: 0, scale: 0.4, rotation: rot - 12 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.3, ease: "back.out(2.4)" }, at);
 
-      // ---------- 1. HOOK: puffy bag sucked flat (3.6x), caption on frame 0 ----------
+      // ---------- 1. HOOK: bag shrinking onto the clothes (real speed), caption on frame 0 ----------
       tl.fromTo("#cap1 .kick", { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
       tl.fromTo("#cap1 .big", { opacity: 1, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 0);
       tl.to("#cap1 .kick, #cap1 .big", { opacity: 0, duration: 0.14 }, 2.26);

@@ -27,9 +27,9 @@ STORYLINE = Storyline(
     source="assets/source-portrait.mp4",
     beats=[
         Beat(0.0, 0.8, "1 Hook", "Terkejut", None,
-             "Pam atas injap, beg kembung terus leper (3x). Caption: Beg luggage tak muat?! / Sedut, terus leper!", src=91.9),
+             "Pam atas injap, beg mengecut ke atas baju (laju biasa). Caption: Beg luggage tak muat?! / Sedut, terus leper!", src=94.2),
         Beat(0.8, 2.4, "1 Hook", "Teruja", "Wah, leper terus!",
-             "Sambungan sedutan 3x sampai leper.", src=97.4),
+             "Sambungan sedutan, laju biasa.", src=95.5),
         Beat(2.4, 4.4, "2 Set", "Senyum", "Set beg vakum~",
              "Pek set: beg + pam + adapter. Caption: Vacuum storage bag / satu set", src=3.0),
         Beat(4.4, 7.4, "3 Saiz", "Bercakap", "Ada 4 saiz tau!",
