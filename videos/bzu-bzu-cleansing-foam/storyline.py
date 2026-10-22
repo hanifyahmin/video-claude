@@ -23,7 +23,7 @@ STORYLINE = Storyline(
     beats=[
         Beat(0.0, 0.8, "1 Hook", "Terkejut", None,
              "Pam buih terus masuk botol susu (1x). Caption: Cuci botol susu baby? / Guna buih ni!", src=32.3),
-        Beat(0.8, 2.4, "1 Hook", "Teruja", "Buih terus keluar!",
+        Beat(0.8, 2.4, "1 Hook", "Teruja", "Banyaknya buih!",
              "Sambungan pam buih.", src=32.9),
         Beat(2.4, 4.4, "2 Produk", "Senyum", "BZU BZU tau~",
              "Label depan + kilauan. Caption: BZU BZU / Cleansing foam 500ml", src=16.0),
