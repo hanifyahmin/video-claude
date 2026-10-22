@@ -7,17 +7,19 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
-    frame_src=0.0,                    # source second with the best product shot (background is cut away)
-    product_crop=None,                # (x, y, w, h) to keep, e.g. to drop most of a holding hand; it fades at the edges
-    kicker="Baju baby kena susu & muntah?",              # white sticker line, sentence case looks cuter
-    headline=["Cuci", "*dengan ni!*"],          # 1-3 lines, <= 14 chars each; a line with *word* is a yellow sticker
-    tags=(),                          # up to 2 pink fact tags beside the product, e.g. ("30ml",)
-    badge=None,                       # optional round sticker, e.g. "MAX 50KG"
+    frame_src=1.6,                    # whole bottle front, held up
+    kicker="Baju baby kena susu & muntah?",
+    headline=["Cuci", "*dengan ni!*"],
+    tags=("2 dalam 1",),
     pose="Teruja",
-    bubble="Jom tengok!",
-    features=(),                      # up to 3 (icon, "line 1\nline 2"); icons: promo/icons.py
+    bubble="Baju comot lagi?",
+    features=(("sparkle", "Ada enzim\nbuang kesan"), ("leaf", ">99% bahan\nsemula jadi"), ("check", "Dijamin\nhalal")),
     caption=(
-        "Hook soalan/masalah + 1 fakta produk + ajakan tekan beg kuning."
+        "Baju baby kena susu & muntah? 😩 Cuci dengan BZU BZU Baby Laundry Detergent & Softener 2-in-1 👶\n"
+        "Detergen + pelembut dalam satu. Sistem enzim untuk kesan susu, muntah & najis. Tanpa pewarna, peluntur & "
+        "bahan kimia keras, diuji dermatologi. >99% bahan semula jadi, aloe vera & soapnut. Buih rendah, sesuai "
+        "mesin top & front load. Halal, 1 liter. Tekan beg kuning untuk check harga promo 💛"
     ),
-    hashtags=["#tiktokshopmalaysia", "#fyp", "#oyen"],
+    hashtags=["#bzubzu", "#detergentbaby", "#bajubaby", "#barangbaby", "#mommyhacks",
+              "#tiktokshopmalaysia", "#fyp", "#oyen"],
 )
