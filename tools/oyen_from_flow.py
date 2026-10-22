@@ -104,6 +104,8 @@ def build(src_dir):
     sources = json.loads((OUT / "sources.json").read_text())
     frames = []        # dicts: anim, rgb, alpha, lift
     for anim, spec in sources["anims"].items():
+        if "from" in spec:
+            continue  # reuses another animation's frames
         cut, ground = cut_frames(Path(src_dir) / spec["file"])
         k = spec["scale"] * STAND_PX / sources["stand_px_at_scale_1"]
         for crop, bottom in cut:
@@ -129,12 +131,12 @@ def build(src_dir):
         # right-aligned (the cat faces right, so its head stays put) and standing on the cell floor
         sheet.alpha_composite(tile, (cx + cw - tile.width, cy + ch - tile.height - f["lift"]))
         meta["frames"].append([cx, cy])
-    i = 0
+    first = {}
+    for i, f in enumerate(frames):
+        first.setdefault(f["anim"], []).append(i)
+    keep = ("seq", "loop", "blink", "talk", "key", "move", "exit")
     for anim, spec in sources["anims"].items():
-        n = sum(1 for f in frames if f["anim"] == anim)
-        meta["anims"][anim] = {"frames": list(range(i, i + n)), **{k: v for k, v in spec.items()
-                                                                    if k in ("seq", "loop", "blink", "talk", "key", "move")}}
-        i += n
+        meta["anims"][anim] = {"frames": first[spec.get("from", anim)], **{k: v for k, v in spec.items() if k in keep}}
     sheet.save(OUT / "oyen-tabby.png")
     (OUT / "oyen-tabby.json").write_text(json.dumps(meta, indent=1) + "\n")
     print(f"{len(frames)} frames, cell {cw}x{ch} -> {OUT / 'oyen-tabby.png'}")

@@ -93,6 +93,8 @@ class InstallTest(unittest.TestCase):
         self.assertIn('<div id="cat-spr" style="background-position:', first)  # frame-0 sprite is static HTML
         self.assertIn('<div id="cat" style="left: -', first)  # Jalan on beat 0 starts off-screen
         self.assertTrue((self.video / "assets" / install.TABBY_ASSET).exists())
+        self.assertIn("dashOut(", first)  # the CTA ends with Lari keluar...
+        self.assertIn('id="sfx-hit-', first)  # ...knocking the "Jom checkout!" bubble away
         for name in install.NEEDED_SFX:
             self.assertTrue((self.video / "assets" / "sfx" / name).exists())
 
@@ -132,7 +134,7 @@ class ChibiInstallTest(InstallTest):
         story = story.replace('character="tabby"', 'character="chibi"')
         for old, new in (('"Jalan"', '"Senyum"'), ('"Duduk", "Walaweh!"', '"Bercakap", "Walaweh!"'),
                          ('"Gembira"', '"Cool"'), ('"Duduk", "Jom checkout!"', '"Shopping", "Jom checkout!"'),
-                         ('"Lompat"', '"Kenyit mata"')):
+                         ('"Lari keluar"', '"Kenyit mata"')):
             story = story.replace(old, new)
         (self.video / "storyline.py").write_text(story)
 

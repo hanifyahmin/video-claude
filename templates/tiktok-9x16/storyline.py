@@ -2,8 +2,9 @@
 
 Oyen v2 (character="tabby"): every pose is a pixel-art animation from oyen/tabby
 (see oyen/gallery/tabby/oyen-tabby-animasi.png):
-  Duduk, Bercakap, Menjilat, Makan, Tidur, Terkejut, Teruja, Gembira, Regang, Lompat, Jalan, Lari.
-Jalan/Lari walk Oyen in from the left; Terkejut, Regang and Lompat play once and hold.
+  Duduk, Bercakap, Menjilat, Makan, Tidur, Terkejut, Teruja, Gembira, Regang, Lompat, Jalan, Lari, Lari keluar.
+Jalan/Lari walk Oyen in from the left; Lari keluar dashes off to the right and knocks away
+the previous beat's bubble; Terkejut, Regang and Lompat play once and hold.
 
 Oyen reacts, the captions carry the facts:
 - at most 3 speech lines (hook reaction, one punchline mid-video, CTA), each <= 20
@@ -28,8 +29,8 @@ STORYLINE = Storyline(
         Beat(1.0, 2.0, "1 Hook", "Terkejut", None, "Produk muncul: Oyen terkejut."),
         Beat(2.0, 3.0, "2 Produk", "Duduk", "Walaweh!", "Reaksi (dialog 1/3)."),
         Beat(3.0, 4.0, "3 Bukti", "Gembira", None, "Fakta dibawa caption; Oyen cuma beraksi."),
-        Beat(4.0, 5.2, "4 CTA", "Duduk", "Jom checkout!", "Sebelah CTA (dialog 2/3)."),
-        Beat(5.2, 6.0, "4 CTA", "Lompat", None, "Penutup."),
+        Beat(4.0, 4.9, "4 CTA", "Duduk", "Jom checkout!", "Sebelah CTA (dialog 2/3)."),
+        Beat(4.9, 6.0, "4 CTA", "Lari keluar", None, "Oyen meluru keluar, langgar bubble 'Jom checkout!'."),
     ],
     blinks=[],
     jumps=[],

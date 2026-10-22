@@ -332,7 +332,7 @@
       <div id="cat" style="left: -460px"><div id="cat-walk"><div id="cat-spr" style="background-position: -420px -2100px"></div></div></div>
       <div id="ob0" class="bub clip" data-start="0.95" data-duration="1.4" data-track-index="6"><div class="bub-in"><span class="ch">B</span><span class="ch">a</span><span class="ch">j</span><span class="ch">u</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">o</span><span class="ch">m</span><span class="ch">o</span><span class="ch">t</span><span class="ch">&nbsp;</span><span class="ch">l</span><span class="ch">a</span><span class="ch">g</span><span class="ch">i</span><span class="ch">?</span></div></div>
       <div id="ob1" class="bub clip" data-start="4.75" data-duration="2.2" data-track-index="6"><div class="bub-in"><span class="ch">A</span><span class="ch">d</span><span class="ch">a</span><span class="ch">&nbsp;</span><span class="ch">e</span><span class="ch">n</span><span class="ch">z</span><span class="ch">i</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">t</span><span class="ch">a</span><span class="ch">u</span><span class="ch">!</span></div></div>
-      <div id="ob2" class="bub clip" data-start="16.55" data-duration="2.6" data-track-index="6"><div class="bub-in"><span class="ch">J</span><span class="ch">o</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">h</span><span class="ch">e</span><span class="ch">c</span><span class="ch">k</span><span class="ch">o</span><span class="ch">u</span><span class="ch">t</span><span class="ch">!</span></div></div>
+      <div id="ob2" class="bub clip" data-start="16.55" data-duration="2.62" data-track-index="6"><div class="bub-in"><span class="ch">J</span><span class="ch">o</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">h</span><span class="ch">e</span><span class="ch">c</span><span class="ch">k</span><span class="ch">o</span><span class="ch">u</span><span class="ch">t</span><span class="ch">!</span></div></div>
       <!-- OYEN:END -->
 
       <div id="flash"></div>
@@ -359,6 +359,9 @@
       <audio id="sfx-type-ob1" src="assets/sfx/typing.mp3" data-start="4.87" data-duration="0.5" data-track-index="53" data-volume="0.22"></audio>
       <audio id="sfx-pop-ob2" src="assets/sfx/pop.mp3" data-start="16.55" data-track-index="54" data-volume="0.45"></audio>
       <audio id="sfx-type-ob2" src="assets/sfx/typing.mp3" data-start="16.67" data-duration="0.47" data-track-index="55" data-volume="0.22"></audio>
+      <audio id="sfx-dash-9" src="assets/sfx/whoosh.mp3" data-start="18.4" data-track-index="56" data-volume="0.5"></audio>
+      <audio id="sfx-hit-ob2" src="assets/sfx/impact-bass-1.mp3" data-start="18.525" data-track-index="57" data-volume="0.55"></audio>
+      <audio id="sfx-hitpop-ob2" src="assets/sfx/pop.mp3" data-start="18.525" data-track-index="58" data-volume="0.6"></audio>
       <!-- OYEN:SFX:END -->
     </div>
 
@@ -440,14 +443,24 @@
         tl.set("#cat-walk", { x: from }, at).to("#cat-walk", { x: to, duration: dur, ease: "none" }, at);
       const jump = (at) =>
         tl.to("#cat", { y: -70, duration: 0.12, ease: "steps(3)" }, at).to("#cat", { y: 0, duration: 0.16, ease: "steps(4)" }, at + 0.12);
-      // speech bubble: stepped pop and typed text (mouth flaps are sprite frames, scheduled above)
-      const say = (id, at, end, cps) => {
+      // dash off to the right
+      const dashOut = (at, from, to, dur) =>
+        tl.set("#cat-walk", { x: from }, at).to("#cat-walk", { x: to, duration: dur, ease: "none" }, at);
+      // speech bubble: stepped pop and typed text (mouth flaps are sprite frames, scheduled above);
+      // knock = when Oyen's dash hits it: it spins up and away instead of popping out
+      const say = (id, at, end, cps, knock) => {
+        const sel = "#" + id + " .bub-in";
         const chars = document.getElementById(id).querySelectorAll(".ch");
-        tl.fromTo("#" + id + " .bub-in", { scale: 0, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.16, ease: "steps(4)" }, at);
+        tl.fromTo(sel, { scale: 0, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.16, ease: "steps(4)" }, at);
         tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.001, stagger: cps }, at + 0.12);
-        tl.to("#" + id + " .bub-in", { scale: 0, duration: 0.1, ease: "steps(3)" }, end - 0.1);
+        if (knock === null) {
+          tl.to(sel, { scale: 0, duration: 0.1, ease: "steps(3)" }, end - 0.1);
+        } else {
+          tl.to(sel, { x: -14, scaleX: 0.86, duration: 0.05, ease: "power1.out" }, knock);
+          tl.to(sel, { x: 640, y: -170, rotation: 30, scaleX: 1, opacity: 0, duration: 0.55, ease: "power2.out" }, knock + 0.05);
+        }
       };
-      [[0.12, -840, -2100], [0.24, -1260, -2100], [0.36, -1680, -2100], [0.48, -2100, -2100], [0.6, -2520, -2100], [0.72, -420, -2100], [0.8, -1680, -840], [0.92, -2100, -840], [1.06, -2520, -840], [2.26, -2940, -840], [2.4, 0, -1260], [2.7, -420, -1260], [3, -840, -1260], [3.25, -1260, -1260], [3.7, 0, -1260], [4, -420, -1260], [4.3, -840, -1260], [4.55, -1260, -1260], [4.6, 0, 0], [4.87, -1680, 0], [4.99, -2100, 0], [5.11, -2520, 0], [5.27, -2100, 0], [5.368, 0, 0], [5.9, -840, 0], [6.35, 0, 0], [7, 0, -420], [7.35, -420, -420], [7.7, -840, -420], [8.1, -420, -420], [8.45, 0, -420], [8.8, -420, -420], [9.15, -840, -420], [9.4, -1680, -1260], [9.7, -2100, -1260], [10, -2520, -1260], [10.25, -2940, -1260], [10.7, -1680, -1260], [11, -2100, -1260], [11.3, -2520, -1260], [11.55, -2940, -1260], [11.8, 0, -840], [12.4, -420, -840], [13, -840, -840], [13.6, -1260, -840], [13.8, 0, -1680], [14.1, -420, -1680], [14.45, -840, -1680], [15.35, -1260, -1680], [16.4, 0, 0], [16.67, -1680, 0], [16.79, -2100, 0], [16.91, -2520, 0], [17.07, -2100, 0], [17.136, 0, 0], [17.7, -840, 0], [18.15, 0, 0], [18.4, -1260, 0], [18.52, 0, 0], [19.2, -1680, -1680], [19.45, -2100, -1680], [19.57, -2520, -1680], [19.72, -2940, -1680]].forEach((f) => spr(f[0], f[1], f[2]));
+      [[0.12, -840, -2100], [0.24, -1260, -2100], [0.36, -1680, -2100], [0.48, -2100, -2100], [0.6, -2520, -2100], [0.72, -420, -2100], [0.8, -1680, -840], [0.92, -2100, -840], [1.06, -2520, -840], [2.26, -2940, -840], [2.4, 0, -1260], [2.7, -420, -1260], [3, -840, -1260], [3.25, -1260, -1260], [3.7, 0, -1260], [4, -420, -1260], [4.3, -840, -1260], [4.55, -1260, -1260], [4.6, 0, 0], [4.87, -1680, 0], [4.99, -2100, 0], [5.11, -2520, 0], [5.27, -2100, 0], [5.368, 0, 0], [5.9, -840, 0], [6.35, 0, 0], [7, 0, -420], [7.35, -420, -420], [7.7, -840, -420], [8.1, -420, -420], [8.45, 0, -420], [8.8, -420, -420], [9.15, -840, -420], [9.4, -1680, -1260], [9.7, -2100, -1260], [10, -2520, -1260], [10.25, -2940, -1260], [10.7, -1680, -1260], [11, -2100, -1260], [11.3, -2520, -1260], [11.55, -2940, -1260], [11.8, 0, -840], [12.4, -420, -840], [13, -840, -840], [13.6, -1260, -840], [13.8, 0, -1680], [14.1, -420, -1680], [14.45, -840, -1680], [15.35, -1260, -1680], [16.4, 0, 0], [16.67, -1680, 0], [16.79, -2100, 0], [16.91, -2520, 0], [17.07, -2100, 0], [17.136, 0, 0], [17.7, -840, 0], [18.15, 0, 0], [18.4, -2940, -2100], [18.48, 0, -2520], [18.56, -420, -2520], [18.64, -840, -2520], [18.72, -1260, -2520], [18.8, -1680, -2520], [18.88, -2940, -2100], [18.96, 0, -2520], [19.04, -420, -2520], [19.12, -840, -2520], [19.2, -1260, -2520], [19.28, -1680, -2520], [19.36, -2940, -2100], [19.44, 0, -2520], [19.52, -420, -2520], [19.6, -840, -2520], [19.68, -1260, -2520], [19.76, -1680, -2520]].forEach((f) => spr(f[0], f[1], f[2]));
       tl.to("#cat-walk", { x: 340, duration: 0.8, ease: "none" }, 0);
       pop(0.8);
       pop(2.4);
@@ -457,10 +470,11 @@
       pop(11.8);
       pop(13.8);
       pop(16.4);
-      pop(19.2);
-      say("ob0", 0.95, 2.35, 0.032);
-      say("ob1", 4.75, 6.95, 0.032);
-      say("ob2", 16.55, 19.15, 0.032);
+      pop(18.4);
+      dashOut(18.4, 340, 1560, 1.109);
+      say("ob0", 0.95, 2.35, 0.032, null);
+      say("ob1", 4.75, 6.95, 0.032, null);
+      say("ob2", 16.55, 19.17, 0.032, 18.525);
       // OYEN:END
 
       window.__timelines["main"] = tl;

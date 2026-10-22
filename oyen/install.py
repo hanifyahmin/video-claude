@@ -24,7 +24,7 @@ from .storyline import load
 
 REPO = Path(__file__).resolve().parent.parent
 SHARED_SFX = REPO / "shared" / "sfx"
-NEEDED_SFX = ("pop.mp3", "typing.mp3")
+NEEDED_SFX = ("pop.mp3", "typing.mp3", "whoosh.mp3", "impact-bass-1.mp3")
 TABBY_ASSET = "oyen-tabby.png"   # copied into the video's assets/ when the storyline uses the tabby
 
 MARKERS = {
@@ -57,12 +57,41 @@ def used_frames(story):
 
 
 def bubbles(story):
-    """(id, start, end, text, pose) for every beat with a line."""
+    """(id, start, end, text, pose) for every beat with a line. A bubble the next beat's dash knocks away
+    stays up until it has flown off."""
     out = []
-    for b in story.beats:
+    for i, b in enumerate(story.beats):
         if b.line:
-            out.append((f"ob{len(out)}", round(b.start + 0.15, 2), round(b.end - 0.05, 2), b.line, b.pose))
+            hit = knock_time(story, i)
+            end = min(story.beats[i + 1].end, hit + 0.65) if hit is not None else b.end - 0.05
+            out.append((f"ob{len(out)}", round(b.start + 0.15, 2), round(end, 2), b.line, b.pose))
     return out
+
+
+def _exit(story, b):
+    """(distance, seconds) when a tabby beat dashes off to the right, else None."""
+    if story.character != "tabby":
+        return None
+    speed = tabby.anims()[b.pose].get("exit")
+    if not speed:
+        return None
+    w, _ = tabby.cell()
+    dist = 1080 - (tabby.ANCHOR_X - w * tabby.SCALE) + 20     # until the whole cell is past the right edge
+    return dist, round(min(dist / speed, b.end - b.start), 3)
+
+
+def knock_time(story, i):
+    """When beat i's speech bubble gets hit by the next beat's dash, or None."""
+    if i + 1 >= len(story.beats) or not story.beats[i].line:
+        return None
+    nxt = story.beats[i + 1]
+    ex = _exit(story, nxt)
+    if not ex:
+        return None
+    g = geometry(story)
+    width = len(story.beats[i].line) * 26 + 72                 # bold bubble, Montserrat 800 @ 44px
+    reach = g["bubble_left"] + 0.3 * width - tabby.ANCHOR_X    # the head reaches a third of the way in
+    return round(nxt.start + reach * ex[1] / ex[0], 3)
 
 
 # ---------------- blocks ----------------
@@ -256,6 +285,20 @@ def sfx_block(story):
         lines.append(f'      <audio id="sfx-type-{bid}" src="assets/sfx/typing.mp3" data-start="{round(a + 0.12, 2):g}" '
                      f'data-duration="{typing:g}" data-track-index="{track + 1}" data-volume="0.22"></audio>')
         track += 2
+    for i, b in enumerate(story.beats):
+        if _exit(story, b):
+            lines.append(f'      <audio id="sfx-dash-{i}" src="assets/sfx/whoosh.mp3" data-start="{b.start:g}" '
+                         f'data-track-index="{track}" data-volume="0.5"></audio>')
+            track += 1
+    for k, (bid, *_rest) in enumerate(bubbles(story)):
+        i = [j for j, b in enumerate(story.beats) if b.line][k]
+        hit = knock_time(story, i)
+        if hit is not None:
+            lines.append(f'      <audio id="sfx-hit-{bid}" src="assets/sfx/impact-bass-1.mp3" data-start="{hit:g}" '
+                         f'data-track-index="{track}" data-volume="0.55"></audio>')
+            lines.append(f'      <audio id="sfx-hitpop-{bid}" src="assets/sfx/pop.mp3" data-start="{hit:g}" '
+                         f'data-track-index="{track + 1}" data-volume="0.6"></audio>')
+            track += 2
     lines.append("      <!-- OYEN:SFX:END -->")
     return "\n".join(lines)
 
@@ -319,12 +362,22 @@ _TABBY_RUNTIME = """      // sprite frames switch by background-position at fixe
         tl.set("#cat-walk", { x: from }, at).to("#cat-walk", { x: to, duration: dur, ease: "none" }, at);
       const jump = (at) =>
         tl.to("#cat", { y: -70, duration: 0.12, ease: "steps(3)" }, at).to("#cat", { y: 0, duration: 0.16, ease: "steps(4)" }, at + 0.12);
-      // speech bubble: stepped pop and typed text (mouth flaps are sprite frames, scheduled above)
-      const say = (id, at, end, cps) => {
+      // dash off to the right
+      const dashOut = (at, from, to, dur) =>
+        tl.set("#cat-walk", { x: from }, at).to("#cat-walk", { x: to, duration: dur, ease: "none" }, at);
+      // speech bubble: stepped pop and typed text (mouth flaps are sprite frames, scheduled above);
+      // knock = when Oyen's dash hits it: it spins up and away instead of popping out
+      const say = (id, at, end, cps, knock) => {
+        const sel = "#" + id + " .bub-in";
         const chars = document.getElementById(id).querySelectorAll(".ch");
-        tl.fromTo("#" + id + " .bub-in", { scale: 0, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.16, ease: "steps(4)" }, at);
+        tl.fromTo(sel, { scale: 0, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.16, ease: "steps(4)" }, at);
         tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.001, stagger: cps }, at + 0.12);
-        tl.to("#" + id + " .bub-in", { scale: 0, duration: 0.1, ease: "steps(3)" }, end - 0.1);
+        if (knock === null) {
+          tl.to(sel, { scale: 0, duration: 0.1, ease: "steps(3)" }, end - 0.1);
+        } else {
+          tl.to(sel, { x: -14, scaleX: 0.86, duration: 0.05, ease: "power1.out" }, knock);
+          tl.to(sel, { x: 640, y: -170, rotation: 30, scaleX: 1, opacity: 0, duration: 0.55, ease: "power2.out" }, knock + 0.05);
+        }
       };
 """
 
@@ -349,14 +402,20 @@ def _tabby_js(story):
             frames.append([t, -x * s, -y * s])
         if i > 0:
             calls.append(f"      pop({b.start:g});")
-        walk = _walk_in(story, b)
+        ex = _exit(story, b)
         rest = -walk0[0] if walk0 else 0     # #cat-walk's x when Oyen is home
+        if ex:
+            calls.append(f"      dashOut({b.start:g}, {rest}, {rest + ex[0]}, {ex[1]:g});")
+        walk = _walk_in(story, b)
         if walk and i > 0:
             calls.append(f"      walkIn({b.start:g}, {rest + walk[0]}, {rest}, {walk[1]:g});")
         elif walk:
             calls.append(f'      tl.to("#cat-walk", {{ x: {rest}, duration: {walk[1]:g}, ease: "none" }}, 0);')
-    for bid, a, b, _text, _pose in bubbles(story):
-        calls.append(f'      say("{bid}", {a:g}, {b:g}, {story.type_speed:g});')
+    line_beats = [i for i, b in enumerate(story.beats) if b.line]
+    for (bid, a, b, _text, _pose), i in zip(bubbles(story), line_beats):
+        hit = knock_time(story, i)
+        knock = f"{hit:g}" if hit is not None else "null"
+        calls.append(f'      say("{bid}", {a:g}, {b:g}, {story.type_speed:g}, {knock});')
     for t in story.jumps:
         calls.append(f"      jump({t:g});")
     data = ", ".join(f"[{t:g}, {x}, {y}]" for t, x, y in frames)

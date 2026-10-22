@@ -1,18 +1,342 @@
 {
- "_doc": "One Google Flow image per animation (frames left to right, facing right). scale: size factor so the cat matches the others (a standing cat is stand_px_at_scale_1 px from ground to ear tips at scale 1). seq: [frame number (1-based), seconds]. loop: repeat seq for the whole beat; otherwise play once and hold the last frame. key: frame for storyboards/covers. blink: frame shown for a blink. talk: animation whose frames flap while a speech line types. move: walk-in speed (px/s) when the beat starts.",
+ "_doc": "One Google Flow image per animation (frames left to right, facing right). scale: size factor so the cat matches the others (a standing cat is stand_px_at_scale_1 px from ground to ear tips at scale 1). seq: [frame number (1-based), seconds]. loop: repeat seq for the whole beat; otherwise play once and hold the last frame. key: frame for storyboards/covers. blink: frame shown for a blink. talk: animation whose frames flap while a speech line types. move: walk-in speed (px/s) when the beat starts. from: reuse another animation's frames (no image of its own). exit: run-out speed (px/s): the cat dashes off to the right, and a speech bubble left on screen by the previous beat gets knocked away.",
  "stand_px_at_scale_1": 375,
  "anims": {
-  "Duduk":    {"file": "168799031_1792682254826546.jpg", "scale": 1.0,  "seq": [[1, 1.3], [3, 0.45]], "loop": true, "key": 1, "blink": 4, "talk": "Bercakap"},
-  "Bercakap": {"file": "245830239_1792682505512080.jpg", "scale": 1.0,  "seq": [[1, 0.12], [2, 0.12], [3, 0.16], [2, 0.12]], "loop": true, "key": 3},
-  "Menjilat": {"file": "10641311_1792683611743414.jpg",  "scale": 1.0,  "seq": [[1, 0.35], [2, 0.35], [3, 0.4], [2, 0.35]], "loop": true, "key": 2},
-  "Makan":    {"file": "17886209_1792682731729507.jpg",  "scale": 1.0,  "seq": [[2, 0.35], [4, 0.35], [2, 0.35], [3, 0.55]], "loop": true, "key": 2},
-  "Tidur":    {"file": "677810042_1792682847141920.jpg", "scale": 1.0,  "seq": [[1, 0.6], [2, 0.6], [3, 0.6], [4, 0.6]], "loop": true, "key": 1},
-  "Terkejut": {"file": "683423278_1792682645209426.jpg", "scale": 1.0,  "seq": [[1, 0.12], [2, 0.14], [3, 1.2], [4, 1.0]], "loop": false, "key": 3},
-  "Teruja":   {"file": "705350288_1792683541599005.jpg", "scale": 1.0,  "seq": [[1, 0.3], [2, 0.3], [3, 0.25], [4, 0.45]], "loop": true, "key": 2},
-  "Gembira":  {"file": "43623758_1792683521624993.jpg",  "scale": 1.45, "seq": [[1, 0.3], [2, 0.3], [3, 0.25], [4, 0.45]], "loop": true, "key": 4},
-  "Regang":   {"file": "586630678_1792683004453137.jpg", "scale": 1.28, "seq": [[1, 0.3], [2, 0.35], [3, 0.9], [4, 1.0]], "loop": false, "key": 3},
-  "Lompat":   {"file": "899203399_1792683193342475.jpg", "scale": 1.5,  "seq": [[1, 0.25], [2, 0.12], [3, 0.15], [4, 0.2], [5, 1.0]], "loop": false, "key": 3},
-  "Jalan":    {"file": "818206310_1792681995569089.jpg", "scale": 2.33, "seq": [[1, 0.12], [2, 0.12], [3, 0.12], [4, 0.12], [5, 0.12], [6, 0.12]], "loop": true, "key": 1, "move": 260},
-  "Lari":     {"file": "453328282_1792682126649283.jpg", "scale": 2.2,  "seq": [[1, 0.08], [2, 0.08], [3, 0.08], [4, 0.08], [5, 0.08], [6, 0.08]], "loop": true, "key": 1, "move": 900}
+  "Duduk": {
+   "file": "168799031_1792682254826546.jpg",
+   "scale": 1.0,
+   "seq": [
+    [
+     1,
+     1.3
+    ],
+    [
+     3,
+     0.45
+    ]
+   ],
+   "loop": true,
+   "key": 1,
+   "blink": 4,
+   "talk": "Bercakap"
+  },
+  "Bercakap": {
+   "file": "245830239_1792682505512080.jpg",
+   "scale": 1.0,
+   "seq": [
+    [
+     1,
+     0.12
+    ],
+    [
+     2,
+     0.12
+    ],
+    [
+     3,
+     0.16
+    ],
+    [
+     2,
+     0.12
+    ]
+   ],
+   "loop": true,
+   "key": 3
+  },
+  "Menjilat": {
+   "file": "10641311_1792683611743414.jpg",
+   "scale": 1.0,
+   "seq": [
+    [
+     1,
+     0.35
+    ],
+    [
+     2,
+     0.35
+    ],
+    [
+     3,
+     0.4
+    ],
+    [
+     2,
+     0.35
+    ]
+   ],
+   "loop": true,
+   "key": 2
+  },
+  "Makan": {
+   "file": "17886209_1792682731729507.jpg",
+   "scale": 1.0,
+   "seq": [
+    [
+     2,
+     0.35
+    ],
+    [
+     4,
+     0.35
+    ],
+    [
+     2,
+     0.35
+    ],
+    [
+     3,
+     0.55
+    ]
+   ],
+   "loop": true,
+   "key": 2
+  },
+  "Tidur": {
+   "file": "677810042_1792682847141920.jpg",
+   "scale": 1.0,
+   "seq": [
+    [
+     1,
+     0.6
+    ],
+    [
+     2,
+     0.6
+    ],
+    [
+     3,
+     0.6
+    ],
+    [
+     4,
+     0.6
+    ]
+   ],
+   "loop": true,
+   "key": 1
+  },
+  "Terkejut": {
+   "file": "683423278_1792682645209426.jpg",
+   "scale": 1.0,
+   "seq": [
+    [
+     1,
+     0.12
+    ],
+    [
+     2,
+     0.14
+    ],
+    [
+     3,
+     1.2
+    ],
+    [
+     4,
+     1.0
+    ]
+   ],
+   "loop": false,
+   "key": 3
+  },
+  "Teruja": {
+   "file": "705350288_1792683541599005.jpg",
+   "scale": 1.0,
+   "seq": [
+    [
+     1,
+     0.3
+    ],
+    [
+     2,
+     0.3
+    ],
+    [
+     3,
+     0.25
+    ],
+    [
+     4,
+     0.45
+    ]
+   ],
+   "loop": true,
+   "key": 2
+  },
+  "Gembira": {
+   "file": "43623758_1792683521624993.jpg",
+   "scale": 1.45,
+   "seq": [
+    [
+     1,
+     0.3
+    ],
+    [
+     2,
+     0.3
+    ],
+    [
+     3,
+     0.25
+    ],
+    [
+     4,
+     0.45
+    ]
+   ],
+   "loop": true,
+   "key": 4
+  },
+  "Regang": {
+   "file": "586630678_1792683004453137.jpg",
+   "scale": 1.28,
+   "seq": [
+    [
+     1,
+     0.3
+    ],
+    [
+     2,
+     0.35
+    ],
+    [
+     3,
+     0.9
+    ],
+    [
+     4,
+     1.0
+    ]
+   ],
+   "loop": false,
+   "key": 3
+  },
+  "Lompat": {
+   "file": "899203399_1792683193342475.jpg",
+   "scale": 1.5,
+   "seq": [
+    [
+     1,
+     0.25
+    ],
+    [
+     2,
+     0.12
+    ],
+    [
+     3,
+     0.15
+    ],
+    [
+     4,
+     0.2
+    ],
+    [
+     5,
+     1.0
+    ]
+   ],
+   "loop": false,
+   "key": 3
+  },
+  "Jalan": {
+   "file": "818206310_1792681995569089.jpg",
+   "scale": 2.33,
+   "seq": [
+    [
+     1,
+     0.12
+    ],
+    [
+     2,
+     0.12
+    ],
+    [
+     3,
+     0.12
+    ],
+    [
+     4,
+     0.12
+    ],
+    [
+     5,
+     0.12
+    ],
+    [
+     6,
+     0.12
+    ]
+   ],
+   "loop": true,
+   "key": 1,
+   "move": 260
+  },
+  "Lari": {
+   "file": "453328282_1792682126649283.jpg",
+   "scale": 2.2,
+   "seq": [
+    [
+     1,
+     0.08
+    ],
+    [
+     2,
+     0.08
+    ],
+    [
+     3,
+     0.08
+    ],
+    [
+     4,
+     0.08
+    ],
+    [
+     5,
+     0.08
+    ],
+    [
+     6,
+     0.08
+    ]
+   ],
+   "loop": true,
+   "key": 1,
+   "move": 900
+  },
+  "Lari keluar": {
+   "from": "Lari",
+   "seq": [
+    [
+     1,
+     0.08
+    ],
+    [
+     2,
+     0.08
+    ],
+    [
+     3,
+     0.08
+    ],
+    [
+     4,
+     0.08
+    ],
+    [
+     5,
+     0.08
+    ],
+    [
+     6,
+     0.08
+    ]
+   ],
+   "loop": true,
+   "key": 1,
+   "exit": 1100
+  }
  }
 }
