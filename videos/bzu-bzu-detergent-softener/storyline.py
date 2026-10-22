@@ -25,11 +25,11 @@ STORYLINE = Storyline(
         Beat(0.0, 0.8, "1 Hook", "Jalan", None,
              "Oyen berjalan masuk; botol penuh, zoom masuk + shake. Caption: Baju baby kena susu & muntah? / Cuci dengan ni!",
              src=1.5),
-        Beat(0.8, 2.4, "1 Hook", "Terkejut", "Baju comot lagi?",
+        Beat(0.8, 2.4, "1 Hook", "Terkejut", "Ape benda lak ni?",
              "Oyen terkejut bulu tegak (dialog 1/3).", src=2.5),
         Beat(2.4, 4.6, "2 Produk", "Teruja", None,
              "Nama produk pada label depan + kilauan. Caption: BZU BZU Baby · 1 liter / Detergen + pelembut", src=4.8),
-        Beat(4.6, 7.0, "3 Enzim", "Duduk", "Ada enzim tau!",
+        Beat(4.6, 7.0, "3 Enzim", "Duduk", "Walaweh padu padu",
              "Teks belakang (milk spills, spit-up, poop smears), zoom ikut. Caption: Kesan susu, muntah / & najis pun hilang "
              "(dialog 2/3).", src=21.5),
         Beat(7.0, 9.4, "4 Lembut", "Menjilat", None,
