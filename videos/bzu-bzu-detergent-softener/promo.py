@@ -17,7 +17,7 @@ PROMO = Promo(
     tags=("1 liter",),
     character="tabby",
     pose="Terkejut",
-    bubble="Ada enzim tau!",
+    bubble="Betul ke ni?!",
     caption=(
         "Baju baby kena susu & muntah? 😩 Cuci dengan BZU BZU Baby Laundry Detergent & Softener 2-in-1 👶\n"
         "Detergen + pelembut dalam satu. Sistem enzim untuk kesan susu, muntah & najis. Tanpa pewarna, peluntur & "
