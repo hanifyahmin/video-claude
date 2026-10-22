@@ -20,7 +20,8 @@ PROMO = Promo(
     headline=["{{HOOK}}"],            # 2-3 lines, <= 14 chars each; *word* = accent colour
     badge=None,                       # one visible fact, e.g. "MAX 50KG"
     tags=(),                          # up to 2 more facts as white tags, e.g. ("1 liter",)
-    pose="Terkejut",
+    character="tabby",
+    pose="Terkejut",                  # Oyen v2 animation: Duduk, Terkejut, Teruja, Gembira, Lompat, Makan, ...
     bubble="Walaweh!",
     caption=(
         "Hook soalan/masalah + 1 fakta produk + ajakan tekan beg kuning."

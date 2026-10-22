@@ -56,6 +56,21 @@ class StorylineTest(unittest.TestCase):
                 self.assertEqual(load(story_file.parent).problems(), [])
 
 
+class TabbyScheduleTest(unittest.TestCase):
+    def test_loop_talk_and_blink(self):
+        from oyen import tabby
+        frames = tabby.frames_for("Duduk", 0, 4, talk=(1.0, 1.5), blinks=[3.0])
+        self.assertEqual(frames[0], (0, 1))
+        self.assertTrue(any(isinstance(n, tuple) for t, n in frames if 1.0 <= t < 1.5))  # mouth flaps
+        self.assertFalse(any(isinstance(n, tuple) for t, n in frames if t >= 1.5))
+        self.assertIn((3.0, tabby.anims()["Duduk"]["blink"]), frames)
+
+    def test_one_shot_holds(self):
+        from oyen import tabby
+        frames = tabby.frames_for("Lompat", 0, 10)
+        self.assertEqual(len(frames), len(tabby.anims()["Lompat"]["seq"]))
+
+
 class InstallTest(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -74,8 +89,10 @@ class InstallTest(unittest.TestCase):
         for bid, *_ in install.bubbles(story):
             self.assertIn(f'id="{bid}"', first)
             self.assertIn(f'id="sfx-pop-{bid}"', first)
-        self.assertIn('style="opacity: 1"', first)  # frame-0 pose is static HTML
-        self.assertEqual(first.count('class="oy-f"'), len(install.used_frames(story)))
+        self.assertEqual(story.character, "tabby")  # the template uses Oyen v2
+        self.assertIn('<div id="cat-spr" style="background-position:', first)  # frame-0 sprite is static HTML
+        self.assertIn('<div id="cat" style="left: -', first)  # Jalan on beat 0 starts off-screen
+        self.assertTrue((self.video / "assets" / install.TABBY_ASSET).exists())
         for name in install.NEEDED_SFX:
             self.assertTrue((self.video / "assets" / "sfx" / name).exists())
 
@@ -106,6 +123,27 @@ class OyenRestraintTest(unittest.TestCase):
             with self.subTest(pose=name):
                 self.assertEqual(len(C.POSES[name]), C.CH)
                 self.assertIn("rest", C.video_frames(name))
+
+
+class ChibiInstallTest(InstallTest):
+    def setUp(self):
+        super().setUp()
+        story = (self.video / "storyline.py").read_text()
+        story = story.replace('character="tabby"', 'character="chibi"')
+        for old, new in (('"Jalan"', '"Senyum"'), ('"Duduk", "Walaweh!"', '"Bercakap", "Walaweh!"'),
+                         ('"Gembira"', '"Cool"'), ('"Duduk", "Jom checkout!"', '"Shopping", "Jom checkout!"'),
+                         ('"Lompat"', '"Kenyit mata"')):
+            story = story.replace(old, new)
+        (self.video / "storyline.py").write_text(story)
+
+    def test_install_is_idempotent_and_complete(self):
+        install.install(self.video)
+        first = (self.video / "index.html").read_text()
+        install.install(self.video)
+        self.assertEqual((self.video / "index.html").read_text(), first)
+        story = load(self.video)
+        self.assertIn('style="opacity: 1"', first)  # frame-0 pose is static HTML
+        self.assertEqual(first.count('class="oy-f"'), len(install.used_frames(story)))
 
 
 if __name__ == "__main__":

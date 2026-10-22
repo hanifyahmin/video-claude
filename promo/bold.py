@@ -9,12 +9,14 @@ import html
 import re
 
 from oyen import character as C
+from oyen import tabby
 from oyen.render import svg_rects
 
 from .model import niche_colours
 
 INK = "#111111"
 SCALE = 14  # Oyen shares the bottom with the bubble; the headline is the hero here
+TABBY_SCALE = 6
 
 
 def _headline(lines):
@@ -31,8 +33,16 @@ def _headline(lines):
 
 def build_html(p):
     accent, on_accent = niche_colours(p.niche)
-    oyen = svg_rects(C.POSES[p.pose])
-    ow, oh = C.CW * SCALE, C.CH * SCALE
+    if p.character == "tabby":
+        # oyen.png = the pose's key frame, trimmed; thumbnail.render() writes it next to the page
+        im = tabby.trimmed(p.pose)
+        ow, oh = im.width * TABBY_SCALE, im.height * TABBY_SCALE
+        oyen_html = (f'<img src="oyen.png" alt="" style="display: block; width: {ow}px; height: {oh}px; '
+                     f'image-rendering: pixelated" />')
+    else:
+        ow, oh = C.CW * SCALE, C.CH * SCALE
+        oyen_html = (f'<svg width="{ow}" height="{oh}" viewBox="0 0 {C.CW} {C.CH}" shape-rendering="crispEdges">'
+                     f'{svg_rects(C.POSES[p.pose])}</svg>')
     bx, by = p.badge_xy or (740, 1030)
     badge_size = min(54, int(200 / (0.72 * max((len(w) for w in (p.badge or "x").split()), default=1))))
     badge = (f'<div id="badge" style="left: {bx}px; top: {by}px"><span>{html.escape(p.badge)}</span></div>'
@@ -80,7 +90,7 @@ def build_html(p):
         border: 6px solid {INK}; box-shadow: 8px 8px 0 {accent}; font-weight: 900; font-size: 46px; line-height: 1.05;
         color: {INK}; text-transform: uppercase; transform: rotate(-3deg); }}
       #oyen {{ position: absolute; left: 24px; top: {1660 - oh}px; width: {ow}px; height: {oh}px; }}
-      #oyen svg {{ display: block; filter: drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff)
+      #oyen svg, #oyen img {{ display: block; filter: drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff)
         drop-shadow(0 -5px 0 #fff) drop-shadow(0 12px 16px rgba(0,0,0,0.45)); }}
       #bubble {{ position: absolute; left: {24 + ow + 14}px; top: {1660 - oh + 40}px; max-width: {1040 - 24 - ow - 14}px;
         padding: 16px 30px 20px; background: #fff; border: 6px solid {INK}; border-radius: 30px 30px 30px 8px;
@@ -96,7 +106,7 @@ def build_html(p):
       {tags}
       {badge}
       <div id="head">{kicker}{_headline(p.headline)}</div>
-      <div id="oyen"><svg width="{ow}" height="{oh}" viewBox="0 0 {C.CW} {C.CH}" shape-rendering="crispEdges">{oyen}</svg></div>
+      <div id="oyen">{oyen_html}</div>
       {bubble}
     </div>
     <script>

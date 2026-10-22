@@ -94,6 +94,17 @@ RULES = {
     ".big.white": "color: #fff;",
     ".big.two": "font-size: 90px;",
     ".big.three": "font-size: 80px;",
+    # CTA sits higher than the pastel layout so Oyen (bottom-left, up to ~340px tall) clears the button
+    "#cta": """position: absolute;
+        left: 40px;
+        top: 440px;
+        width: 1000px;
+        height: 760px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;""",
     "#cta .kick": "font-size: 58px;",
     "#cta .big": "font-size: 128px;",
     "#cta .big.white": "color: #fff;",

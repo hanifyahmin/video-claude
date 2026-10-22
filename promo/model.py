@@ -4,6 +4,7 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from oyen import tabby
 from oyen.character import POSE_SPECS
 
 from .icons import ICONS
@@ -33,7 +34,8 @@ class Promo:
     frame_src: float                 # source-footage second used as the cover background
     kicker: str                      # small line above the headline
     headline: list                   # 1-3 big lines; wrap a word in *stars* to make it yellow
-    pose: str = "Teruja"             # Oyen pose on the cover
+    pose: str = "Teruja"             # Oyen pose on the cover (an animation name for the tabby)
+    character: str = "chibi"         # "tabby": Oyen v2 (bold covers only); "chibi": the first Oyen
     bubble: str = None               # Oyen's speech bubble on the cover (optional)
     badge: str = None                # round sticker, e.g. "MAX 50KG" (optional, keep it a visible fact)
     badge_xy: tuple = None           # badge top-left; None = the style's default spot
@@ -52,8 +54,11 @@ class Promo:
 
     def problems(self):
         out = []
-        if self.pose not in POSE_SPECS:
-            out.append(f"unknown pose {self.pose!r}; choose from {list(POSE_SPECS)}")
+        poses = tabby.POSES if self.character == "tabby" else tuple(POSE_SPECS)
+        if self.pose not in poses:
+            out.append(f"unknown pose {self.pose!r}; choose from {list(poses)}")
+        if self.character == "tabby" and self.style != "bold":
+            out.append("the tabby Oyen is only drawn on bold covers")
         if not 1 <= len(self.headline) <= 3:
             out.append("headline needs 1-3 lines")
         for line in self.headline:

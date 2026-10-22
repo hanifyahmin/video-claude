@@ -1,6 +1,6 @@
 """Oyen command line. Run from the repo root.
 
-  python3 -m oyen poses                      regenerate oyen/gallery/poses/
+  python3 -m oyen poses                      regenerate oyen/gallery/poses/ and oyen/gallery/tabby/
   python3 -m oyen check <video_dir>          validate a video's storyline.py
   python3 -m oyen storyboard <video_dir>     storyboard PNG + STORYLINE.md
   python3 -m oyen install <video_dir>        write Oyen into the video's index.html
@@ -18,6 +18,7 @@ def main(argv):
     cmd, args = argv[0], argv[1:]
     if cmd == "poses":
         print(sheet.render())
+        print(sheet.render_tabby())
         return 0
     if len(args) != 1:
         print(f"usage: python3 -m oyen {cmd} <video_dir>")

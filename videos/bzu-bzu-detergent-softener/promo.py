@@ -15,6 +15,7 @@ PROMO = Promo(
     headline=["Baju baby", "*comot?*"],
     badge="2-in-1",                   # detergent + softener, as printed on the label
     tags=("1 liter",),
+    character="tabby",
     pose="Terkejut",
     bubble="Ada enzim tau!",
     caption=(

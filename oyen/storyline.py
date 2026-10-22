@@ -8,7 +8,10 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from . import tabby
 from .character import POSE_SPECS
+
+CHARACTERS = ("chibi", "tabby")
 
 MAX_LINE = 20  # characters; longer bubbles reach TikTok's right-side buttons
 MAX_LINES = 3  # speech lines per video: Oyen reacts, captions carry the facts
@@ -19,7 +22,7 @@ class Beat:
     start: float          # composition seconds
     end: float
     scene: str            # label for the storyboard ("1 Hook")
-    pose: str             # a key of character.POSE_SPECS
+    pose: str             # chibi: a key of character.POSE_SPECS; tabby: an animation in oyen/tabby
     line: str = None      # what Oyen says (speech bubble), or None
     note: str = ""        # direction for the storyboard
     src: float = None     # source-footage time for the storyboard thumbnail
@@ -47,17 +50,33 @@ class Storyline:
     source: str = None                           # footage for storyboard thumbnails (video-relative)
     layout: Layout = Layout()
     type_speed: float = 0.032                    # seconds per typed bubble character
+    character: str = "chibi"                     # "tabby": Oyen v2 (oyen/tabby); "chibi": the first Oyen
+
+    def poses(self):
+        return tabby.POSES if self.character == "tabby" else tuple(POSE_SPECS)
+
+    def can_talk(self, pose):
+        if self.character == "tabby":
+            return bool(tabby.anims()[pose].get("talk"))
+        return POSE_SPECS[pose].talk
+
+    def can_blink(self, pose):
+        if self.character == "tabby":
+            return bool(tabby.anims().get(pose, {}).get("blink"))
+        return POSE_SPECS.get(pose, POSE_SPECS["Senyum"]).blink
 
     def problems(self):
         """Human-readable issues; empty list means the storyline is valid."""
         out = []
+        if self.character not in CHARACTERS:
+            return [f"character {self.character!r} must be one of {CHARACTERS}"]
         if self.layout.style not in ("cute", "bold", "pixel"):
             out.append(f"layout style {self.layout.style!r} must be 'cute', 'bold' or 'pixel'")
         prev_end = None
         for i, b in enumerate(self.beats):
             tag = f"beat {i} ({b.start:g}-{b.end:g}s)"
-            if b.pose not in POSE_SPECS:
-                out.append(f"{tag}: unknown pose {b.pose!r}; choose from {list(POSE_SPECS)}")
+            if b.pose not in self.poses():
+                out.append(f"{tag}: unknown pose {b.pose!r}; choose from {list(self.poses())}")
             if b.end <= b.start:
                 out.append(f"{tag}: end must be after start")
             if prev_end is not None and abs(b.start - prev_end) > 1e-6:
@@ -69,7 +88,7 @@ class Storyline:
             out.append("the first beat must start at 0 (it is Oyen's state on frame 0)")
         for t in self.blinks:
             beat = self.beat_at(t)
-            if beat is None or not POSE_SPECS.get(beat.pose, POSE_SPECS["Senyum"]).blink:
+            if beat is None or beat.pose not in self.poses() or not self.can_blink(beat.pose):
                 out.append(f"blink at {t:g}s: the pose there has no blink frame")
         return out
 
@@ -77,7 +96,7 @@ class Storyline:
         """Things worth knowing that are not errors."""
         out = [f"beat {i} ({b.start:g}-{b.end:g}s): {b.pose!r} has no talking frame, so the bubble "
                f"shows without mouth flaps" for i, b in enumerate(self.beats)
-               if b.line and b.pose in POSE_SPECS and not POSE_SPECS[b.pose].talk]
+               if b.line and b.pose in self.poses() and not self.can_talk(b.pose)]
         lines = sum(1 for b in self.beats if b.line)
         if lines > MAX_LINES:
             out.append(f"{lines} speech lines; keep it to {MAX_LINES} (hook reaction, one punchline, CTA) "
