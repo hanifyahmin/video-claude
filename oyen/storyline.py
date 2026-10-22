@@ -33,7 +33,8 @@ class Layout:
     bubble_left: int = 352
     bubble_top: int = 1302
     bubble_max_width: int = 700
-    style: str = "cute"         # "cute": sticker outline + rounded cloud bubble (matches the covers); "pixel": ink-box bubble
+    style: str = "cute"         # "cute": sticker outline + cloud bubble; "bold": white box, black outline,
+                                # accent shadow (tools/bold_theme.py); "pixel": ink-box bubble
 
 
 @dataclass(frozen=True)
@@ -49,8 +50,8 @@ class Storyline:
     def problems(self):
         """Human-readable issues; empty list means the storyline is valid."""
         out = []
-        if self.layout.style not in ("cute", "pixel"):
-            out.append(f"layout style {self.layout.style!r} must be 'cute' or 'pixel'")
+        if self.layout.style not in ("cute", "bold", "pixel"):
+            out.append(f"layout style {self.layout.style!r} must be 'cute', 'bold' or 'pixel'")
         prev_end = None
         for i, b in enumerate(self.beats):
             tag = f"beat {i} ({b.start:g}-{b.end:g}s)"

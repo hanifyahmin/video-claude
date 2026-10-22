@@ -6,11 +6,6 @@
     <!-- local copy: cdn.jsdelivr.net may be blocked in cloud sessions -->
     <script src="assets/vendor/gsap.min.js"></script>
     <style>
-      @font-face {
-        font-family: "Fredoka";
-        src: url("assets/fonts/fredoka-latin.woff2") format("woff2");
-        font-weight: 300 700;
-      }
       * {
         margin: 0;
         padding: 0;
@@ -22,28 +17,29 @@
         width: 1080px;
         height: 1920px;
         overflow: hidden;
-        background: #fff;
+        background: #000;
       }
       #root {
         position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        font-family: Fredoka, sans-serif;
-        color: #2a1f1a;
-        background: #fff;
+        font-family: Montserrat, sans-serif;
+        color: #fff;
+        background: #000;
+        --accent: #1C86F2;
+        --on-accent: #ffffff;
       }
 
       /* ---------- footage card: portrait footage under the caption band ---------- */
       #card {
         position: absolute;
         left: 0;
-        top: 220px;
+        top: 0;
         width: 1080px;
-        height: 1700px;
+        height: 1920px;
         overflow: hidden;
-        border-radius: 56px 56px 0 0;
-        background: #fff;
+        background: #000;
       }
       .shot {
         position: absolute;
@@ -62,11 +58,10 @@
       #card-edge-top {
         position: absolute;
         left: 0;
-        top: 220px;
+        top: 0;
         width: 1080px;
-        height: 200px;
-        border-radius: 56px 56px 0 0;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+        height: 700px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0));
       }
       #flash {
         position: absolute;
@@ -93,52 +88,48 @@
         position: relative;
         z-index: 2;
         display: block;
-        margin-bottom: -12px;
-        padding: 4px 30px 10px;
-        border-radius: 40px 64px 46px 72px / 58px 40px 66px 46px;
-        background: #fff;
-        box-shadow: 0 8px 0 rgba(42, 31, 26, 0.1), 0 14px 30px rgba(42, 31, 26, 0.18);
-        font-weight: 700;
+        margin-bottom: 14px;
+        padding: 8px 26px 10px;
+        border-radius: 14px;
+        background: var(--accent);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        font-weight: 800;
         font-size: 46px;
         line-height: 1.1;
-        color: #2a1f1a;
+        color: var(--on-accent);
         white-space: nowrap;
-        transform: rotate(-3deg);
+        transform: rotate(-2deg);
       }
       .big {
         position: relative;
         display: block;
-        padding: 4px 42px 14px;
-        border-radius: 46px 70px 52px 80px / 64px 46px 74px 50px;
-        background: #ffe46b;
-        box-shadow: 0 10px 0 rgba(42, 31, 26, 0.1), 0 18px 36px rgba(42, 31, 26, 0.2);
-        font-family: Fredoka, sans-serif;
-        font-weight: 700;
-        font-size: 116px;
-        line-height: 1.02;
-        color: #2a1f1a;
+        font-family: Montserrat, sans-serif;
+        font-weight: 900;
+        font-size: 100px;
+        line-height: 1.04;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        color: #fff;
         white-space: nowrap;
-        transform: rotate(-1.5deg);
+        -webkit-text-stroke: 10px #111111;
+        paint-order: stroke fill;
+        text-shadow: 0 8px 0 rgba(0, 0, 0, 0.35);
       }
       .big::before,
       .big::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 70px;
-        height: 90px;
-        margin-top: -45px;
+        content: none;
       }
       .big.white {
-        background: #fff;
+        color: #fff;
       }
       .big::before {
-        left: -84px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M60 14L34 28M58 45H18M60 76L34 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+        display: none;
       }
       .big::after {
-        right: -84px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M10 14L36 28M12 45H52M10 76L36 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+        display: none;
+      }
+      .big .hl {
+        color: var(--accent);
       }
 
       /* ---------- shine, tracked label zooms ---------- */
@@ -153,7 +144,7 @@
         opacity: 0;
         pointer-events: none;
       }
-      /* tracked label zooms scale the whole 1920px video, not just the 1700px shot box */
+      /* tracked label zooms: the scaled video may extend past the shot box */
       .shot.tracked {
         overflow: visible;
       }
@@ -172,30 +163,28 @@
         text-align: center;
       }
       #cta .kick {
-        font-size: 60px;
+        font-size: 58px;
       }
       #cta .big {
-        margin-top: 8px;
-        font-size: 120px;
+        font-size: 128px;
       }
       #cta .big.white {
-        background: #fff;
-        transform: rotate(2deg);
+        color: #fff;
       }
       #cta-btn {
-        margin-top: 54px;
+        margin-top: 46px;
         display: flex;
         align-items: center;
         gap: 20px;
         height: 128px;
         padding: 0 50px 0 38px;
-        border: 8px solid #fff;
+        border: 6px solid #111111;
         border-radius: 64px;
-        background: #ffb6cf;
-        font-weight: 700;
-        font-size: 52px;
-        color: #2a1f1a;
-        box-shadow: 0 16px 36px rgba(232, 72, 127, 0.3);
+        background: var(--accent);
+        font-weight: 900;
+        font-size: 50px;
+        color: var(--on-accent);
+        box-shadow: 8px 8px 0 #111111;
       }
 
       /* OYEN:CSS:START (generated by `python3 -m oyen install`) */
@@ -208,7 +197,7 @@
       }
       #cat-svg {
         display: block;
-        filter: drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff) drop-shadow(0 -5px 0 #fff) drop-shadow(0 12px 16px rgba(42, 31, 26, 0.3));
+        filter: drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff) drop-shadow(0 -5px 0 #fff) drop-shadow(0 10px 14px rgba(0, 0, 0, 0.4));
       }
       .bub {
         position: absolute;
@@ -222,16 +211,16 @@
         left: 0;
         top: 0;
         max-width: 700px;
-        padding: 16px 34px 22px;
-        background: #fff3b8;
-        border: 6px solid #fff;
-        border-radius: 56px 64px 56px 20px;
-        box-shadow: 0 12px 26px rgba(42, 31, 26, 0.25);
-        font-family: Fredoka, sans-serif;
-        font-weight: 700;
-        font-size: 48px;
-        line-height: 1.1;
-        color: #2a1f1a;
+        padding: 14px 30px 18px;
+        background: #fff;
+        border: 6px solid #111;
+        border-radius: 30px 30px 30px 8px;
+        box-shadow: 8px 8px 0 var(--accent, #ffd60a);
+        font-family: Montserrat, sans-serif;
+        font-weight: 800;
+        font-size: 44px;
+        line-height: 1.15;
+        color: #111;
         white-space: nowrap;
       }
       .bub-tail {
@@ -286,46 +275,46 @@
       <!-- ================= CAPTIONS ================= -->
       <div id="cap1" class="cap clip" data-start="0" data-duration="2.4" data-track-index="2">
         <span class="kick">Baju baby kena susu &amp; muntah?</span>
-        <span class="big" style="font-size: 90px">Cuci dengan ni!</span>
+        <span class="big" style="font-size: 90px">Cuci <span class="hl">dengan ni!</span></span>
       </div>
       <div id="cap2" class="cap clip" data-start="2.4" data-duration="2.2" data-track-index="2">
         <span class="kick">BZU BZU Baby · 1 liter</span>
-        <span class="big" style="font-size: 70px">Detergen + pelembut</span>
+        <span class="big" style="font-size: 70px">Detergen <span class="hl">+ pelembut</span></span>
       </div>
       <div id="cap3" class="cap clip" data-start="4.6" data-duration="2.4" data-track-index="2">
         <span class="kick">Kesan susu, muntah</span>
-        <span class="big" style="font-size: 74px">&amp; najis pun hilang</span>
+        <span class="big" style="font-size: 74px">&amp; najis pun <span class="hl">hilang</span></span>
       </div>
       <div id="cap4" class="cap clip" data-start="7.0" data-duration="2.4" data-track-index="2">
         <span class="kick">Tanpa pewarna &amp; peluntur</span>
-        <span class="big" style="font-size: 80px">Diuji dermatologi</span>
+        <span class="big" style="font-size: 80px">Diuji <span class="hl">dermatologi</span></span>
       </div>
       <div id="cap5" class="cap clip" data-start="9.4" data-duration="2.4" data-track-index="2">
         <span class="kick">&gt;99% bahan semula jadi</span>
-        <span class="big" style="font-size: 72px">Aloe vera &amp; soapnut</span>
+        <span class="big" style="font-size: 70px"><span class="hl">Aloe vera</span> &amp; soapnut</span>
       </div>
       <div id="cap6" class="cap clip" data-start="11.8" data-duration="2.0" data-track-index="2">
         <span class="kick">Soapnut, pelembut semula jadi</span>
-        <span class="big" style="font-size: 80px">Mesra mesin basuh</span>
+        <span class="big" style="font-size: 80px">Mesra <span class="hl">mesin basuh</span></span>
       </div>
       <div id="cap7" class="cap clip" data-start="13.8" data-duration="2.6" data-track-index="2">
         <span class="kick">Penuh 2 penutup, separuh 1</span>
-        <span class="big" style="font-size: 84px">Top &amp; front load</span>
+        <span class="big" style="font-size: 84px"><span class="hl">Top &amp; front</span> load</span>
       </div>
 
 
       <!-- ================= CTA (no arrow: the user asked for none in the end scene) ================= -->
       <div id="cta" class="clip" data-start="16.4" data-duration="3.4" data-track-index="5">
-        <span class="kick" id="cta-k">Nak satu?</span>
+        <span class="kick" id="cta-k">NAK SATU?</span>
         <span class="big white" id="cta-b1">Tekan</span>
-        <span class="big" id="cta-b2">beg kuning</span>
+        <span class="big" id="cta-b2"><span class="hl">beg kuning</span></span>
         <div id="cta-btn">
           <svg width="64" height="64" viewBox="0 0 24 24">
-            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="#2a1f1a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="9.5" cy="20" r="1.6" fill="#2a1f1a" />
-            <circle cx="17" cy="20" r="1.6" fill="#2a1f1a" />
+            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9.5" cy="20" r="1.6" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.6" fill="currentColor" />
           </svg>
-          Check harga promo
+          CHECK HARGA PROMO
         </div>
       </div>
 
@@ -415,12 +404,12 @@
       tl.to("#sh1", { scale: 1.12, duration: 1.8, ease: "power1.in" }, 0.55);
 
       // ---------- 2-7. Label lines, followed as the hand drifts ----------
-      follow("#sh2", 2.4, 1.3, 395, 979, [[0, 118, -379], [0.4, 118, -310], [1.2, -18, -114], [2.0, -4, 3], [2.2, -4, 33]]);
-      follow("#sh3", 4.6, 1.6, 540, 724, [[0, 0, -124], [0.8, 0, -140], [1.6, 6, 49], [2.4, -16, 164]]);
-      follow("#sh4", 7.0, 1.55, 530, 1070, [[0, 10, -470], [0.8, 196, -107], [1.6, 150, 10], [2.4, 212, 255]]);
-      follow("#sh5", 9.4, 1.06, 530, 1080, [[0, 10, -270], [0.8, 10, -270], [1.6, 10, -270], [2.4, 10, -270]]);
-      follow("#sh6", 11.8, 1.35, 590, 900, [[0, -50, -300], [0.8, 44, -165], [1.6, 44, -138], [2.4, 44, -76]]);
-      follow("#sh7", 13.8, 1.4, 460, 1200, [[0, 80, -508], [0.8, 66, -508], [1.6, 66, -508], [2.4, 66, -508], [2.6, 66, -508]]);
+      follow("#sh2", 2.4, 1.3, 395, 979, [[0, 118, -59], [0.4, 118, 10], [1.2, -18, 206], [2.0, -4, 294], [2.2, -4, 294]]);
+      follow("#sh3", 4.6, 1.6, 540, 724, [[0, 0, 196], [0.8, 0, 180], [1.6, 6, 369], [2.4, -16, 434]]);
+      follow("#sh4", 7.0, 1.55, 530, 1070, [[0, 10, -150], [0.8, 196, 213], [1.6, 150, 330], [2.4, 212, 575]]);
+      follow("#sh5", 9.4, 1.06, 530, 1080, [[0, 10, -50], [0.8, 10, -50], [1.6, 10, -49], [2.4, 10, -28]]);
+      follow("#sh6", 11.8, 1.35, 590, 900, [[0, -50, 20], [0.8, 44, 155], [1.6, 44, 182], [2.4, 44, 244]]);
+      follow("#sh7", 13.8, 1.4, 460, 1200, [[0, 80, -280], [0.8, 66, -238], [1.6, 66, -196], [2.4, 66, -210], [2.6, 66, -210]]);
       flash(2.4, 0.22);
       caption("#cap2", 2.4, 2.2);
       shine(2.7);
@@ -435,7 +424,7 @@
       // ---------- 8. CTA (no arrow) ----------
       settle("#sh8", 16.4, 1.04);
       flash(16.4, 0.3);
-      tl.fromTo("#sh8", { filter: "brightness(1) blur(0px)" }, { filter: "brightness(1.12) saturate(0.9) blur(10px)", duration: 0.45, ease: "power2.out" }, 16.45);
+      tl.fromTo("#sh8", { filter: "brightness(1) blur(0px)" }, { filter: "brightness(0.42) blur(7px)", duration: 0.45, ease: "power2.out" }, 16.45);
       tl.fromTo("#cta-k", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 16.5);
       tl.fromTo("#cta-b1", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.26, ease: "back.out(2.4)" }, 16.65);
       tl.fromTo("#cta-b2", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 16.82);

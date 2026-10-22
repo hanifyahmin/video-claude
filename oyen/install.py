@@ -70,7 +70,21 @@ CUTE_CLOUD = "#fff3b8"
 
 def css_block(story):
     L = story.layout
-    if L.style == "cute":
+    if L.style == "bold":
+        # matches tools/bold_theme.py: white speech box, black outline, offset shadow in the video's accent
+        sprite = ("drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff) "
+                  "drop-shadow(0 -5px 0 #fff) drop-shadow(0 10px 14px rgba(0, 0, 0, 0.4))")
+        bubble = """        padding: 14px 30px 18px;
+        background: #fff;
+        border: 6px solid #111;
+        border-radius: 30px 30px 30px 8px;
+        box-shadow: 8px 8px 0 var(--accent, #ffd60a);
+        font-family: Montserrat, sans-serif;
+        font-weight: 800;
+        font-size: 44px;
+        line-height: 1.15;
+        color: #111;"""
+    elif L.style == "cute":
         sprite = ("drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff) "
                   "drop-shadow(0 -5px 0 #fff) drop-shadow(0 12px 16px rgba(42, 31, 26, 0.3))")
         bubble = f"""        padding: 16px 34px 22px;
@@ -156,7 +170,7 @@ def html_block(story):
              f'viewBox="0 0 {C.CW} {C.CH}" shape-rendering="crispEdges">{groups}</svg></div>']
     for bid, a, b, text, _pose in bubbles(story):
         chars = "".join(f'<span class="ch">{c if c != " " else "&nbsp;"}</span>' for c in text)
-        tail = _TAIL if story.layout.style == "pixel" else ""  # the cute cloud's sharp corner is its tail
+        tail = _TAIL if story.layout.style == "pixel" else ""  # cute/bold: the bubble's sharp corner is its tail
         lines.append(f'      <div id="{bid}" class="bub clip" data-start="{a:g}" data-duration="{round(b - a, 2):g}" '
                      f'data-track-index="6"><div class="bub-in">{tail}{chars}</div></div>')
     lines.append("      <!-- OYEN:END -->")

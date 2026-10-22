@@ -16,7 +16,7 @@ derived ingredients; Halal (JAKIM); 1 litre; dosing as printed.
   python3 -m oyen storyboard videos/bzu-bzu-detergent-softener
   python3 -m oyen install videos/bzu-bzu-detergent-softener
 """
-from oyen.storyline import Beat, Storyline
+from oyen.storyline import Beat, Layout, Storyline
 
 STORYLINE = Storyline(
     title="BZU BZU Detergent 2-in-1 (19.8s)",
@@ -47,4 +47,5 @@ STORYLINE = Storyline(
     ],
     blinks=[3.4, 12.6],
     jumps=[0.8, 9.4],
+    layout=Layout(style="bold"),
 )
