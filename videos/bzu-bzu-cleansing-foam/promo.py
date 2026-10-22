@@ -7,14 +7,17 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
-    style="cute",
+    style="bold",
+    niche="baby",
     frame_src=1.2,                    # bottle front, whole label, held over the sink
+    frame_shift=-320,                 # bottle moves down: the hook headline gets the top
     kicker="Cuci botol susu baby?",
-    headline=["*Guna buih ni!*"],
-    tags=("0% pewangi",),
-    pose="Teruja",
+    headline=["Guna", "*buih ni!*"],
+    badge="0% pewangi",               # printed on the label
+    tags=("500ml",),
+    character="tabby",
+    pose="Terkejut",
     bubble="Banyaknya buih!",
-    features=(("leaf", "100% bahan\ntumbuhan*"), ("drop", "Mudah\ndibilas"), ("check", "Dijamin\nhalal")),
     caption=(
         "Cuci botol susu baby? 🍼 Guna BZU BZU Baby Accessories Cleansing Foam, pam terus jadi buih! 🫧\n"
         "Untuk botol susu, pinggan, mainan, buah & sayur. 0% pewangi, bahan peluntur & paraben, pewarna tiruan, "

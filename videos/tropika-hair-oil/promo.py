@@ -8,15 +8,17 @@ sensitive skin, healthy thick hair, Halal JAKIM, Vegan, Not Tested, 30ml).
 from promo import Promo
 
 PROMO = Promo(
-    style="cute",
+    style="bold",
+    niche="baby",
     frame_src=79.0,                   # bottle standing, front label square on
-    kicker="Rambut baby",
-    headline=["*nipis?*"],
-    product_crop=(110, 0, 700, 1500), # bottle + thumb; the fingers behind fade out
+    frame_shift=-220,                 # bottle moves down: the hook headline gets the top
+    kicker="Mommy, tengok ni!",
+    headline=["Rambut baby", "*nipis?*"],
+    badge="Tanpa pengawet",           # printed on the box: tanpa sebarang bahan kimia dan pengawet
     tags=("30ml",),
-    pose="Jatuh cinta",
-    bubble="Rambut lebat~",
-    features=(("leaf", "Kelapa dara\n+ rose"), ("shield", "Tanpa\npengawet"), ("check", "Dijamin\nhalal")),
+    character="tabby",
+    pose="Terkejut",
+    bubble="Eh, kesian baby!",
     caption=(
         "Rambut baby nipis? 🥺 Cuba Tropika I'm Rabby Baby Hair & Body Oil Sweet 🐰\n"
         "Minyak kelapa dara + rose, tanpa bahan kimia & pengawet. Bantu lembapkan kulit sensitif "

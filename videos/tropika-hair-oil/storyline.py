@@ -14,31 +14,35 @@ Vegan, Not Tested on Animals, 30ml.
   python3 -m oyen storyboard videos/tropika-hair-oil
   python3 -m oyen install videos/tropika-hair-oil
 """
-from oyen.storyline import Beat, Storyline
+from oyen.storyline import Beat, Layout, Storyline
 
 STORYLINE = Storyline(
     title="Tropika Hair & Body Oil (18s)",
     source="assets/source-portrait.mp4",
     beats=[
-        Beat(0.0, 1.4, "1 Hook", "Terkejut", None,
-             "Botol berdiri + shake. Caption: RAMBUT BABY / NIPIS?", src=77.5),
-        Beat(1.4, 3.0, "1 Hook", "Teruja", "Jom tengok ni!",
-             "Botol ditarik keluar dari kotak (1.5x). Caption: TROPIKA I'M RABBY / HAIR & BODY OIL", src=40.2),
-        Beat(3.0, 5.4, "2 Ramuan", "Bercakap", "Ada rose tau~",
-             "Label belakang botol (teks VCO + rose), zoom. Caption: MINYAK KELAPA DARA / + ROSE", src=44.5),
-        Beat(5.4, 8.0, "3 Tanpa", "Senyum", "Tanpa pengawet!",
-             "Teks BM belakang kotak, zoom. Caption: TANPA BAHAN KIMIA / & PENGAWET", src=21.5),
-        Beat(8.0, 10.4, "4 Fungsi", "Jatuh cinta", "Rambut lebat~",
-             "Depan kotak (Rabby) + kilauan. Caption: LEMBAPKAN KULIT / RAMBUT SIHAT & LEBAT", src=3.0),
-        Beat(10.4, 12.4, "5 Ikon", "Kenyit mata", "Halal & vegan~",
-             "Ikon Halal / Vegan / Not tested + 30ml. Caption: TAK DIUJI PADA HAIWAN / HALAL & VEGAN", src=98.5),
-        Beat(12.4, 15.0, "6 Buka", "Bercakap", "Kecik je, 30ml!",
-             "Pusing penutup (1.7x), botol terbuka. Caption: SAIZ 30ML / MUDAH BAWA", src=59.0),
-        Beat(15.0, 17.2, "7 CTA", "Shopping", "Jom checkout!",
-             "CTA beg kuning (tanpa anak panah), botol di belakang.", src=79.0),
-        Beat(17.2, 18.0, "7 CTA", "Kenyit mata", None,
-             "Penutup: Oyen kenyit mata.", src=80.0),
+        Beat(0.0, 0.7, "1 Hook", "Jalan", None,
+             "Oyen berjalan masuk; botol berdiri + shake. Caption: Rambut baby / NIPIS?", src=77.5),
+        Beat(0.7, 3.0, "1 Hook", "Terkejut", "Eh, kesian baby!",
+             "Oyen terkejut (dialog 1/3); botol ditarik keluar dari kotak. Caption: Tropika I'm Rabby / "
+             "HAIR & BODY OIL", src=40.2),
+        Beat(3.0, 5.4, "2 Ramuan", "Menjilat", None,
+             "Label belakang botol (VCO + rose), zoom; Oyen menjilat bulu. Caption: Minyak kelapa dara / + ROSE",
+             src=44.5),
+        Beat(5.4, 8.0, "3 Tanpa", "Duduk", "Fuh, padu ni!",
+             "Teks BM belakang kotak, zoom (dialog 2/3). Caption: Tanpa bahan kimia / & PENGAWET", src=21.5),
+        Beat(8.0, 10.4, "4 Fungsi", "Gembira", None,
+             "Depan kotak (Rabby) + kilauan. Caption: Lembapkan kulit / RAMBUT SIHAT & LEBAT", src=3.0),
+        Beat(10.4, 12.4, "5 Ikon", "Teruja", None,
+             "Ikon Halal / Vegan / Not tested + 30ml. Caption: Tak diuji pada haiwan / HALAL & VEGAN", src=98.5),
+        Beat(12.4, 15.0, "6 Buka", "Regang", None,
+             "Pusing penutup (1.8x), botol terbuka. Caption: Saiz 30ml / MUDAH BAWA", src=59.0),
+        Beat(15.0, 16.8, "7 CTA", "Duduk", "Jom checkout!",
+             "CTA beg kuning (tanpa anak panah) (dialog 3/3).", src=79.0),
+        Beat(16.8, 18.0, "7 CTA", "Lari keluar", None,
+             "Oyen meluru keluar dan melanggar bubble 'Jom checkout!'.", src=80.0),
     ],
-    blinks=[6.6, 13.6],
-    jumps=[1.4, 15.0],
+    blinks=[7.4, 16.3],
+    jumps=[],
+    layout=Layout(style="bold"),
+    character="tabby",
 )
