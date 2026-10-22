@@ -34,7 +34,7 @@ STORYLINE = Storyline(
              "Bullet depan: bebas pewarna, peluntur, bahan kimia keras + Dermatologist-tested. "
              "Caption: Tanpa pewarna & peluntur / Diuji dermatologi", src=6.0),
         Beat(9.4, 11.8, "5 Bahan", "Kenyit mata", "Halal pulak tu~",
-             "Logo Halal + baris ikon, sticker satu-satu. Caption: >99% bahan semula jadi / Aloe vera & soapnut", src=10.5),
+             "Logo Halal + baris ikon (>99%, enzim, aloe vera, soapnut) + kilauan. Caption: >99% bahan semula jadi / Aloe vera & soapnut", src=10.5),
         Beat(11.8, 13.8, "6 Pelembut", "Senyum", None,
              "Kotak Soapnut + Low Suds. Caption: Soapnut, pelembut semula jadi / Mesra mesin basuh", src=26.5),
         Beat(13.8, 16.4, "7 Cara", "Bercakap", "Mesin apa pun ok!",
