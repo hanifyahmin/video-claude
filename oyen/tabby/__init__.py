@@ -16,7 +16,6 @@ SHEET = HERE / "oyen-tabby.png"
 
 # on-screen placement in the 1080x1920 video (bottom-left, clear of TikTok's caption area)
 SCALE = 6            # screen px per art px (a standing cat is 48 art px: 288px)
-ANCHOR_X = 300       # x of the cell's right edge: the cat faces right, its head sits here
 GROUND = 1560        # y of the cell floor
 
 
@@ -30,6 +29,9 @@ def anims():
 
 
 POSES = tuple(meta()["anims"])
+# x of the cell's right edge (the cat faces right, its head sits here): far enough in that the widest
+# frame (a tail stretched out behind) still fits on screen with a small margin
+ANCHOR_X = meta()["cell"][0] * SCALE + 16
 
 
 def cell():
