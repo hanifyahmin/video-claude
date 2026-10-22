@@ -4,8 +4,8 @@ Footage: assets/source-portrait.mp4 = the 6 phone clips joined in order (camera
 sound removed). Usable (joined-file seconds):
   front label 0.5-3, 14-22 (steady 15.5-17.5); back label 3.5-13.5 (steady 6-8)
   sink + bottle 22-30; pump foam into the bottle 30.5-33.5 (foam stream 32-33);
-  bottle brush 37.5-50; rinsing under the tap 50.5-57; clean bottle held up 58.5-60.5,
-  65-72.5 (graduations visible 66-68)
+  bottle brush 37.5-50; rinsing under the tap 50.5-57; rinsed bottle 58.5-60.5; bottle with milk residue (dirty) 65-69;
+  clean, clear bottle 69.3-72.5
 Claims come from the label only: for milk bottles, dish, toys, fruits & vegetables;
 0% fragrance, bleaching agent & paraben, artificial colouring, soap & alcohol; no sulfate;
 100% plant-based ingredients*; easy-to-rinse; foam pump saves water and washing time;
@@ -41,7 +41,7 @@ STORYLINE = Storyline(
         Beat(15.4, 17.6, "8 Berus", "Teruja", "Berus, bilas, siap!",
              "Berus botol (2x) lalu bilas bawah paip. Caption: Berus & bilas / Mudah dibilas", src=40.5),
         Beat(17.6, 19.6, "9 Hasil", "Thumbs up", "Wangi lemon~",
-             "Botol bersih diangkat + kilauan. Caption: Bersih & / bau lemon segar", src=66.5),
+             "Botol jernih (klip 165346) + kilauan + inset SEBELUM botol kotor. Caption: Bersih & / bau lemon segar", src=71.2),
         Beat(19.6, 21.8, "10 CTA", "Shopping", "Jom checkout!",
              "CTA beg kuning (tanpa anak panah), botol foam di belakang.", src=15.0),
         Beat(21.8, 22.4, "10 CTA", "Kenyit mata", None,

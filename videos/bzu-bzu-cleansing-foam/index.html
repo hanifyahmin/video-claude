@@ -193,6 +193,42 @@
         color: #2a1f1a;
       }
 
+      #before {
+        position: absolute;
+        left: 56px;
+        top: 470px;
+        width: 330px;
+      }
+      #before img {
+        display: block;
+        width: 330px;
+        height: 440px;
+        object-fit: cover;
+        border: 10px solid #fff;
+        border-radius: 34px;
+        box-shadow: 0 16px 36px rgba(42, 31, 26, 0.3);
+      }
+      .tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 4px 26px 10px;
+        border-radius: 30px;
+        background: #fff;
+        box-shadow: 0 8px 18px rgba(42, 31, 26, 0.2);
+        font-family: Fredoka, sans-serif;
+        font-weight: 700;
+        font-size: 44px;
+        color: #2a1f1a;
+      }
+      .tag.yellow {
+        background: #ffe46b;
+      }
+      #after-tag {
+        position: absolute;
+        left: 700px;
+        top: 470px;
+      }
+
       /* ---------- CTA ---------- */
       #cta {
         position: absolute;
@@ -318,7 +354,7 @@
           <video id="v9" class="clip" src="assets/source-portrait.mp4" data-start="16.6" data-duration="1" data-media-start="51.0" data-playback-rate="1.5" data-track-index="0" muted playsinline></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh10">
-          <video id="v10" class="clip" src="assets/source-portrait.mp4" data-start="17.6" data-duration="2" data-media-start="65.8" data-track-index="0" muted playsinline></video>
+          <video id="v10" class="clip" src="assets/source-portrait.mp4" data-start="17.6" data-duration="2" data-media-start="70.4" data-track-index="0" muted playsinline></video>
         </div>
         <div class="shot" data-layout-allow-overflow id="sh11">
           <video id="v11" class="clip" src="assets/source-portrait.mp4" data-start="19.6" data-duration="2.8" data-media-start="15.4" data-playback-rate="0.8" data-track-index="0" muted playsinline></video>
@@ -371,6 +407,11 @@
       <div id="chip3" class="chip clip" data-start="6.6" data-duration="2.4" data-track-index="5" style="left: 380px; top: 1150px">0% Pewarna</div>
       <div id="chip4" class="chip clip" data-start="6.6" data-duration="2.4" data-track-index="6" style="left: 710px; top: 1150px">0% Alkohol</div>
       <div id="ff1" class="ff clip" data-start="15.4" data-duration="1.2" data-track-index="7"><svg width="44" height="32" viewBox="0 0 28 20"><path d="M1 1l12 9-12 9zM14 1l12 9-12 9z" fill="#2a1f1a" /></svg>2X</div>
+      <div id="before" class="clip" data-start="17.6" data-duration="2" data-track-index="8">
+        <span class="tag">Sebelum</span>
+        <img src="assets/before.jpg" alt="" />
+      </div>
+      <div id="after-tag" class="clip" data-start="17.6" data-duration="2" data-track-index="9"><span class="tag yellow">Selepas</span></div>
 
       <!-- ================= CTA (no arrow: the user asked for none in the end scene) ================= -->
       <div id="cta" class="clip" data-start="19.6" data-duration="2.8" data-track-index="5">
@@ -511,11 +552,13 @@
       sticker("#ff1", 15.45, -4);
       settle("#sh9", 16.6, 1.06);
 
-      // ---------- 9. Clean bottle ----------
-      settle("#sh10", 17.6, 1.1);
+      // ---------- 9. Clean bottle, dirty one as the "before" inset ----------
+      settle("#sh10", 17.6, 1.04);
       flash(17.6, 0.3);
       caption("#cap9", 17.6, 2);
       shine(17.85);
+      tl.fromTo("#before", { opacity: 0, scale: 0.6, rotation: -14 }, { opacity: 1, scale: 1, rotation: -5, duration: 0.4, ease: "back.out(2)" }, 17.75);
+      sticker("#after-tag", 17.9, 4);
 
       // ---------- 10. CTA (no arrow) ----------
       settle("#sh11", 19.6, 1.04);
