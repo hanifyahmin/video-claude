@@ -5,6 +5,7 @@
 from promo import Promo
 
 PROMO = Promo(
+    style="cute",
     frame_src=171.0,                  # LCD lit, 0.00 kg
     cutout=False,                     # silver body on a grey wall: the background model drops it, so a photo card
     product_crop=(40, 620, 1000, 760),

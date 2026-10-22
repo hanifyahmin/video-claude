@@ -32,14 +32,23 @@ class PromoTest(unittest.TestCase):
         self.assertIn("unknown style", "\n".join(promo(style="fancy").problems()))
 
     def test_cute_html(self):
-        page = build_html(promo(kicker="A&B", headline=["*YES*"], tags=("30ml",), features=(("leaf", "Satu\ndua"),)))
+        page = build_html(promo(style="cute", kicker="A&B", headline=["*YES*"], tags=("30ml",),
+                                features=(("leaf", "Satu\ndua"),)))
         self.assertIn('<span class="hl">YES</span>', page)
         self.assertIn("A&amp;B", page)
         self.assertIn("product.png", page)
         self.assertIn("Satu<br />dua", page)
         self.assertIn('class="tag"', page)
         self.assertNotIn('class="photo"', page)
-        self.assertIn('class="photo"', build_html(promo(cutout=False)))
+        self.assertIn('class="photo"', build_html(promo(style="cute", cutout=False)))
+
+    def test_bold_html_uses_the_niche_accent(self):
+        page = build_html(promo(niche="baby", kicker="A&B", headline=["Baju", "*comot?*"], badge="2 dalam 1"))
+        self.assertIn('<span class="hl">comot?</span>', page)
+        self.assertIn("#1C86F2", page)
+        self.assertIn("A&amp;B", page)
+        self.assertIn('id="badge"', page)
+        self.assertIn("unknown niche", "\n".join(promo(niche="kucing").problems()))
 
     def test_caption_text(self):
         self.assertEqual(promo(caption=" Hai \n", hashtags=["#a", "#b"]).caption_text(), "Hai\n\n#a #b\n")

@@ -31,6 +31,9 @@ def _headline_html(lines):
 
 
 def build_html(p):
+    if p.style == "bold":
+        from .bold import build_html as bold_html
+        return bold_html(p)
     if p.style == "cute":
         from .cute import build_html as cute_html
         return cute_html(p)

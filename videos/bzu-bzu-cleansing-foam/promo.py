@@ -7,6 +7,7 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
+    style="cute",
     frame_src=1.2,                    # bottle front, whole label, held over the sink
     kicker="Cuci botol susu baby?",
     headline=["*Guna buih ni!*"],

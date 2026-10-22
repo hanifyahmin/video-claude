@@ -8,6 +8,7 @@ sensitive skin, healthy thick hair, Halal JAKIM, Vegan, Not Tested, 30ml).
 from promo import Promo
 
 PROMO = Promo(
+    style="cute",
     frame_src=79.0,                   # bottle standing, front label square on
     kicker="Rambut baby",
     headline=["*nipis?*"],

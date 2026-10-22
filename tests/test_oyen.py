@@ -92,5 +92,21 @@ class InstallTest(unittest.TestCase):
             install.install(self.video)
 
 
+class OyenRestraintTest(unittest.TestCase):
+    def test_notes_flag_chatty_and_repetitive_storylines(self):
+        from oyen.storyline import Beat, Storyline
+        beats = [Beat(i, i + 1, "x", "Senyum" if i < 2 else "Teruja", "hai") for i in range(4)]
+        notes = "\n".join(Storyline("t", beats).notes())
+        self.assertIn("4 speech lines", notes)
+        self.assertIn("repeats 'Senyum'", notes)
+
+    def test_new_poses_build(self):
+        from oyen import character as C
+        for name in ("Gelak", "Sedih", "Cool", "Geram", "Malu", "Pening"):
+            with self.subTest(pose=name):
+                self.assertEqual(len(C.POSES[name]), C.CH)
+                self.assertIn("rest", C.video_frames(name))
+
+
 if __name__ == "__main__":
     unittest.main()

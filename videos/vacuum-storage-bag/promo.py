@@ -7,6 +7,7 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
+    style="cute",
     frame_src=126.8,                  # flat, vacuumed bag of clothes, top-down, no hand
     cutout=False,                     # clear plastic on tiles: the background model drops it, so a photo card
     product_crop=(40, 160, 1000, 1200),

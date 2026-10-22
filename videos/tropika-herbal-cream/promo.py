@@ -8,6 +8,7 @@ Not Tested on Animals) and the rub test shown in the video.
 from promo import Promo
 
 PROMO = Promo(
+    style="cute",
     frame_src=6.0,                    # front of the tube, teddy label square on
     product_crop=(60, 150, 820, 1550),  # tube; the holding hand fades out
     kicker="Perut baby asyik",

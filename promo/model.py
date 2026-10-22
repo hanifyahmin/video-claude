@@ -8,10 +8,21 @@ from oyen.character import POSE_SPECS
 
 from .icons import ICONS
 
+REPO = Path(__file__).resolve().parent.parent
+
+
+def niche_colours(niche):
+    """(accent, text on accent) of a niche, shared with the video theme (tools/bold_theme.py)."""
+    spec = importlib.util.spec_from_file_location("bold_theme", REPO / "tools" / "bold_theme.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.NICHES[niche] if niche in mod.NICHES else None
+
 CAPTION_MAX = 2200        # TikTok post caption limit
 CAPTION_VISIBLE = 120     # roughly what shows before "more" on the feed
 HEADLINE_MAX = 14         # characters per headline line at cover size
-STYLES = ("cute", "classic")  # cute: bright sticker cover with a cut-out product; classic: dark full-frame
+STYLES = ("bold", "cute", "classic")  # bold: matches the bold video theme (default); cute: pastel sticker cover
+                                     # with a cut-out product; classic: the first dark full-frame cover
 TAG_MAX = 10              # characters per line of a pink size/fact tag (1-2 lines)
 FEATURE_LINE_MAX = 12     # characters per line of a feature-row label
 
@@ -27,7 +38,8 @@ class Promo:
     badge: str = None                # round sticker, e.g. "MAX 50KG" (optional, keep it a visible fact)
     badge_xy: tuple = None           # badge top-left; None = the style's default spot
     frame_shift: int = 0             # classic: px to move the background up (+) or down (-) so the product clears the text
-    style: str = "cute"
+    style: str = "bold"
+    niche: str = "umum"               # bold: accent colour, same niches as tools/bold_theme.py
     tags: tuple = ()                 # cute: up to 2 pink fact tags beside the product, e.g. ("30ml", "Dijamin\nhalal")
     product_crop: tuple = None       # cute: (x, y, w, h) of the 1080x1920 frame to keep, e.g. to drop most of a hand
     cutout: bool = True              # cute: cut the product out; False = show the frame as a rounded photo card
@@ -49,6 +61,8 @@ class Promo:
                 out.append(f"headline line {line!r} is over {HEADLINE_MAX} chars; split it")
         if self.style not in STYLES:
             out.append(f"unknown style {self.style!r}; choose from {STYLES}")
+        if self.style == "bold" and niche_colours(self.niche) is None:
+            out.append(f"unknown niche {self.niche!r}; see tools/bold_theme.py NICHES")
         if len(self.tags) > 2:
             out.append("at most 2 tags")
         for tag in self.tags:

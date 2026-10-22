@@ -100,6 +100,36 @@ def eyes_wink():  # left open, right ^
     return eyes_open(L_EYE) + eyes_happy([R_EYE])
 
 
+def eyes_laugh():  # > <  squeezed shut
+    out = []
+    for a, b, c in (L_EYE, R_EYE):
+        out += [(6, a, "K"), (7, b, "K"), (8, a, "K")] if a == L_EYE[0] else [(6, c, "K"), (7, b, "K"), (8, c, "K")]
+    return out
+
+
+def eyes_sad():  # open eyes under brows tilted up in the middle, a tear on each cheek
+    out = eyes_open() + [(5, 3, "K"), (4, 4, "K"), (4, 5, "K"), (4, 14, "K"), (4, 15, "K"), (5, 16, "K")]
+    return out + [(9, 4, "N"), (10, 4, "N"), (9, 15, "N"), (10, 15, "N")]
+
+
+def eyes_angry():  # narrowed eyes under thick brows slanting down to the middle
+    eyes = [(r, c, "E") for r in (7, 8) for c in L_EYE + R_EYE] + [(7, 3, "W"), (7, 14, "W")]
+    brows = [(5, 2, "K"), (5, 3, "K"), (6, 4, "K"), (6, 5, "K"), (6, 14, "K"), (6, 15, "K"), (5, 16, "K"), (5, 17, "K")]
+    return eyes + brows
+
+
+def eyes_dizzy():  # @ @ spirals
+    out = []
+    for a, b, c in (L_EYE, R_EYE):
+        out += [(6, a, "K"), (6, b, "K"), (6, c, "K"), (7, c, "K"), (8, c, "K"), (8, b, "K"), (8, a, "K"),
+                (7, b, "K")]
+    return out
+
+
+SHADES = [(r, c, "E") for r in (6, 7) for c in range(2, 18) if c not in (9, 10)] + \
+         [(6, 9, "E"), (6, 10, "E"), (6, 3, "W"), (6, 14, "W"), (8, 3, "E"), (8, 4, "E"), (8, 15, "E"), (8, 16, "E")]
+
+
 BLUSH = [(10, 2, "B"), (10, 3, "B"), (10, 16, "B"), (10, 17, "B")]
 
 # ---------------- mouths (head space) ----------------
@@ -115,6 +145,10 @@ MOUTH_BIG = [(10, c, "K") for c in range(7, 13)] + [(11, 7, "K"), (11, 12, "K")]
                                                       (13, 9, "K"), (13, 10, "K")]
 MOUTH_SMALL = [(10, 9, "K"), (10, 10, "K")]
 MOUTH_FLAT = [(11, 8, "K"), (11, 9, "K"), (11, 10, "K"), (11, 11, "K")]
+MOUTH_FROWN = [(10, 8, "K"), (10, 9, "K"), (10, 10, "K"), (10, 11, "K"), (11, 7, "K"), (11, 12, "K")]
+MOUTH_SMIRK = [(10, 12, "K"), (11, 8, "K"), (11, 9, "K"), (11, 10, "K"), (11, 11, "K")]
+MOUTH_GRIT = [(10, c, "K") for c in range(7, 13)] + [(11, 7, "K"), (11, 12, "K")] + \
+             [(11, c, "W") for c in range(8, 12)] + [(11, 9, "K")] + [(12, c, "K") for c in range(7, 13)]
 NO_MOUTH = []
 
 # ---------------- stamps: (canvas_x, canvas_y, rows) ----------------
@@ -141,6 +175,13 @@ THUMB = (20, 13, ["..KK....", ".KLLK...", ".KLLK...", "KKLLKKK.", "KLLLLLLK",
 THUMB_ARM = (18, 17, ["KK.", "OOK", "OOK", "KK."])
 FISH = (6, 13, [".KKKKKK..KK.", "KNNNNNNK.KNK", "KNWENNNNKNNK", "KNNNNNNK.KNK", ".KKKKKK..KK."])
 CRUMBS = (19, 17, ["..L.", "L...", "...L"])
+JOY_TEARS = (1, 9, ["N.", ".N"])                      # flying off the left cheek while laughing
+JOY_TEARS_R = (25, 9, [".N", "N."])
+HAHA = (19, 0, ["Y.Y..Y.", "Y.Y.Y.Y", "YYY.YYY", "Y.Y.Y.Y"])
+GLOOM = (21, 0, ["N....", ".N.N.", "..N..", "....N"])  # little rain lines
+ANGER = (21, 1, ["RR.RR", "R...R", ".....", "R...R", "RR.RR"])  # 💢
+SHY_SWEAT = (22, 6, [".N", "NN", "NN"])
+SWIRL = (5, 0, ["..Y..........Y..", ".YWY........YWY.", "..Y..........Y.."])
 
 
 def build(face, stamps=(), tail=True):
@@ -186,6 +227,12 @@ POSE_SPECS = {
     "Bercakap": PoseSpec(eyes_open(), MOUTH_TALK, rest_mouth=MOUTH_UU, blink=True),
     "Thumbs up": PoseSpec(eyes_wink(), MOUTH_UU, (THUMB_ARM, THUMB, TWINKLE)),
     "Makan": PoseSpec(eyes_happy(), NO_MOUTH, (FISH, CRUMBS, TWINKLE), talk=False, extra_face=BLUSH),
+    "Gelak": PoseSpec(eyes_laugh(), MOUTH_BIG, (JOY_TEARS, JOY_TEARS_R, HAHA)),
+    "Sedih": PoseSpec(eyes_sad(), MOUTH_FROWN, (GLOOM,)),
+    "Cool": PoseSpec(SHADES, MOUTH_SMIRK, (TWINKLE,)),
+    "Geram": PoseSpec(eyes_angry(), MOUTH_GRIT, (ANGER,), talk=False),
+    "Malu": PoseSpec(eyes_happy(), MOUTH_SMALL, (SHY_SWEAT,), extra_face=BLUSH + [(10, 4, "B"), (10, 15, "B")]),
+    "Pening": PoseSpec(eyes_dizzy(), MOUTH_FLAT, (SWIRL, SWEAT), talk=False),
 }
 
 

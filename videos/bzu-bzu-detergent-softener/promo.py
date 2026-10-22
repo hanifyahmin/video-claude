@@ -7,13 +7,16 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
+    style="bold",
+    niche="baby",
     frame_src=1.6,                    # whole bottle front, held up
-    kicker="Baju baby kena susu & muntah?",
-    headline=["Cuci", "*dengan ni!*"],
-    tags=("2 dalam 1",),
-    pose="Teruja",
-    bubble="Baju comot lagi?",
-    features=(("sparkle", "Ada enzim\nbuang kesan"), ("leaf", ">99% bahan\nsemula jadi"), ("check", "Dijamin\nhalal")),
+    frame_shift=-180,                 # bottle moves down: the hook headline gets the top
+    kicker="Kesan susu & muntah?",
+    headline=["Baju baby", "*comot?*"],
+    badge="2-in-1",                   # detergent + softener, as printed on the label
+    tags=("1 liter",),
+    pose="Terkejut",
+    bubble="Ada enzim tau!",
     caption=(
         "Baju baby kena susu & muntah? 😩 Cuci dengan BZU BZU Baby Laundry Detergent & Softener 2-in-1 👶\n"
         "Detergen + pelembut dalam satu. Sistem enzim untuk kesan susu, muntah & najis. Tanpa pewarna, peluntur & "

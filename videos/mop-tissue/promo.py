@@ -7,6 +7,7 @@ Only claim what the footage shows or the user confirmed.
 from promo import Promo
 
 PROMO = Promo(
+    style="cute",
     frame_src=78.0,                   # whole mop with a sheet fitted, on the floor
     cutout=False,                     # white mop on pale tiles: shown as a photo card
     product_crop=(0, 560, 1080, 1000),

@@ -11,6 +11,7 @@ from pathlib import Path
 from .character import POSE_SPECS
 
 MAX_LINE = 20  # characters; longer bubbles reach TikTok's right-side buttons
+MAX_LINES = 3  # speech lines per video: Oyen reacts, captions carry the facts
 
 
 @dataclass(frozen=True)
@@ -74,9 +75,17 @@ class Storyline:
 
     def notes(self):
         """Things worth knowing that are not errors."""
-        return [f"beat {i} ({b.start:g}-{b.end:g}s): {b.pose!r} has no talking frame, so the bubble "
-                f"shows without mouth flaps" for i, b in enumerate(self.beats)
-                if b.line and b.pose in POSE_SPECS and not POSE_SPECS[b.pose].talk]
+        out = [f"beat {i} ({b.start:g}-{b.end:g}s): {b.pose!r} has no talking frame, so the bubble "
+               f"shows without mouth flaps" for i, b in enumerate(self.beats)
+               if b.line and b.pose in POSE_SPECS and not POSE_SPECS[b.pose].talk]
+        lines = sum(1 for b in self.beats if b.line)
+        if lines > MAX_LINES:
+            out.append(f"{lines} speech lines; keep it to {MAX_LINES} (hook reaction, one punchline, CTA) "
+                       f"and let poses carry the rest")
+        for i, (a, b) in enumerate(zip(self.beats, self.beats[1:]), 1):
+            if a.pose == b.pose:
+                out.append(f"beat {i} ({b.start:g}s) repeats {b.pose!r}; vary the pose")
+        return out
 
     def beat_at(self, t):
         for b in self.beats:
