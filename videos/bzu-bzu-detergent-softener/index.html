@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- local copy: cdn.jsdelivr.net may be blocked in cloud sessions -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Fredoka";
+        src: url("assets/fonts/fredoka-latin.woff2") format("woff2");
+        font-weight: 300 700;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #fff;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: Fredoka, sans-serif;
+        color: #2a1f1a;
+        background: #fff;
+      }
+
+      /* ---------- footage card: portrait footage under the caption band ---------- */
+      #card {
+        position: absolute;
+        left: 0;
+        top: 220px;
+        width: 1080px;
+        height: 1700px;
+        overflow: hidden;
+        border-radius: 56px 56px 0 0;
+        background: #fff;
+      }
+      .shot {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        transform-origin: 50% 38%;
+      }
+      .shot video {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+      }
+      #card-edge-top {
+        position: absolute;
+        left: 0;
+        top: 220px;
+        width: 1080px;
+        height: 200px;
+        border-radius: 56px 56px 0 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+      }
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* ---------- captions (top safe zone, below TikTok's top bar) ---------- */
+      .cap {
+        position: absolute;
+        left: 40px;
+        top: 150px;
+        width: 1000px;
+        height: 260px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .kick {
+        position: relative;
+        z-index: 2;
+        display: block;
+        margin-bottom: -12px;
+        padding: 4px 30px 10px;
+        border-radius: 40px 64px 46px 72px / 58px 40px 66px 46px;
+        background: #fff;
+        box-shadow: 0 8px 0 rgba(42, 31, 26, 0.1), 0 14px 30px rgba(42, 31, 26, 0.18);
+        font-weight: 700;
+        font-size: 46px;
+        line-height: 1.1;
+        color: #2a1f1a;
+        white-space: nowrap;
+        transform: rotate(-3deg);
+      }
+      .big {
+        position: relative;
+        display: block;
+        padding: 4px 42px 14px;
+        border-radius: 46px 70px 52px 80px / 64px 46px 74px 50px;
+        background: #ffe46b;
+        box-shadow: 0 10px 0 rgba(42, 31, 26, 0.1), 0 18px 36px rgba(42, 31, 26, 0.2);
+        font-family: Fredoka, sans-serif;
+        font-weight: 700;
+        font-size: 116px;
+        line-height: 1.02;
+        color: #2a1f1a;
+        white-space: nowrap;
+        transform: rotate(-1.5deg);
+      }
+      .big::before,
+      .big::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 70px;
+        height: 90px;
+        margin-top: -45px;
+      }
+      .big.white {
+        background: #fff;
+      }
+      .big::before {
+        left: -84px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M60 14L34 28M58 45H18M60 76L34 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+      }
+      .big::after {
+        right: -84px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M10 14L36 28M12 45H52M10 76L36 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+      }
+
+      /* ---------- CTA ---------- */
+      #cta {
+        position: absolute;
+        left: 40px;
+        top: 620px;
+        width: 1000px;
+        height: 760px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      #cta .kick {
+        font-size: 60px;
+      }
+      #cta .big {
+        margin-top: 8px;
+        font-size: 120px;
+      }
+      #cta .big.white {
+        background: #fff;
+        transform: rotate(2deg);
+      }
+      #cta-btn {
+        margin-top: 54px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 128px;
+        padding: 0 50px 0 38px;
+        border: 8px solid #fff;
+        border-radius: 64px;
+        background: #ffb6cf;
+        font-weight: 700;
+        font-size: 52px;
+        color: #2a1f1a;
+        box-shadow: 0 16px 36px rgba(232, 72, 127, 0.3);
+      }
+
+      /* OYEN:CSS:START */
+      /* OYEN:CSS:END */
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="6"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- ================= FOOTAGE =================
+        One .shot per cut; time the <video>, not the wrapper. Example:
+        <div class="shot" data-layout-allow-overflow id="sh1">
+          <video id="v1" class="clip" src="assets/source-portrait.mp4" data-start="0" data-duration="2"
+                 data-media-start="12.5" data-track-index="0" playsinline data-has-audio="true"></video>
+        </div>
+      -->
+      <div id="card"></div>
+      <div id="card-edge-top"></div>
+
+      <!-- ================= CAPTIONS ================= -->
+      <div id="cap1" class="cap clip" data-start="0" data-duration="3" data-track-index="2">
+        <span class="kick">Baju baby?</span>
+        <span class="big">Guna ni!</span>
+      </div>
+
+      <!-- ================= CTA (no arrow: the user asked for none in the end scene) ================= -->
+      <div id="cta" class="clip" data-start="3" data-duration="3" data-track-index="5">
+        <span class="kick" id="cta-k">Nak satu?</span>
+        <span class="big white" id="cta-b1">Tekan</span>
+        <span class="big" id="cta-b2">beg kuning</span>
+        <div id="cta-btn">
+          <svg width="64" height="64" viewBox="0 0 24 24">
+            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="#2a1f1a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9.5" cy="20" r="1.6" fill="#2a1f1a" />
+            <circle cx="17" cy="20" r="1.6" fill="#2a1f1a" />
+          </svg>
+          Check harga promo
+        </div>
+      </div>
+
+      <!-- OYEN:START -->
+      <!-- OYEN:END -->
+
+      <div id="flash"></div>
+
+      <!-- ================= SOUND FX (assets/sfx, see shared/sfx/CREDITS.md) ================= -->
+      <!-- OYEN:SFX:START -->
+      <!-- OYEN:SFX:END -->
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- helpers: all seek-safe ----------
+      // zoom settle on a cut
+      const settle = (sel, at, from = 1.07) =>
+        tl.fromTo(sel, { scale: from }, { scale: 1, duration: 0.45, ease: "power2.out" }, at);
+      // kicker slides up, big word slams in, both fade before the clip ends
+      const caption = (id, at, dur) => {
+        tl.fromTo(id + " .kick", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, at + 0.02);
+        tl.fromTo(id + " .big", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(2.2)" }, at + 0.08);
+        tl.to(id + " .kick, " + id + " .big", { opacity: 0, duration: 0.14, ease: "power1.in" }, at + dur - 0.14);
+      };
+      // reusable white flash: set() then to(), so seeking never shows a later hit early
+      tl.set("#flash", { opacity: 0 }, 0);
+      const flash = (at, peak = 0.3) =>
+        tl.set("#flash", { opacity: peak }, at).to("#flash", { opacity: 0, duration: 0.18, ease: "power1.out" }, at);
+
+      // ---------- scenes ----------
+      caption("#cap1", 0, 3);
+      flash(3);
+      tl.fromTo("#cta-k", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 3.1);
+      tl.fromTo("#cta-b1", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.26, ease: "back.out(2.4)" }, 3.25);
+      tl.fromTo("#cta-b2", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 3.42);
+      tl.fromTo("#cta-btn", { opacity: 0, y: 60, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(2)" }, 3.65);
+      tl.to("#cta-btn", { scale: 1.07, duration: 0.32, ease: "sine.inOut", yoyo: true, repeat: 5 }, 4.0);
+
+      // OYEN:START
+      // OYEN:END
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
