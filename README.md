@@ -30,6 +30,7 @@ tests/                 ujian unit Oyen
 ```bash
 # 1. scaffold (footage portrait yang tersimpan landscape → --rotate cw)
 python3 tools/new_video.py nama-produk --source /path/footage.mp4 --rotate cw
+#    (footage dicerahkan & ditajamkan secara automatik; --grade none untuk kekalkan asal)
 
 # 2. sunting videos/nama-produk/index.html   → shot footage, caption, CTA, data-duration
 # 3. sunting videos/nama-produk/storyline.py → babak Oyen (postur + dialog)

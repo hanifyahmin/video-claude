@@ -1,13 +1,14 @@
 """Scaffold a new video project from templates/tiktok-9x16.
 
   python3 tools/new_video.py <name> [--source FILE] [--rotate cw|ccw|none] [--mute]
-                                    [--kicker TEXT] [--hook TEXT]
+                                    [--grade bright|none] [--kicker TEXT] [--hook TEXT]
 
 Creates videos/<name>/ with the composition, a starter Oyen storyline, the
 shared GSAP, SFX and fonts copied into assets/, and (with --source) the footage as
 assets/source.<ext> plus an edit-friendly assets/source-portrait.mp4
 (rotated if --rotate is given; phones often store portrait clips sideways;
---mute drops the camera sound from the edit copy).
+--mute drops the camera sound from the edit copy; --grade bright, the default,
+brightens and sharpens dull phone footage in the edit copy, the original stays as is).
 """
 import argparse
 import datetime as dt
@@ -36,9 +37,28 @@ def probe(path):
     return w, h, float(data["format"]["duration"])
 
 
-def make_portrait(src, dst, rotate, mute=False):
+# Colour/sharpness passes for the edit copy. "bright" suits phone clips shot in soft window light,
+# where white tiles and labels come out grey: lift the white point, open the mids a little,
+# add saturation, then a light unsharp mask. It cannot recover focus or light the clip never had.
+GRADES = {
+    "bright": ("colorlevels=rimin=0.03:gimin=0.03:bimin=0.03:rimax=0.86:gimax=0.86:bimax=0.88,"
+               "eq=gamma=1.08:contrast=1.06:saturation=1.28,"
+               "unsharp=5:5:1.0:3:3:0.0"),
+    "none": None,
+}
+ROTATIONS = {"cw": "transpose=1", "ccw": "transpose=2", "none": None}
+
+
+def video_filter(rotate="none", grade="bright"):
+    """ffmpeg -vf chain for the edit copy (rotation first, then the grade), or None."""
+    steps = [f for f in (ROTATIONS[rotate], GRADES[grade]) if f]
+    return ",".join(steps) or None
+
+
+def make_portrait(src, dst, rotate, mute=False, grade="bright"):
     """Edit copy of the footage. ffmpeg already applies rotation metadata; --rotate is for clips without it."""
-    vf = {"cw": ["-vf", "transpose=1"], "ccw": ["-vf", "transpose=2"], "none": []}[rotate]
+    chain = video_filter(rotate, grade)
+    vf = ["-vf", chain] if chain else []
     audio = ["-an"] if mute else ["-c:a", "aac", "-b:a", "160k"]
     # dense keyframes (-g 15) keep frame-accurate seeking cheap in the browser
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), *vf, "-c:v", "libx264", "-crf", "16",
@@ -53,6 +73,8 @@ def main(argv=None):
     ap.add_argument("--rotate", choices=["cw", "ccw", "none"], default="none",
                     help="rotate the footage into portrait (check a frame first)")
     ap.add_argument("--mute", action="store_true", help="drop the footage's sound in the edit copy")
+    ap.add_argument("--grade", choices=sorted(GRADES), default="bright",
+                    help="colour pass for the edit copy: bright (default) lifts dull footage, none keeps it as shot")
     ap.add_argument("--kicker", default="PRODUK NI…")
     ap.add_argument("--hook", default="WAJIB ADA!")
     args = ap.parse_args(argv)
@@ -86,9 +108,9 @@ def main(argv=None):
         print(f"source: {w}x{h}, {dur:.1f}s")
         if w > h and args.rotate == "none":
             print("  note: footage is landscape; if it was filmed upright, rerun make_portrait with --rotate cw/ccw")
-        make_portrait(raw, dest / "assets" / "source-portrait.mp4", args.rotate, args.mute)
+        make_portrait(raw, dest / "assets" / "source-portrait.mp4", args.rotate, args.mute, args.grade)
         pw, ph, _ = probe(dest / "assets" / "source-portrait.mp4")
-        print(f"assets/source-portrait.mp4: {pw}x{ph}")
+        print(f"assets/source-portrait.mp4: {pw}x{ph}, grade: {args.grade}")
 
     print(f"""
 created {dest.relative_to(REPO)}

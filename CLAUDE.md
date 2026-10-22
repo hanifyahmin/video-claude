@@ -7,7 +7,7 @@ The user writes in Malay; reply in Malay unless they switch.
 ## Layout
 - `oyen/` — product-agnostic mascot package (character, storyline model, installer, storyboard, gallery). CLI: `python3 -m oyen {poses|check|storyboard|install} [videos/<name>]`, run from repo root.
 - `videos/<name>/` — one HyperFrames project per video: `index.html`, `storyline.py` (`STORYLINE = Storyline(...)`), `storyboard/`, `assets/`.
-- `templates/tiktok-9x16/` + `tools/new_video.py <name> [--source F --rotate cw|ccw]` — scaffold a new video.
+- `templates/tiktok-9x16/` + `tools/new_video.py <name> [--source F --rotate cw|ccw --mute --grade bright|none]` — scaffold a new video. The edit copy gets the `bright` grade by default (lift white point, saturation, light sharpen; user request: phone footage looked dull and dark); `--grade none` keeps it as shot.
 - `promo/` — post assets: `python3 -m promo videos/<name>` renders `promo/thumbnail.png` (1080x1920 cover, via HyperFrames snapshot) and `promo/caption.txt` from `videos/<name>/promo.py` (`PROMO = Promo(...)`).
 - `shared/` — `vendor/gsap.min.js`, `sfx/*.mp3` (Pixabay licence, see CREDITS), `fonts/fredoka-latin.woff2` (OFL). New videos get copies in `assets/`.
 - Tests: `python3 -m unittest discover -s tests` (also checks every `videos/*/storyline.py` and `promo.py`).
