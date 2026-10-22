@@ -6,11 +6,6 @@
     <!-- local copy: cdn.jsdelivr.net may be blocked in cloud sessions -->
     <script src="assets/vendor/gsap.min.js"></script>
     <style>
-      @font-face {
-        font-family: "Fredoka";
-        src: url("assets/fonts/fredoka-latin.woff2") format("woff2");
-        font-weight: 300 700;
-      }
       * {
         margin: 0;
         padding: 0;
@@ -22,28 +17,29 @@
         width: 1080px;
         height: 1920px;
         overflow: hidden;
-        background: #fff;
+        background: #000;
       }
       #root {
         position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        font-family: Fredoka, sans-serif;
-        color: #2a1f1a;
-        background: #fff;
+        font-family: Montserrat, sans-serif;
+        color: #fff;
+        background: #000;
+        --accent: #FFD60A;
+        --on-accent: #111111;
       }
 
-      /* ---------- footage card: portrait footage under the caption band ---------- */
+      /* ---------- footage: full-bleed shots, captions over a dark top fade ---------- */
       #card {
         position: absolute;
         left: 0;
-        top: 220px;
+        top: 0;
         width: 1080px;
-        height: 1700px;
+        height: 1920px;
         overflow: hidden;
-        border-radius: 56px 56px 0 0;
-        background: #fff;
+        background: #000;
       }
       .shot {
         position: absolute;
@@ -62,11 +58,10 @@
       #card-edge-top {
         position: absolute;
         left: 0;
-        top: 220px;
+        top: 0;
         width: 1080px;
-        height: 200px;
-        border-radius: 56px 56px 0 0;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+        height: 700px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0));
       }
       #flash {
         position: absolute;
@@ -93,52 +88,48 @@
         position: relative;
         z-index: 2;
         display: block;
-        margin-bottom: -12px;
-        padding: 4px 30px 10px;
-        border-radius: 40px 64px 46px 72px / 58px 40px 66px 46px;
-        background: #fff;
-        box-shadow: 0 8px 0 rgba(42, 31, 26, 0.1), 0 14px 30px rgba(42, 31, 26, 0.18);
-        font-weight: 700;
+        margin-bottom: 14px;
+        padding: 8px 26px 10px;
+        border-radius: 14px;
+        background: var(--accent);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        font-weight: 800;
         font-size: 46px;
         line-height: 1.1;
-        color: #2a1f1a;
+        color: var(--on-accent);
         white-space: nowrap;
-        transform: rotate(-3deg);
+        transform: rotate(-2deg);
       }
       .big {
         position: relative;
         display: block;
-        padding: 4px 42px 14px;
-        border-radius: 46px 70px 52px 80px / 64px 46px 74px 50px;
-        background: #ffe46b;
-        box-shadow: 0 10px 0 rgba(42, 31, 26, 0.1), 0 18px 36px rgba(42, 31, 26, 0.2);
-        font-family: Fredoka, sans-serif;
-        font-weight: 700;
-        font-size: 116px;
-        line-height: 1.02;
-        color: #2a1f1a;
+        font-family: Montserrat, sans-serif;
+        font-weight: 900;
+        font-size: 100px;
+        line-height: 1.04;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        color: #fff;
         white-space: nowrap;
-        transform: rotate(-1.5deg);
+        -webkit-text-stroke: 10px #111111;
+        paint-order: stroke fill;
+        text-shadow: 0 8px 0 rgba(0, 0, 0, 0.35);
       }
       .big::before,
       .big::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 70px;
-        height: 90px;
-        margin-top: -45px;
+        content: none;
       }
       .big.white {
-        background: #fff;
+        color: #fff;
       }
       .big::before {
-        left: -84px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M60 14L34 28M58 45H18M60 76L34 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+        display: none;
       }
       .big::after {
-        right: -84px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 90'%3E%3Cpath d='M10 14L36 28M12 45H52M10 76L36 62' stroke='%23ffc928' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+        display: none;
+      }
+      .big .hl {
+        color: var(--accent);
       }
 
       /* ---------- CTA ---------- */
@@ -155,30 +146,28 @@
         text-align: center;
       }
       #cta .kick {
-        font-size: 60px;
+        font-size: 58px;
       }
       #cta .big {
-        margin-top: 8px;
-        font-size: 120px;
+        font-size: 128px;
       }
       #cta .big.white {
-        background: #fff;
-        transform: rotate(2deg);
+        color: #fff;
       }
       #cta-btn {
-        margin-top: 54px;
+        margin-top: 46px;
         display: flex;
         align-items: center;
         gap: 20px;
         height: 128px;
         padding: 0 50px 0 38px;
-        border: 8px solid #fff;
+        border: 6px solid #111111;
         border-radius: 64px;
-        background: #ffb6cf;
-        font-weight: 700;
-        font-size: 52px;
-        color: #2a1f1a;
-        box-shadow: 0 16px 36px rgba(232, 72, 127, 0.3);
+        background: var(--accent);
+        font-weight: 900;
+        font-size: 50px;
+        color: var(--on-accent);
+        box-shadow: 8px 8px 0 #111111;
       }
 
       /* OYEN:CSS:START */
@@ -212,16 +201,16 @@
 
       <!-- ================= CTA (no arrow: the user asked for none in the end scene) ================= -->
       <div id="cta" class="clip" data-start="3" data-duration="3" data-track-index="5">
-        <span class="kick" id="cta-k">Nak satu?</span>
+        <span class="kick" id="cta-k">NAK SATU?</span>
         <span class="big white" id="cta-b1">Tekan</span>
-        <span class="big" id="cta-b2">beg kuning</span>
+        <span class="big" id="cta-b2"><span class="hl">beg kuning</span></span>
         <div id="cta-btn">
           <svg width="64" height="64" viewBox="0 0 24 24">
-            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="#2a1f1a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="9.5" cy="20" r="1.6" fill="#2a1f1a" />
-            <circle cx="17" cy="20" r="1.6" fill="#2a1f1a" />
+            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9.5" cy="20" r="1.6" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.6" fill="currentColor" />
           </svg>
-          Check harga promo
+          CHECK HARGA PROMO
         </div>
       </div>
 

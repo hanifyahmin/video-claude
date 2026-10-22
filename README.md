@@ -29,7 +29,7 @@ tests/                 ujian unit Oyen
 
 ```bash
 # 1. scaffold (footage portrait yang tersimpan landscape → --rotate cw)
-python3 tools/new_video.py nama-produk --source /path/footage.mp4 --rotate cw
+python3 tools/new_video.py nama-produk --source /path/footage.mp4 --rotate cw --niche gajet
 #    (footage dicerahkan & ditajamkan secara automatik; --grade none untuk kekalkan asal)
 
 # 2. sunting videos/nama-produk/index.html   → shot footage, caption, CTA, data-duration
@@ -51,9 +51,11 @@ cd ../.. && python3 -m promo videos/nama-produk    # → videos/nama-produk/prom
 # gaya cover lalai "cute": produk dipotong (remove-background), sticker headline, tag pink, barisan ikon ciri
 ```
 
-## Gaya comel
+## Gaya video
 
-Video dan thumbnail berkongsi gaya yang sama: font Fredoka (`shared/fonts`), caption sticker putih + kuning, latar pastel, butang CTA pink. Template sudah guna gaya ini; untuk video lama: `python3 tools/cute_theme.py videos/nama-produk`, tukar caption kepada huruf ayat, kemudian `python3 -m oyen install videos/nama-produk`.
+Lalai: gaya **bold** (`tools/bold_theme.py`). Footage penuh skrin, font Montserrat, baris kecil dalam pil warna aksen, baris besar huruf besar putih berbingkai hitam dengan satu perkataan kunci berwarna aksen, butang CTA warna aksen. Warna aksen ikut niche: `--niche baby|rumah|gajet|makanan|travel|umum` masa `new_video.py`, atau `python3 tools/bold_theme.py videos/nama --niche X` untuk video lama.
+
+Gaya lama **comel** (pastel, Fredoka) masih ada dalam `tools/cute_theme.py`.
 
 ## Oyen
 

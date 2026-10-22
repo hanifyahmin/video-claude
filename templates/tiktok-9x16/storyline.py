@@ -8,7 +8,7 @@ Keep each line <= 20 characters.
   python3 -m oyen storyboard videos/{{NAME}}
   python3 -m oyen install videos/{{NAME}}
 """
-from oyen.storyline import Beat, Storyline
+from oyen.storyline import Beat, Layout, Storyline
 
 STORYLINE = Storyline(
     title="{{NAME}}",
@@ -21,4 +21,5 @@ STORYLINE = Storyline(
     ],
     blinks=[0.9],
     jumps=[3.0],
+    layout=Layout(style="bold"),  # bubble matches the bold page theme (tools/bold_theme.py)
 )

@@ -1,7 +1,7 @@
 """Scaffold a new video project from templates/tiktok-9x16.
 
   python3 tools/new_video.py <name> [--source FILE] [--rotate cw|ccw|none] [--mute]
-                                    [--grade bright|none] [--kicker TEXT] [--hook TEXT]
+                                    [--grade bright|none] [--niche NICHE] [--kicker TEXT] [--hook TEXT]
 
 Creates videos/<name>/ with the composition, a starter Oyen storyline, the
 shared GSAP, SFX and fonts copied into assets/, and (with --source) the footage as
@@ -9,6 +9,7 @@ assets/source.<ext> plus an edit-friendly assets/source-portrait.mp4
 (rotated if --rotate is given; phones often store portrait clips sideways;
 --mute drops the camera sound from the edit copy; --grade bright, the default,
 brightens and sharpens dull phone footage in the edit copy, the original stays as is).
+The page uses the bold theme (tools/bold_theme.py); --niche picks its accent colour.
 """
 import argparse
 import datetime as dt
@@ -20,6 +21,8 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "tools"))
+import bold_theme  # noqa: E402
 TEMPLATE = REPO / "templates" / "tiktok-9x16"
 SHARED = REPO / "shared"
 
@@ -75,6 +78,9 @@ def main(argv=None):
     ap.add_argument("--mute", action="store_true", help="drop the footage's sound in the edit copy")
     ap.add_argument("--grade", choices=sorted(GRADES), default="bright",
                     help="colour pass for the edit copy: bright (default) lifts dull footage, none keeps it as shot")
+    ap.add_argument("--niche", choices=sorted(bold_theme.NICHES), default="umum",
+                    help="accent colour of the bold theme: baby blue, rumah green, gajet yellow, makanan red, "
+                         "travel orange, umum yellow")
     ap.add_argument("--kicker", default="PRODUK NI…")
     ap.add_argument("--hook", default="WAJIB ADA!")
     args = ap.parse_args(argv)
@@ -96,6 +102,9 @@ def main(argv=None):
                 text = text.replace(k, v)
             f.write_text(text)
 
+    page = dest / "index.html"
+    page.write_text(bold_theme.restyle(page.read_text(), args.niche))
+
     (dest / "assets" / "vendor").mkdir(parents=True)
     shutil.copy2(SHARED / "vendor" / "gsap.min.js", dest / "assets" / "vendor")
     shutil.copytree(SHARED / "sfx", dest / "assets" / "sfx")
@@ -113,7 +122,7 @@ def main(argv=None):
         print(f"assets/source-portrait.mp4: {pw}x{ph}, grade: {args.grade}")
 
     print(f"""
-created {dest.relative_to(REPO)}
+created {dest.relative_to(REPO)} (bold theme, niche {args.niche})
 next:
   1. edit videos/{args.name}/index.html   (footage shots, captions, CTA, root data-duration)
   2. edit videos/{args.name}/storyline.py (Oyen beats; must end at the root duration)

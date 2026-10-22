@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Restyle a composition to the bold theme: one look for every niche, only the accent colour changes.
 
-  python3 tools/bold_theme.py videos/<name> --niche baby|rumah|gajet|makanan|travel
+  python3 tools/bold_theme.py videos/<name> --niche baby|rumah|gajet|makanan|travel|umum
 
 Full-bleed footage under a dark top fade, Montserrat (auto-resolved by HyperFrames, no
 bundling), kicker in an accent pill, big caption in white uppercase with a thick black
@@ -27,6 +27,7 @@ NICHES = {  # pill text must stay >= 3:1 on the accent (hyperframes check measur
     "gajet": ("#FFD60A", INK),
     "makanan": ("#E8361A", "#ffffff"),
     "travel": ("#FF7A00", INK),
+    "umum": ("#FFD60A", INK),  # anything else: the beg-kuning yellow
 }
 
 RULES = {
