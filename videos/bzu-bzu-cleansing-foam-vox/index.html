@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- local copy: cdn.jsdelivr.net may be blocked in cloud sessions -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #f1ece2;
+      }
+      /* Vox-style explainer collage: newsprint paper, photo prints with masking tape, yellow
+         highlighter on real label text, red marker annotations, mono labels, flat diagrams */
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: Montserrat, sans-serif;
+        color: #141414;
+        background: #f1ece2 url("assets/paper.jpg") center / cover;
+        --yellow: #ffe600;
+        --red: #e8402a;
+        --teal: #2f9e97;
+        --ink: #141414;
+        --accent: #ffe600;
+        --on-accent: #141414;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+      /* type */
+      .tag {
+        position: absolute;
+        left: 70px;
+        top: 180px;
+        padding: 8px 18px 10px;
+        background: var(--ink);
+        color: #fff;
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 34px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .head {
+        position: absolute;
+        left: 70px;
+        top: 250px;
+        width: 960px;
+        font-family: "Archivo Black", sans-serif;
+        font-size: 100px;
+        line-height: 1.02;
+        letter-spacing: -0.01em;
+      }
+      .mark {
+        position: relative;
+        z-index: 0;
+        white-space: nowrap;
+      }
+      .mark::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: -10px;
+        right: -10px;
+        top: 18%;
+        bottom: 4%;
+        background: var(--yellow);
+        transform: skewX(-6deg) rotate(-1deg);
+      }
+      .mono {
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+      }
+      .note {
+        position: absolute;
+        padding: 12px 22px 14px;
+        background: #fffdf6;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 38px;
+        line-height: 1.15;
+        white-space: nowrap;
+      }
+      .note.yellow {
+        background: var(--yellow);
+      }
+      .foot {
+        position: absolute;
+        left: 70px;
+        top: 1490px;
+        font-family: "Space Mono", monospace;
+        font-size: 26px;
+        color: #5a554c;
+      }
+      /* prints */
+      .print {
+        position: absolute;
+        padding: 16px;
+        background: #fbfaf6;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28), 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .print img,
+      .print video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .tape {
+        position: absolute;
+        width: 200px;
+        height: 56px;
+        background: url("assets/tape.png") center / 100% 100%;
+      }
+      .hl {
+        position: absolute;
+        background: var(--yellow);
+        mix-blend-mode: multiply;
+        opacity: 0.85;
+        transform-origin: 0% 50%;
+      }
+      .draw {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: visible;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .cut {
+        position: absolute;
+        filter: drop-shadow(6px 0 0 #fff) drop-shadow(-6px 0 0 #fff) drop-shadow(0 6px 0 #fff) drop-shadow(0 -6px 0 #fff)
+          drop-shadow(0 16px 20px rgba(0, 0, 0, 0.3));
+      }
+      .halftone {
+        position: absolute;
+        background-image: radial-gradient(circle, rgba(20, 20, 20, 0.22) 30%, transparent 32%);
+        background-size: 16px 16px;
+      }
+      .strip {
+        position: absolute;
+        left: 70px;
+        width: 880px;
+        height: 96px;
+        padding: 18px 28px;
+        background: #fffdf6;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 42px;
+        white-space: nowrap;
+      }
+      .strip b {
+        color: var(--red);
+        margin-right: 18px;
+      }
+      /* diagram */
+      .step {
+        position: absolute;
+        width: 430px;
+        text-align: center;
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 40px;
+      }
+      /* CTA */
+      #cta-btn {
+        position: absolute;
+        left: 70px;
+        top: 760px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: 118px;
+        padding: 0 40px 0 32px;
+        background: var(--ink);
+        color: var(--yellow);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 44px;
+        box-shadow: 10px 10px 0 var(--red);
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 85% 70% at 50% 50%, rgba(0, 0, 0, 0) 60%, rgba(60, 45, 20, 0.22) 100%);
+      }
+      /* Oyen: a paper cut-out sticker for the CTA only */
+      #cat {
+        visibility: hidden;
+      }
+      /* OYEN:CSS:START */
+      /* OYEN:CSS:END */
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="25.5"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- ================= 1 HOOK: the problem, circled on a photo ================= -->
+      <div id="s1" class="scene clip" data-layout-allow-overflow data-start="0" data-duration="3.5" data-track-index="2">
+        <div class="halftone" style="left: 760px; top: 1180px; width: 300px; height: 300px"></div>
+        <div class="tag">Botol susu baby</div>
+        <div class="head"><span class="mark">Sisa susu</span><br />masih melekat?</div>
+        <div class="print" id="p1" style="left: 160px; top: 560px; width: 760px; height: 860px; transform: rotate(-3deg)">
+          <img src="assets/print-dirty.jpg" alt="" />
+        </div>
+        <div class="tape" style="left: 110px; top: 540px; transform: rotate(-28deg)"></div>
+        <div class="tape" style="left: 780px; top: 520px; transform: rotate(24deg)"></div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="c1" pathLength="1" stroke="#e8402a" stroke-width="9" d="M300 1150 C300 1060 520 1040 540 1120 C560 1200 360 1240 310 1180 C290 1150 330 1110 380 1100" />
+          <path id="a1" pathLength="1" stroke="#e8402a" stroke-width="7" d="M760 1330 C700 1290 620 1240 560 1180 M560 1180 L590 1225 M560 1180 L610 1182" />
+        </svg>
+        <div class="note" style="left: 640px; top: 1330px; transform: rotate(2deg)">sisa susu</div>
+      </div>
+
+      <!-- ================= 2 THE ANSWER: the product, its four uses ================= -->
+      <div id="s2" class="scene clip" data-layout-allow-overflow data-start="3.5" data-duration="3.5" data-track-index="2">
+        <div class="tag">Jawapannya</div>
+        <div class="head" style="font-size: 92px">1 botol,<br /><span class="mark">4 kegunaan</span></div>
+        <div class="print" id="p2" style="left: 330px; top: 470px; width: 600px; height: 1020px; transform: rotate(2.5deg)">
+          <img src="assets/print-front.jpg" alt="" />
+        </div>
+        <div class="tape" style="left: 520px; top: 445px; transform: rotate(-4deg)"></div>
+        <div class="hl" style="left: 390px; top: 880px; width: 480px; height: 34px; transform: rotate(2.5deg)"></div>
+        <div class="hl" style="left: 430px; top: 920px; width: 400px; height: 34px; transform: rotate(2.5deg)"></div>
+        <div class="note" style="left: 60px; top: 860px; transform: rotate(-4deg)">botol susu</div>
+        <div class="note" style="left: 80px; top: 990px; transform: rotate(3deg)">pinggan</div>
+        <div class="note" style="left: 50px; top: 1120px; transform: rotate(-2deg)">mainan</div>
+        <div class="note" style="left: 70px; top: 1250px; transform: rotate(4deg)">buah &amp; sayur</div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path pathLength="1" stroke="#141414" stroke-width="4" d="M330 890 C360 890 380 896 400 900" />
+        </svg>
+      </div>
+
+      <!-- ================= 3 THE DOCUMENT: back label, highlighted ================= -->
+      <div id="s3" class="scene clip" data-layout-allow-overflow data-start="7" data-duration="4.5" data-track-index="2">
+        <div class="print" id="p3" style="left: -40px; top: 500px; width: 1160px; height: 1680px; transform: rotate(-1.5deg)">
+          <img src="assets/print-back.jpg" alt="" />
+        </div>
+        <div class="hl" style="left: 44px; top: 868px; width: 490px; height: 40px; transform: rotate(-1.5deg)"></div>
+        <div class="hl" style="left: 64px; top: 910px; width: 470px; height: 40px; transform: rotate(-1.5deg)"></div>
+        <div class="hl" style="left: 564px; top: 984px; width: 520px; height: 42px; transform: rotate(-1.5deg)"></div>
+        <div class="tag">Apa kata label?</div>
+        <div class="head" style="font-size: 84px">Baca belakang<br />botolnya</div>
+        <div class="note yellow" style="left: 90px; top: 1150px; transform: rotate(-3deg)">jimat air &amp; masa</div>
+        <div class="note yellow" style="left: 470px; top: 1270px; transform: rotate(3deg)">lembut di tangan</div>
+        <div class="foot" style="top: 1470px; background: #fffdf6; padding: 4px 10px">Sumber: label belakang produk</div>
+      </div>
+
+      <!-- ================= 4 THE ZERO LIST ================= -->
+      <div id="s4" class="scene clip" data-layout-allow-overflow data-start="11.5" data-duration="3" data-track-index="2">
+        <div class="tag">Label depan</div>
+        <div class="head" style="font-size: 92px">Tanpa <span class="mark">4 benda</span> ni</div>
+        <div class="print" id="p4" style="left: 60px; top: 420px; width: 960px; height: 320px; transform: rotate(-2deg)">
+          <img src="assets/print-zero.jpg" alt="" />
+        </div>
+        <div class="tape" style="left: 30px; top: 400px; transform: rotate(-35deg)"></div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path pathLength="1" stroke="#e8402a" stroke-width="9" d="M90 600 C80 480 380 460 400 580 C415 680 140 720 100 640" />
+        </svg>
+        <div class="strip" style="top: 820px; transform: rotate(-1deg)"><b>✗</b>pewangi</div>
+        <div class="strip" style="top: 940px; transform: rotate(1deg)"><b>✗</b>peluntur &amp; paraben</div>
+        <div class="strip" style="top: 1060px; transform: rotate(-0.5deg)"><b>✗</b>pewarna tiruan</div>
+        <div class="strip" style="top: 1180px; transform: rotate(1.5deg)"><b>✗</b>sabun &amp; alkohol</div>
+        <div class="foot" style="top: 1330px">+ tanpa sulfat · 100% bahan tumbuhan*</div>
+      </div>
+
+      <!-- ================= 5 HOW TO: a flat diagram from the washing directions ================= -->
+      <div id="s5" class="scene clip" data-layout-allow-overflow data-start="14.5" data-duration="3.5" data-track-index="2">
+        <div class="tag">Cara guna</div>
+        <div class="head" style="font-size: 76px">Mainan, buah<br />&amp; <span class="mark">sayur</span>:</div>
+        <svg class="draw" viewBox="0 0 1080 1920" style="stroke: #141414; stroke-width: 7">
+          <!-- 1: pump x6 -->
+          <rect x="170" y="560" width="150" height="230" rx="26" fill="#ffe600" />
+          <rect x="215" y="500" width="60" height="60" fill="#fffdf6" />
+          <path d="M275 515 H340" />
+          <!-- arrow -->
+          <path d="M440 680 H620 M590 650 L625 680 L590 710" style="stroke: #e8402a" />
+          <!-- 2: bucket 5L -->
+          <path d="M690 590 H930 L900 800 H720 Z" fill="#fffdf6" />
+          <path d="M700 650 C740 630 780 670 820 650 S880 630 920 650 L906 760 H724 Z" fill="#2f9e97" />
+          <!-- arrow down -->
+          <path d="M810 900 V1010 M780 980 L810 1015 L840 980" style="stroke: #e8402a" />
+          <!-- 3: timer 10 min -->
+          <circle cx="810" cy="1180" r="110" fill="#fffdf6" />
+          <path d="M810 1180 V1105 M810 1180 L860 1210" />
+          <rect x="790" y="1048" width="40" height="22" fill="#141414" />
+          <!-- arrow left -->
+          <path d="M640 1180 H460 M490 1150 L455 1180 L490 1210" style="stroke: #e8402a" />
+          <!-- 4: tap + drops -->
+          <path d="M170 1110 H330 V1160 H290 V1200 H250 V1160 H170 Z" fill="#d9d4ca" />
+          <path d="M270 1230 C255 1260 255 1280 270 1290 C285 1280 285 1260 270 1230 Z M270 1310 C258 1335 258 1350 270 1358 C282 1350 282 1335 270 1310 Z" fill="#2f9e97" style="stroke-width: 5" />
+        </svg>
+        <div class="step" style="left: 30px; top: 830px">6 pam</div>
+        <div class="step" style="left: 595px; top: 830px">5L air</div>
+        <div class="step" style="left: 595px; top: 1310px">rendam 10 min</div>
+        <div class="step" style="left: 30px; top: 1390px">bilas</div>
+        <div class="foot" style="top: 1470px">Botol &amp; pinggan: pam buih terus atas span.</div>
+      </div>
+
+      <!-- ================= 6 BEFORE / AFTER ================= -->
+      <div id="s6" class="scene clip" data-layout-allow-overflow data-start="18" data-duration="3.5" data-track-index="2">
+        <div class="tag">Sebelum / selepas</div>
+        <div class="head" style="font-size: 96px"><span class="mark">Mudah</span><br />dibilas</div>
+        <div class="print" id="p6a" style="left: 50px; top: 560px; width: 480px; height: 640px; transform: rotate(-4deg)">
+          <img src="assets/print-dirty.jpg" alt="" />
+        </div>
+        <div class="print" id="p6b" style="left: 550px; top: 600px; width: 480px; height: 640px; transform: rotate(3deg)">
+          <img src="assets/print-clean.jpg" alt="" />
+        </div>
+        <div class="tape" style="left: 190px; top: 535px; transform: rotate(-8deg)"></div>
+        <div class="tape" style="left: 690px; top: 575px; transform: rotate(6deg)"></div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path pathLength="1" stroke="#e8402a" stroke-width="8" d="M170 960 C170 900 320 890 330 950 C340 1010 200 1030 180 990" />
+          <path pathLength="1" stroke="#2f9e97" stroke-width="14" d="M720 1100 L790 1170 L930 990" />
+        </svg>
+        <div class="note" style="left: 110px; top: 1250px; transform: rotate(-3deg)">SEBELUM</div>
+        <div class="note yellow" style="left: 640px; top: 1290px; transform: rotate(2deg)">SELEPAS</div>
+      </div>
+
+      <!-- ================= 7 CTA (template words, no arrow) ================= -->
+      <div id="s7" class="scene clip" data-layout-allow-overflow data-start="21.5" data-duration="4" data-track-index="2">
+        <div class="tag">Nak satu?</div>
+        <div class="head" style="font-size: 130px; line-height: 1.05">Tekan<br /><span class="mark">BEG KUNING</span></div>
+        <div id="cta-btn">
+          <svg width="58" height="58" viewBox="0 0 24 24">
+            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9.5" cy="20" r="1.6" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.6" fill="currentColor" />
+          </svg>
+          CHECK HARGA PROMO
+        </div>
+        <div class="print" id="p7" style="left: 600px; top: 960px; width: 340px; height: 580px; transform: rotate(5deg)">
+          <img src="assets/print-front.jpg" alt="" />
+        </div>
+        <div class="tape" style="left: 680px; top: 935px; transform: rotate(3deg)"></div>
+      </div>
+
+      <!-- OYEN:START -->
+      <!-- OYEN:END -->
+
+      <div id="vignette"></div>
+      <!-- OYEN:SFX:START -->
+      <!-- OYEN:SFX:END -->
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // OYEN:START
+      // OYEN:END
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
