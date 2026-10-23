@@ -1,8 +1,9 @@
 # TOYO-G Scooter Gear Oil 80W-90 (100ml) — Vox-style explainer (plan)
 
-25.5s, 9:16, text + music (no voiceover). No footage: the user supplied one product photo
-(`assets/product.png`, already transparent) and the seller description
-(`storyboard/description.jpg`). `STORYBOARD.png` frames are snapshots of `index.html`.
+25.5s, 9:16, text + music (no voiceover). No footage: the user supplied a product photo
+(`assets/product.png`, already transparent), a scooter photo (`assets/scooter-src.jpg`, cut
+out to `assets/scooter.png`: white background, spoke gaps and floor shadow removed) and the
+seller description (`storyboard/description.jpg`). `STORYBOARD.png` frames are snapshots of `index.html`.
 
 ## Facts used (label + description only)
 - Label: SAE 80W-90, API GL-5, MIL-L-2105, 100ml, CONVENTIONAL, "applicable for all kind of
@@ -17,11 +18,11 @@
 ## Look
 Same Vox collage as `videos/bzu-bzu-cleansing-foam-vox`: newsprint paper, Archivo Black
 headlines with one highlighted phrase, Space Mono labels/stamps, red marker annotations,
-the product as a taped print. Flat diagrams with 7px ink outlines: a scooter (mint), a gear
+the product as a taped print. The scooter photo as a white-edged cut-out (scene 1 and 6). Flat diagrams with 7px ink outlines: a gear
 pair with a ball bearing (steel), wear/rust/heat marks, an amber oil film.
 
 ## Motion
-- Scooter draws on; the marker circles the rear gearbox; zoom-through into the gears.
+- The scooter cut-out slaps down; the marker circles its rear gear case; zoom-through into the gears.
 - Gears turn continuously (meshed: small gear at 20/11 the speed, opposite direction).
 - Enemy marks pop in with a small shake; the oil film strokes around the teeth and the marks fade.
 - Spec stamps thump in (scale 1.4 -> 1 with a dust puff); strips slide in with ticks.
@@ -36,5 +37,7 @@ quiet), scooter pass (whoosh).
 ## Open questions for the user
 1. Synthetic or conventional? (label vs description)
 2. Niche/hashtags: automotive (new) or "umum"?
-3. Any footage (pouring into the scooter, the bottle in hand)? It would replace the drawn
-   scooter in scene 1 and 6.
+3. Scooter photo licence: if it is a stock image, it must be licensed for commercial use.
+4. Optional photos that would make it more authentic (priority order): the bottle in hand next
+   to a scooter; the bottle's back label; a real rear gear case close-up; old (dark) vs new
+   gear oil; pouring into the filler hole; a macro of worn/rusty gear teeth.

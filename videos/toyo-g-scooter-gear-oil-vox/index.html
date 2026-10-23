@@ -151,6 +151,11 @@
         stroke: var(--red);
         stroke-width: 9;
       }
+      .cut {
+        position: absolute;
+        filter: drop-shadow(6px 0 0 #fff) drop-shadow(-6px 0 0 #fff) drop-shadow(0 6px 0 #fff) drop-shadow(0 -6px 0 #fff)
+          drop-shadow(0 16px 20px rgba(0, 0, 0, 0.3));
+      }
       .halftone {
         position: absolute;
         background-image: radial-gradient(circle, rgba(20, 20, 20, 0.22) 30%, transparent 32%);
@@ -210,38 +215,17 @@
       data-width="1080"
       data-height="1920"
     >
-      <!-- the scooter, drawn once and reused (scene 1 + 6) -->
-      <svg width="0" height="0" style="position: absolute">
-        <defs>
-          <g id="scooter">
-            <circle cx="300" cy="1250" r="120" fill="#2a2a2a" class="ink" />
-            <circle cx="300" cy="1250" r="58" fill="#d9d4ca" class="ink" />
-            <circle cx="810" cy="1250" r="110" fill="#2a2a2a" class="ink" />
-            <circle cx="810" cy="1250" r="52" fill="#d9d4ca" class="ink" />
-            <path d="M790 1000 L812 1250" class="ink" style="stroke-width: 16" />
-            <path d="M160 1110 Q140 960 300 930 L570 930 L610 1010 L470 1070 L360 1120 Z" fill="#9fd6cc" class="ink" />
-            <path d="M290 930 Q300 872 370 868 L560 872 Q610 878 606 930 Z" fill="#141414" class="ink" />
-            <path d="M460 1062 L708 1062 L708 1094 L430 1094 Z" fill="#7cc2b6" class="ink" />
-            <path d="M708 1094 L690 900 Q700 770 760 710 L812 706 L800 900 L782 1110 Z" fill="#9fd6cc" class="ink" />
-            <path d="M790 712 L770 610 M710 596 L850 610" class="ink" style="stroke-width: 12" />
-            <circle cx="818" cy="660" r="24" fill="#ffe600" class="ink" />
-            <path d="M240 1180 Q226 1118 300 1106 L520 1106 Q566 1116 556 1170 Q546 1216 500 1218 L320 1244 Q252 1246 240 1180 Z" fill="#c9c2b5" class="ink" />
-            <circle cx="300" cy="1186" r="26" fill="#8f877a" class="ink" style="stroke-width: 5" />
-          </g>
-        </defs>
-      </svg>
-
       <!-- ================= 1 HOOK ================= -->
       <div id="s1" class="scene clip" data-layout-allow-overflow data-start="0" data-duration="3.5" data-track-index="2">
         <div class="tag">Skuter / motosikal</div>
         <div class="head">Minyak enjin<br />selalu tukar.<br /><span class="mark">Minyak gear?</span></div>
-        <svg class="draw" viewBox="0 0 1080 1920" style="transform: translate(-20px, 120px) scale(0.95)">
-          <use href="#scooter" />
-          <path class="marker" pathLength="1" d="M200 1180 C190 1060 600 1050 600 1160 C600 1270 260 1290 215 1215 C200 1190 240 1150 300 1140" />
-        </svg>
-        <div class="note" style="left: 520px; top: 1440px; transform: rotate(-2deg)">kotak gear belakang</div>
+        <img class="cut" id="sc1" src="assets/scooter.png" alt="" style="left: 70px; top: 830px; width: 900px; height: 637px" />
         <svg class="draw" viewBox="0 0 1080 1920">
-          <path class="marker" style="stroke-width: 7" d="M600 1430 C560 1400 520 1380 490 1360 M490 1360 L510 1400 M490 1360 L535 1365" />
+          <path class="marker" pathLength="1" d="M110 1350 C110 1250 520 1240 540 1340 C560 1440 170 1460 125 1390 C110 1365 150 1320 220 1300" />
+        </svg>
+        <div class="note" style="left: 560px; top: 1440px; transform: rotate(-2deg)">kotak gear belakang</div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path class="marker" style="stroke-width: 7" d="M600 1440 C580 1420 565 1405 548 1392 M548 1392 L556 1430 M548 1392 L590 1396" />
         </svg>
       </div>
 
@@ -314,10 +298,10 @@
       <div id="s6" class="scene clip" data-layout-allow-overflow data-start="18.5" data-duration="3" data-track-index="2">
         <div class="tag">Hasilnya</div>
         <div class="head" style="font-size: 88px">Pecutan<br /><span class="mark">lebih lancar*</span></div>
-        <svg class="draw" viewBox="0 0 1080 1920" style="transform: translate(40px, 40px) scale(0.85); transform-origin: 540px 1100px">
-          <path d="M40 960 H220 M10 1050 H180 M60 1140 H200" stroke="#141414" stroke-width="8" stroke-dasharray="40 26" />
-          <use href="#scooter" />
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path d="M30 980 H230 M0 1090 H200 M50 1200 H210" stroke="#141414" stroke-width="8" stroke-dasharray="40 26" fill="none" />
         </svg>
+        <img class="cut" id="sc6" src="assets/scooter.png" alt="" style="left: 170px; top: 800px; width: 860px; height: 609px" />
         <div class="note yellow" style="left: 90px; top: 640px; transform: rotate(-3deg)">minyak tahan<br />lebih lama</div>
         <div class="foot" style="top: 1460px">*berbanding pelincir konvensional lain,<br />menurut penerangan produk</div>
       </div>
