@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Synthesize a calm lo-fi music bed (soft keys, sub bass, brushed beat, vinyl crackle).
 
-  python3 tools/lofi_bed.py OUT.mp3 --seconds 22.4 [--bpm 80] [--seed 3]
+  python3 tools/lofi_bed.py OUT.mp3 --seconds 22.4 [--bpm 80] [--seed 3] [--style lofi|explainer]
+
+"explainer" drops the kick and snare for a plucked 8th-note arpeggio (Vox-style edits).
 
 For the archive theme, which runs on text + music only. Licence-free (made here), so it is a
 stand-in until a real track is supplied: swap assets/music.mp3 for any royalty-free song.
@@ -54,7 +56,7 @@ def mix(out, start, x):
     out[start:start + len(x)] += x
 
 
-def build(seconds, bpm, seed):
+def build(seconds, bpm, seed, style="lofi"):
     rng = np.random.default_rng(seed)
     n = int(seconds * SR)
     out = np.zeros(n + SR * 3)
@@ -72,10 +74,18 @@ def build(seconds, bpm, seed):
         tb = np.arange(int(bar * SR)) / SR
         bass = np.sin(2 * np.pi * hz(chord[0] - 12) * tb) * env(len(tb), 0.02, 2.2) * 0.22
         mix(out, s, bass)
+        if style == "explainer":  # plucked arpeggio through the chord on 8ths
+            for k in range(8):
+                s = int((t0 + k * beat / 2) * SR)
+                m = chord[(k * 3) % len(chord)] + 24
+                pluck = key(m, int(0.6 * SR), rng) * env(int(0.6 * SR), 0.004, 0.16) * (0.11 if k % 2 == 0 else 0.07)
+                mix(out, s, pluck)
         for k in range(4):  # soft kick on 1 and 3, brushed snare on 2 and 4, quiet hats on 8ths
             s = int((t0 + k * beat) * SR)
             tk = np.arange(int(0.35 * SR)) / SR
-            if k % 2 == 0:
+            if style == "explainer":
+                hit = np.zeros(1)
+            elif k % 2 == 0:
                 hit = np.sin(2 * np.pi * (50 + 70 * np.exp(-tk / 0.03)) * tk) * np.exp(-tk / 0.12) * 0.35
             else:
                 hit = rng.normal(0, 1, len(tk)) * np.exp(-tk / 0.07) * 0.05
@@ -101,8 +111,9 @@ def main():
     ap.add_argument("--seconds", type=float, required=True)
     ap.add_argument("--bpm", type=float, default=80)
     ap.add_argument("--seed", type=int, default=3)
+    ap.add_argument("--style", choices=("lofi", "explainer"), default="lofi")
     args = ap.parse_args()
-    pcm = (build(args.seconds, args.bpm, args.seed) * 32767).astype(np.int16)
+    pcm = (build(args.seconds, args.bpm, args.seed, args.style) * 32767).astype(np.int16)
     with tempfile.TemporaryDirectory() as tmp:
         wav_path = Path(tmp) / "bed.wav"
         with wave.open(str(wav_path), "wb") as w:
