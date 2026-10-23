@@ -17,10 +17,11 @@
         width: 1080px;
         height: 1920px;
         overflow: hidden;
-        background: #e9e7e2;
+        background: #0c0a0a;
       }
-      /* archive look (after the sample edit): paper / ink scenes cut hard against each other, small
-         lowercase typewriter text with a cursor, pixel objects, red hand-drawn accents, film grain */
+      /* archive look, scene by scene after the user's sample edit (jordans.archives): kinetic type,
+         pen scribbles, star flares, glowing silhouettes, big voxel pixel objects in rings and
+         conveyors, one-word beats on ink, an object strobe between letters, ink blots, grain */
       #root {
         position: relative;
         width: 100%;
@@ -28,247 +29,284 @@
         overflow: hidden;
         font-family: Montserrat, sans-serif;
         color: #1b1a1a;
-        background: #e9e7e2;
+        background: #0c0a0a;
         --accent: #ffd23f;
         --on-accent: #1b1a1a;
-        --red: #e0301e;
+        --red: #e2321d;
       }
-      #paper,
-      #dark {
+      #base {
         position: absolute;
         inset: 0;
+        background: radial-gradient(ellipse 80% 60% at 50% 50%, #1a1615 0%, #0b0a0a 75%);
       }
-      #paper {
-        background: radial-gradient(ellipse 75% 60% at 50% 46%, #f4f3ef 0%, #e6e4de 62%, #cfccc5 100%);
-      }
-      #dark {
-        opacity: 0;
-        background: radial-gradient(ellipse 80% 60% at 50% 50%, #1a1716 0%, #0b0a0a 70%, #050505 100%);
-      }
-
-      /* ---------- footage (muted; one wrapper per cut, the wrapper carries zoom) ---------- */
+      /* ---------- silhouettes (background removed; muted) ---------- */
       #foot {
         position: absolute;
         inset: 0;
       }
-      .shot {
+      #lightbg {
         position: absolute;
         inset: 0;
-        overflow: hidden;
+        opacity: 0;
+        background: radial-gradient(ellipse 70% 60% at 70% 45%, #ffd9c8 0%, #c9a79a 55%, #6b5650 100%);
+        mix-blend-mode: screen;
       }
-      .shot video {
+      .sil {
         position: absolute;
-        left: 0;
-        top: 0;
         width: 1080px;
         height: 1920px;
         object-fit: cover;
+        filter: url(#hard-alpha) grayscale(1) brightness(1.25) contrast(0.85) sepia(1) saturate(9) hue-rotate(-36deg) blur(1.5px)
+          drop-shadow(0 0 46px rgba(255, 70, 20, 0.8));
       }
-      /* the sample's glowing silhouette: footage turned into one warm tone, fading to black */
-      #sh2 video {
-        filter: grayscale(1) sepia(1) saturate(4.5) hue-rotate(-14deg) brightness(0.78) contrast(1.6);
-        -webkit-mask-image: radial-gradient(ellipse 62% 42% at 50% 64%, #000 35%, transparent 78%);
+      #v-pump {
+        left: 160px;
+        top: 470px;
       }
-      #sh3 {
-        inset: auto;
-        left: 250px;
-        top: 600px;
-        width: 580px;
-        height: 760px;
-      }
-      #sh3 video {
-        width: 580px;
-        height: 760px;
-        object-position: 50% 28%;
-        filter: saturate(0.95) contrast(1.04);
-      }
-      .doc video {
-        filter: saturate(0.85) contrast(1.06) sepia(0.14);
-      }
-      #sh7 video {
-        filter: brightness(0.3) saturate(0.7) blur(8px);
+      #v-brush {
+        left: 60px;
+        top: 260px;
       }
 
-      /* ---------- scenes (text + objects; transparent, over the footage) ---------- */
+      /* ---------- scenes ---------- */
       .scene {
         position: absolute;
         inset: 0;
       }
-      .line {
+      .bg {
         position: absolute;
-        left: 0;
-        width: 1080px;
-        text-align: center;
+        inset: 0;
+      }
+      .paper {
+        background: radial-gradient(ellipse 80% 62% at 50% 46%, #f3f2ee 0%, #e4e2dc 60%, #c9c5bd 100%);
+      }
+      .dark {
+        background: radial-gradient(ellipse 80% 60% at 50% 50%, #1b1716 0%, #0b0a0a 75%);
+      }
+      .red {
+        background: radial-gradient(ellipse 80% 60% at 50% 50%, #ef3b22 0%, #d92a18 70%, #b51f12 100%);
+      }
+      .greyv {
+        background: radial-gradient(ellipse 75% 34% at 50% 50%, #eceae6 0%, #a8a49f 55%, #151313 100%);
+      }
+      .sent {
+        position: absolute;
+        left: 80px;
         font-weight: 600;
-        font-size: 64px;
-        line-height: 1.15;
-        letter-spacing: -0.01em;
+        font-size: 54px;
+        line-height: 1.2;
+        letter-spacing: -0.015em;
         white-space: pre;
       }
-      .left {
-        left: 84px;
-        width: 900px;
-        text-align: left;
+      .say {
+        position: absolute;
+        font-weight: 700;
+        font-size: 70px;
+        letter-spacing: -0.02em;
+        color: #f4f1ec;
+        white-space: pre;
       }
-      .white {
-        color: #f3f1ec;
-      }
-      .grey {
-        color: #8f8b86;
+      .wordbeat {
+        position: absolute;
+        left: 0;
+        top: 1010px;
+        width: 1080px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 108px;
+        letter-spacing: -0.03em;
+        color: #f4f1ec;
+        white-space: pre;
       }
       .tw {
         display: none;
       }
-      .cur {
+      .bar {
         display: inline-block;
-        width: 0.09em;
-        height: 0.95em;
-        margin-left: 0.12em;
-        vertical-align: -0.1em;
+        width: 0.07em;
+        height: 0.9em;
+        margin-left: 0.25em;
+        vertical-align: -0.08em;
+        background: currentColor;
+        opacity: 0;
+      }
+      .block {
+        display: inline-block;
+        width: 0.5em;
+        height: 0.82em;
+        margin-left: 0.18em;
+        vertical-align: -0.05em;
         background: currentColor;
         opacity: 0;
       }
       .px {
         position: absolute;
         image-rendering: pixelated;
-        filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.28));
       }
-      #s1-big {
-        position: absolute;
-        left: 0;
-        top: 560px;
-        width: 1080px;
-        text-align: center;
-        font-weight: 800;
-        font-size: 250px;
-        line-height: 0.92;
-        letter-spacing: -0.045em;
+      .shadow {
+        filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.3));
       }
-      .dash {
-        position: absolute;
-        top: 1080px;
-        width: 1400px;
-        border-top: 6px dashed #1b1a1a;
-      }
-      #star {
-        position: absolute;
-        left: -520px;
-        top: 460px;
-        width: 1000px;
-        height: 1000px;
-        opacity: 0;
-      }
-      #burn {
+      .ring {
         position: absolute;
         inset: 0;
-        opacity: 0;
-        background: radial-gradient(ellipse 55% 40% at 62% 50%, rgba(255, 214, 190, 0) 20%, rgba(120, 60, 40, 0.55) 60%, rgba(10, 8, 8, 0.95) 100%);
       }
-      #frame3 {
-        position: absolute;
-        left: 236px;
-        top: 586px;
-        width: 608px;
-        height: 788px;
-        border: 14px solid #fbfaf7;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-      }
-      .word {
-        position: absolute;
-        left: 0;
-        top: 1120px;
-        width: 1080px;
-        text-align: center;
-        font-weight: 700;
-        font-size: 104px;
-        line-height: 1.05;
-        letter-spacing: -0.02em;
-        white-space: pre;
-      }
-      .beat-icon {
-        left: 420px;
-        top: 700px;
-        width: 240px;
-        height: 240px;
-      }
-      .ribbon {
-        position: absolute;
-        left: -200px;
-        top: 760px;
-        width: 1480px;
-        height: 150px;
-        background: var(--red);
-        transform-origin: 0% 50%;
-      }
-      .slash {
-        position: absolute;
-        left: 160px;
-        top: 818px;
-        width: 760px;
-        height: 10px;
-        background: var(--red);
-        transform-origin: 0% 50%;
-      }
-      .topfade {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 1080px;
-        height: 640px;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0));
-      }
-      .tagicon {
-        left: 84px;
-        top: 190px;
-        width: 112px;
-        height: 112px;
-      }
-      .letter {
-        position: absolute;
-        top: 800px;
-        width: 140px;
-        text-align: center;
-        font-weight: 700;
-        font-size: 170px;
-        line-height: 1;
-      }
-      #doodles,
-      #underline {
+      .draw {
         position: absolute;
         left: 0;
         top: 0;
         width: 1080px;
         height: 1920px;
         overflow: visible;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
+      .star {
+        position: absolute;
+      }
+      /* scene 1 */
+      #a1-word {
+        position: absolute;
+        left: 0;
+        top: 520px;
+        width: 1080px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 430px;
+        line-height: 1;
+        letter-spacing: -0.06em;
+        color: #0c0a0a;
+        transform: scaleY(1.75);
+      }
+      #a2-scroll {
+        position: absolute;
+        left: 300px;
+        top: 800px;
+        font-weight: 800;
+        font-size: 300px;
+        line-height: 1;
+        letter-spacing: -0.05em;
+        white-space: nowrap;
+        color: #0c0a0a;
+      }
+      .guide {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        border-top: 4px dashed var(--red);
+      }
+      .glitch {
+        position: absolute;
+        background: #0c0a0a;
+        opacity: 0;
+      }
+      .dashes {
+        position: absolute;
+        left: 300px;
+        top: 950px;
+        font-weight: 800;
+        font-size: 60px;
+        letter-spacing: 0.1em;
+        color: #3a3735;
+        opacity: 0;
+      }
+      #iris {
+        position: absolute;
+        inset: -300px;
+        opacity: 0;
+        background: radial-gradient(ellipse 42% 30% at 60% 50%, rgba(255, 220, 205, 0) 30%, rgba(70, 35, 28, 0.85) 62%, rgba(15, 10, 10, 1) 85%);
+      }
+      #b3-blob {
+        position: absolute;
+        left: 520px;
+        top: 900px;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ff4f86 0%, #6a2bd8 55%, rgba(30, 10, 60, 0) 72%);
+        filter: blur(40px);
+      }
+      #leak {
+        position: absolute;
+        left: -100px;
+        top: 1000px;
+        width: 1280px;
+        height: 1000px;
+        background: linear-gradient(0deg, #ffd23f 0%, #ff6a1f 14%, #c8201a 30%, rgba(80, 10, 10, 0.5) 52%, rgba(0, 0, 0, 0) 70%);
+        filter: blur(18px);
+      }
+      #wash {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background: linear-gradient(90deg, rgba(240, 236, 230, 0.2), rgba(240, 236, 230, 0.95) 60%);
+        filter: blur(30px);
+      }
+      .beam {
+        position: absolute;
+        left: -260px;
+        top: 760px;
+        width: 1700px;
+        height: 380px;
+        background: var(--red);
+        transform-origin: 0% 50%;
+      }
+      #j-ring {
+        position: absolute;
+        left: 90px;
+        top: 160px;
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        border: 34px solid var(--red);
+        filter: blur(2px);
+      }
+      .letter {
+        position: absolute;
+        top: 920px;
+        width: 100px;
+        margin-left: -50px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 66px;
+        line-height: 1;
+      }
+      .dot {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #1b1a1a;
+      }
+      /* CTA */
       #cta {
         position: absolute;
         left: 40px;
-        top: 440px;
+        top: 200px;
         width: 1000px;
-        height: 800px;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        color: #f4f1ec;
       }
       #cta-k {
         font-weight: 600;
-        font-size: 60px;
-        line-height: 1.2;
+        font-size: 64px;
+        line-height: 1.3;
         white-space: pre;
       }
       .cta-big {
         font-weight: 800;
         font-size: 150px;
         line-height: 1;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.035em;
       }
       #cta-b2 {
         color: var(--accent);
       }
       #cta-btn {
-        margin-top: 70px;
+        margin-top: 80px;
         display: flex;
         align-items: center;
         gap: 20px;
@@ -276,25 +314,25 @@
         padding: 0 46px 0 36px;
         border: 6px solid #1b1a1a;
         background: var(--accent);
-        box-shadow: 0 0 0 4px #f3f1ec, 12px 12px 0 4px var(--red);
+        box-shadow: 0 0 0 4px #f4f1ec, 12px 12px 0 4px var(--red);
         font-weight: 800;
         font-size: 48px;
         color: #1b1a1a;
       }
 
-      /* ---------- finish: grain, vignette, flash ---------- */
+      /* ---------- finish ---------- */
       #grain {
         position: absolute;
         inset: 0;
         background-image: url("assets/grain.png");
         background-size: 256px 256px;
         mix-blend-mode: overlay;
-        opacity: 0.16;
+        opacity: 0.2;
       }
       #vignette {
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse 85% 70% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.32) 100%);
+        background: radial-gradient(ellipse 85% 70% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.35) 100%);
       }
       #flash {
         position: absolute;
@@ -374,132 +412,223 @@
       data-width="1080"
       data-height="1920"
     >
-      <div id="paper"></div>
-      <div id="dark"></div>
+      <div id="base"></div>
 
-      <!-- ================= FOOTAGE (assets/source-portrait.mp4, muted) ================= -->
+      <!-- ================= SILHOUETTES (hands, background removed by `hyperframes remove-background`) ================= -->
+      <!-- cut-outs keep a faint ghost of the sink: drop anything under ~60% alpha -->
+      <svg width="0" height="0" style="position: absolute">
+        <filter id="hard-alpha" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncA type="discrete" tableValues="0 0 0 1 1" /></feComponentTransfer></filter>
+      </svg>
       <div id="foot">
-        <div class="shot" data-layout-allow-overflow id="sh2">
-          <video id="v2" class="clip" src="assets/source-portrait.mp4" data-start="2.8" data-duration="2.2" data-media-start="31.6" data-track-index="0" muted playsinline></video>
-        </div>
-        <div class="shot" data-layout-allow-overflow id="sh3">
-          <video id="v3" class="clip" src="assets/source-portrait.mp4" data-start="5" data-duration="2.4" data-media-start="15.4" data-track-index="0" muted playsinline></video>
-        </div>
-        <div class="shot doc" data-layout-allow-overflow id="sh5a">
-          <video id="v5a" class="clip" src="assets/source-portrait.mp4" data-start="10.6" data-duration="1.6" data-media-start="40" data-playback-rate="1.5" data-track-index="0" muted playsinline></video>
-        </div>
-        <div class="shot doc" data-layout-allow-overflow id="sh5b">
-          <video id="v5b" class="clip" src="assets/source-portrait.mp4" data-start="12.2" data-duration="1.6" data-media-start="51.4" data-track-index="0" muted playsinline></video>
-        </div>
-        <div class="shot doc" data-layout-allow-overflow id="sh5c">
-          <video id="v5c" class="clip" src="assets/source-portrait.mp4" data-start="13.8" data-duration="1.6" data-media-start="69.4" data-track-index="0" muted playsinline></video>
-        </div>
-        <div class="shot" data-layout-allow-overflow id="sh7">
-          <video id="v7" class="clip" src="assets/source-portrait.mp4" data-start="17.8" data-duration="4.6" data-media-start="15" data-playback-rate="0.5" data-track-index="0" muted playsinline></video>
-        </div>
+        <video id="v-pump" class="sil clip" src="assets/source-pump.webm" data-start="4" data-duration="2.3" data-media-start="0.15" data-track-index="0" muted playsinline></video>
+        <div id="lightbg"></div>
+        <video id="v-brush" class="sil clip" src="assets/source-brush.webm" data-start="13.83" data-duration="2.07" data-media-start="0.3" data-track-index="1" muted playsinline></video>
       </div>
 
-      <!-- ================= 1 HOOK (paper): big words, then the typed question ================= -->
-      <div id="sc1" class="scene clip" data-layout-allow-overflow data-start="0" data-duration="2.8" data-track-index="2">
-        <div class="dash" id="dash-l" style="left: -1200px"></div>
-        <div class="dash" id="dash-r" style="left: 900px"></div>
-        <div id="s1-big">botol<br />susu?</div>
-        <div class="line" id="t1a" style="top: 830px">cuci botol susu baby</div>
-        <div class="line" id="t1b" style="top: 912px">pakai apa?</div>
-        <img class="px s1i" src="assets/icons/bottle.png" alt="" style="left: 110px; top: 420px; width: 176px; height: 176px" />
-        <img class="px s1i" src="assets/icons/duck.png" alt="" style="left: 800px; top: 480px; width: 176px; height: 176px" />
-        <img class="px s1i" src="assets/icons/plate.png" alt="" style="left: 150px; top: 1180px; width: 160px; height: 160px" />
-        <img class="px s1i" src="assets/icons/strawberry.png" alt="" style="left: 790px; top: 1160px; width: 160px; height: 160px" />
-        <img class="px s1i" src="assets/icons/rattle.png" alt="" style="left: 480px; top: 1310px; width: 140px; height: 140px" />
-        <img class="px s1i" src="assets/icons/bubbles.png" alt="" style="left: 470px; top: 280px; width: 140px; height: 140px" />
-        <div id="burn"></div>
-        <svg id="star" viewBox="0 0 100 100">
+      <!-- 1a: frame 0, one giant word on red -->
+      <div id="a1" class="scene clip" data-start="0" data-duration="0.2" data-track-index="2">
+        <div class="bg red"></div>
+        <div id="a1-word">cuci</div>
+      </div>
+      <!-- 1b: the question scrolls past huge, between dashed guides -->
+      <div id="a2" class="scene clip" data-layout-allow-overflow data-start="0.2" data-duration="0.6" data-track-index="2">
+        <div class="bg paper"></div>
+        <div class="guide" style="top: 790px"></div>
+        <div class="guide" style="top: 1110px"></div>
+        <div id="a2-scroll">cuci botol susu baby</div>
+        <div class="glitch" id="g1" style="left: 520px; top: 850px; width: 230px; height: 190px"></div>
+        <div class="glitch" id="g2" style="left: 180px; top: 900px; width: 120px; height: 120px"></div>
+        <div class="dashes" id="a2-dash">-- ---- --- ----- -- |</div>
+      </div>
+      <!-- 1c: then small, word by word, with pen scribbles -->
+      <div id="a3" class="scene clip" data-start="0.8" data-duration="1.2" data-track-index="2">
+        <div class="bg paper"></div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="pen1" pathLength="1" stroke="#6d6863" stroke-width="16" style="filter: blur(5px)" d="M640 560 C700 420 760 600 800 470 S870 380 900 520 C915 600 960 420 1000 470 S1040 560 1070 430" />
+          <path id="pen2" pathLength="1" stroke="#2a2422" stroke-width="5" d="M130 1130 C160 1060 190 1170 230 1100 S280 1040 300 1120 C315 1170 350 1040 380 1100 S430 1150 470 1080 C490 1050 520 1110 560 1090" />
+          <path id="pen3" pathLength="1" stroke="#2a2422" stroke-width="5" d="M520 860 C560 800 760 810 760 870 C760 930 560 940 545 880 C540 850 600 835 640 845" />
+          <path id="pen4" pathLength="1" stroke="#2a2422" stroke-width="5" d="M130 600 L132 800" />
+        </svg>
+        <div class="sent" id="a3-l1" style="top: 840px">macam mana nak cuci</div>
+        <div class="sent" id="a3-l2" style="top: 912px">botol susu baby?</div>
+      </div>
+
+      <!-- 2a: yellow flare -->
+      <div id="b1" class="scene clip" data-start="2" data-duration="0.17" data-track-index="2">
+        <div class="bg" style="background: #f5b21c"></div>
+        <svg class="star" viewBox="0 0 100 100" style="left: -120px; top: 500px; width: 1000px; height: 1000px">
+          <path d="M50 0 Q54 46 100 50 Q54 54 50 100 Q46 54 0 50 Q46 46 50 0Z" fill="#fff36b" />
+        </svg>
+        <div class="sent" style="top: 870px; color: #8a6a10; filter: blur(8px)">macam mana nak cuci botol</div>
+      </div>
+      <!-- 2b: cyan star from the left, objects drift in, the iris closes on the key word -->
+      <div id="b2" class="scene clip" data-layout-allow-overflow data-start="2.17" data-duration="1.68" data-track-index="2">
+        <div class="bg paper"></div>
+        <img class="px b2o" src="assets/px/product.png" alt="" style="left: 640px; top: 470px; width: 126px; height: 240px" />
+        <img class="px b2o" src="assets/px/duck.png" alt="" style="left: 840px; top: 760px; width: 126px; height: 126px" />
+        <img class="px b2o" src="assets/px/bottle.png" alt="" style="left: 700px; top: 1190px; width: 108px; height: 108px" />
+        <img class="px b2o" src="assets/px/plate.png" alt="" style="left: 860px; top: 1380px; width: 108px; height: 108px" />
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="pen5" pathLength="1" stroke="#2a2422" stroke-width="6" d="M430 760 L470 1010 L560 640" />
+          <path id="pen6" pathLength="1" stroke="#2a2422" stroke-width="5" d="M380 1110 L620 1060" />
+        </svg>
+        <div class="sent" style="top: 840px">macam mana nak cuci</div>
+        <div class="sent" style="top: 912px">botol susu <span id="b2-key">baby?</span></div>
+        <div id="iris"></div>
+        <svg class="star" id="b2-star" viewBox="0 0 100 100" style="left: -720px; top: 410px; width: 1100px; height: 1100px">
           <defs>
-            <linearGradient id="star-g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#7fe3ff" />
-              <stop offset="1" stop-color="#1f5bff" />
+            <linearGradient id="cy" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8af0ff" />
+              <stop offset="1" stop-color="#1d4fff" />
             </linearGradient>
           </defs>
-          <path d="M50 0 Q54 46 100 50 Q54 54 50 100 Q46 54 0 50 Q46 46 50 0Z" fill="url(#star-g)" />
+          <path d="M50 0 Q53 47 100 50 Q53 53 50 100 Q47 53 0 50 Q47 47 50 0Z" fill="url(#cy)" />
+        </svg>
+      </div>
+      <!-- 2c: blur hand-off -->
+      <div id="b3" class="scene clip" data-start="3.85" data-duration="0.15" data-track-index="2">
+        <div class="bg dark"></div>
+        <div id="b3-blob"></div>
+      </div>
+
+      <!-- 3: glowing hands pump the foam (text only; the silhouette is in #foot) -->
+      <div id="c" class="scene clip" data-start="4" data-duration="2.3" data-track-index="2">
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="pen7" pathLength="1" stroke="#fff" stroke-width="5" d="M600 840 C680 780 800 830 780 920 C765 990 660 1000 640 960" />
+        </svg>
+        <div class="say" id="c-1" style="left: 80px; top: 300px">cuma pam.</div>
+        <div class="say" id="c-2" style="left: 80px; top: 300px">terus jadi buih.</div>
+      </div>
+      <!-- 3b: light leak, then the objects arrive blurred -->
+      <div id="d" class="scene clip" data-start="6.3" data-duration="0.2" data-track-index="2">
+        <div class="bg dark"></div>
+        <div id="leak"></div>
+      </div>
+
+      <!-- 4: the ring of objects -->
+      <div id="e" class="scene clip" data-layout-allow-overflow data-start="6.5" data-duration="1.8" data-track-index="2">
+        <div class="bg paper"></div>
+        <div class="ring" id="ring-e" data-layout-allow-overflow></div>
+        <img class="px" id="e-blot" src="assets/px/blob0.png" alt="" style="left: 470px; top: 860px; width: 120px; height: 120px" />
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="sw1" pathLength="1" stroke="#3b3735" stroke-width="44" style="filter: blur(6px)" d="M240 640 C420 420 820 520 880 760 C930 960 760 1200 520 1220" />
+          <path id="sw2" pathLength="1" stroke="#3b3735" stroke-width="40" style="filter: blur(6px)" d="M860 1260 C700 1420 360 1360 260 1160 C180 1000 260 760 420 700" />
+          <g id="burst" stroke="#ff8a1f" stroke-width="12">
+            <path d="M540 1180 L540 1110" /><path d="M540 1180 L600 1130" /><path d="M540 1180 L615 1185" />
+            <path d="M540 1180 L600 1240" /><path d="M540 1180 L480 1240" /><path d="M540 1180 L465 1185" /><path d="M540 1180 L480 1130" />
+          </g>
         </svg>
       </div>
 
-      <!-- ================= 2 REVEAL (dark): glowing foam footage ================= -->
-      <div id="sc2" class="scene clip" data-start="2.8" data-duration="2.2" data-track-index="2">
-        <div class="line left grey" id="t2a" style="top: 360px; font-size: 80px">cuma perlu</div>
-        <div class="line left white" id="t2b" style="top: 456px; font-size: 80px; font-weight: 700">buih ni.</div>
-      </div>
-
-      <!-- ================= 3 USES (paper): label in a print, objects orbiting ================= -->
-      <div id="sc3" class="scene clip" data-layout-allow-overflow data-start="5" data-duration="2.4" data-track-index="2">
-        <div id="frame3"></div>
-        <div class="line" id="t3a" style="top: 236px; font-size: 56px">untuk botol susu, pinggan,</div>
-        <div class="line" id="t3b" style="top: 306px; font-size: 56px">mainan, buah &amp; sayur.</div>
-        <div id="ring3" data-layout-allow-overflow></div>
-      </div>
-
-      <!-- ================= 4 FACTS: one word, one object, one red mark ================= -->
-      <div id="sc4a" class="scene clip" data-layout-allow-overflow data-start="7.4" data-duration="0.8" data-track-index="2">
-        <div class="ribbon" style="transform: rotate(-14deg)"></div>
-        <img class="px beat-icon" src="assets/icons/no-scent.png" alt="" />
-        <div class="word white" id="w4a">0% pewangi.</div>
-      </div>
-      <div id="sc4b" class="scene clip" data-layout-allow-overflow data-start="8.2" data-duration="0.8" data-track-index="2">
-        <div class="slash" style="transform: rotate(10deg)"></div>
-        <img class="px beat-icon" src="assets/icons/drop.png" alt="" />
-        <div class="word" id="w4b">tanpa sulfat.</div>
-      </div>
-      <div id="sc4c" class="scene clip" data-layout-allow-overflow data-start="9" data-duration="0.8" data-track-index="2">
-        <div class="ribbon" style="transform: rotate(12deg); top: 720px"></div>
-        <img class="px beat-icon" src="assets/icons/leaf.png" alt="" />
-        <div class="word white" id="w4c" style="font-size: 92px">100% bahan
-tumbuhan.*</div>
-      </div>
-      <div id="sc4d" class="scene clip" data-layout-allow-overflow data-start="9.8" data-duration="0.8" data-track-index="2">
-        <div class="slash" style="transform: rotate(-9deg)"></div>
-        <img class="px beat-icon" src="assets/icons/check.png" alt="" />
-        <div class="word" id="w4d">halal.</div>
-      </div>
-
-      <!-- ================= 5 PROOF (footage + typed lines) ================= -->
-      <div id="sc5a" class="scene clip" data-start="10.6" data-duration="1.6" data-track-index="2">
-        <div class="topfade"></div>
-        <img class="px tagicon" src="assets/icons/sponge.png" alt="" />
-        <div class="line left white" id="t5a" style="top: 330px; font-size: 76px">lembut di tangan.</div>
-      </div>
-      <div id="sc5b" class="scene clip" data-start="12.2" data-duration="1.6" data-track-index="2">
-        <div class="topfade"></div>
-        <img class="px tagicon" src="assets/icons/bubbles.png" alt="" />
-        <div class="line left white" id="t5b" style="top: 330px; font-size: 76px">mudah dibilas.</div>
-      </div>
-      <div id="sc5c" class="scene clip" data-start="13.8" data-duration="1.6" data-track-index="2">
-        <div class="topfade"></div>
-        <img class="px tagicon" src="assets/icons/lemon.png" alt="" />
-        <div class="line left white" id="t5c" style="top: 330px; font-size: 76px">bau lemon segar.</div>
-      </div>
-
-      <!-- ================= 6 PAYOFF (paper): objects scatter, letters find their place ================= -->
-      <div id="sc6" class="scene clip" data-layout-allow-overflow data-start="15.4" data-duration="2.4" data-track-index="2">
-        <div id="ring6" data-layout-allow-overflow></div>
-        <div class="letter" id="L1" style="left: 95px">B</div>
-        <div class="letter" id="L2" style="left: 245px">E</div>
-        <div class="letter" id="L3" style="left: 395px">R</div>
-        <div class="letter" id="L4" style="left: 545px">S</div>
-        <div class="letter" id="L5" style="left: 695px">I</div>
-        <div class="letter" id="L6" style="left: 845px">H</div>
-        <svg id="doodles" viewBox="0 0 1080 1920" fill="none" stroke="#e0301e" stroke-width="7" stroke-linecap="round">
-          <path id="loop1" pathLength="1" d="M305 760 C210 765 200 960 300 975 C390 990 420 800 330 770 C300 760 270 772 262 790" />
-          <path id="loop2" pathLength="1" d="M775 752 C700 740 690 980 772 990 C850 1000 860 770 790 755 C770 750 748 760 740 776" />
-          <path id="tick6" pathLength="1" d="M380 1060 C520 1040 700 1046 840 1070" />
+      <!-- 5: one word on ink, one object (sample: action. / intention. / curiosity.) -->
+      <div id="f" class="scene clip" data-layout-allow-overflow data-start="8.3" data-duration="0.87" data-track-index="2">
+        <div class="bg dark"></div>
+        <svg class="star" id="f-star" viewBox="0 0 100 100" style="left: 560px; top: 160px; width: 440px; height: 440px">
+          <path d="M50 0 Q54 44 100 50 Q54 56 50 100 Q46 56 0 50 Q46 44 50 0Z" fill="#e2321d" />
         </svg>
-        <div class="line" id="t6" style="top: 1110px; font-size: 54px">bersih, lembut, wangi lemon.</div>
+        <img class="px" id="f-obj" src="assets/px/product-3d.png" alt="" style="left: 405px; top: 330px; width: 270px; height: 498px" />
+        <svg class="draw" id="f-hit" viewBox="0 0 1080 1920">
+          <path stroke="#fff" stroke-width="7" d="M300 700 L420 560 L380 760 L520 600 L470 820" />
+          <path stroke="#e2321d" stroke-width="14" d="M760 380 L860 300 M780 900 L900 980 M220 420 L300 480" />
+        </svg>
+        <div class="wordbeat" id="f-w">buih.</div>
+      </div>
+      <div id="g" class="scene clip" data-layout-allow-overflow data-start="9.17" data-duration="0.66" data-track-index="2">
+        <div class="bg paper"></div>
+        <div class="ring" id="conv-g" data-layout-allow-overflow></div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path class="streak" stroke="#e2321d" stroke-width="5" d="M100 700 L380 696 M620 1240 L940 1236 M60 1300 L200 1298" />
+        </svg>
+      </div>
+      <div id="h" class="scene clip" data-layout-allow-overflow data-start="9.83" data-duration="0.67" data-track-index="2">
+        <div class="bg dark"></div>
+        <div class="beam" id="h-beam" style="transform: rotate(-32deg)"></div>
+        <img class="px" id="h-obj" src="assets/px/leaf.png" alt="" style="left: 300px; top: 420px; width: 324px; height: 324px" />
+        <div class="wordbeat" id="h-w">bahan tumbuhan.</div>
+      </div>
+      <div id="i" class="scene clip" data-layout-allow-overflow data-start="10.5" data-duration="0.5" data-track-index="2">
+        <div class="bg paper"></div>
+        <div class="ring" id="conv-i" data-layout-allow-overflow></div>
+      </div>
+      <div id="j" class="scene clip" data-layout-allow-overflow data-start="11" data-duration="0.83" data-track-index="2">
+        <div class="bg dark"></div>
+        <div id="j-ring"></div>
+        <img class="px" id="j-obj" src="assets/px/check.png" alt="" style="left: 390px; top: 440px; width: 300px; height: 300px" />
+        <img class="px j-sp" src="assets/px/heart.png" alt="" style="left: 760px; top: 300px; width: 120px; height: 120px" />
+        <img class="px j-sp" src="assets/px/sparkle.png" alt="" style="left: 180px; top: 820px; width: 100px; height: 100px" />
+        <img class="px j-sp" src="assets/px/heart.png" alt="" style="left: 820px; top: 820px; width: 90px; height: 90px" />
+        <div class="wordbeat" id="j-w">halal.</div>
+      </div>
+      <div id="k" class="scene clip" data-layout-allow-overflow data-start="11.83" data-duration="0.17" data-track-index="2">
+        <div class="bg dark"></div>
+        <div class="ring" id="conv-k" data-layout-allow-overflow style="filter: grayscale(1) invert(1) contrast(1.6)"></div>
       </div>
 
-      <!-- ================= 7 CTA (dark; template words, no arrow) ================= -->
-      <div id="sc7" class="scene clip" data-start="17.8" data-duration="4.6" data-track-index="2">
+      <!-- 6: the ring breaks, objects scatter and turn to ink -->
+      <div id="l" class="scene clip" data-layout-allow-overflow data-start="12" data-duration="1.83" data-track-index="2">
+        <div class="bg paper"></div>
+        <div class="ring" id="ring-l" data-layout-allow-overflow></div>
+        <img class="px l-blot" src="assets/px/blob1.png" alt="" style="left: 700px; top: 980px; width: 150px; height: 150px" />
+        <img class="px l-blot" src="assets/px/blob2.png" alt="" style="left: 200px; top: 1300px; width: 110px; height: 110px" />
+        <img class="px l-blot" src="assets/px/blob0.png" alt="" style="left: 600px; top: 520px; width: 70px; height: 70px" />
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="sw3" pathLength="1" stroke="#3b3735" stroke-width="40" style="filter: blur(6px)" d="M260 600 C460 380 860 520 860 820 C860 1060 640 1200 440 1160" />
+          <path id="sq1" pathLength="1" stroke="#1b1a1a" stroke-width="6" d="M840 1000 C870 960 880 1040 910 990 S950 960 960 1010" />
+          <path id="sq2" pathLength="1" stroke="#1b1a1a" stroke-width="6" d="M300 1460 C330 1420 350 1500 380 1450 S420 1420 450 1470" />
+        </svg>
+        <div class="sent" id="l-w" style="left: 380px; top: 900px; font-size: 50px; color: #f4f1ec">lembut</div>
+      </div>
+
+      <!-- 7: glowing hands brush the bottle, words either side -->
+      <div id="m" class="scene clip" data-start="13.83" data-duration="2.07" data-track-index="2">
+        <div class="say" id="m-1" style="left: 70px; top: 560px">lembut</div>
+        <div class="say" id="m-2" style="right: 90px; top: 560px">di tangan.</div>
+        <div id="wash"></div>
+      </div>
+
+      <!-- 8: letters on a line, the object between them strobes -->
+      <div id="n" class="scene clip" data-layout-allow-overflow data-start="15.9" data-duration="1.3" data-track-index="2">
+        <div class="bg paper" id="n-bg"></div>
+        <div id="n-objs"></div>
+        <div class="letter" id="nL1" style="left: 100px">B</div>
+        <div class="letter" id="nL2" style="left: 230px">E</div>
+        <div class="letter" id="nL3" style="left: 360px">R</div>
+        <div class="letter" id="nL4" style="left: 720px">S</div>
+        <div class="letter" id="nL5" style="left: 850px">I</div>
+        <div class="letter" id="nL6" style="left: 980px">H</div>
+      </div>
+      <!-- 8b: the letters drift apart, red pen loops find them -->
+      <div id="o" class="scene clip" data-layout-allow-overflow data-start="17.2" data-duration="1.2" data-track-index="2">
+        <div class="bg paper"></div>
+        <div class="dot" style="left: 300px; top: 700px"></div>
+        <div class="dot" style="left: 760px; top: 560px"></div>
+        <div class="dot" style="left: 880px; top: 1180px"></div>
+        <div class="dot" style="left: 190px; top: 1240px"></div>
+        <div class="letter" id="oL1" style="left: 100px; color: #1b1a1a">B</div>
+        <div class="letter" id="oL2" style="left: 230px; color: #1b1a1a">E</div>
+        <div class="letter" id="oL3" style="left: 360px; color: #1b1a1a">R</div>
+        <div class="letter" id="oL4" style="left: 720px; color: #1b1a1a">S</div>
+        <div class="letter" id="oL5" style="left: 850px; color: #1b1a1a">I</div>
+        <div class="letter" id="oL6" style="left: 980px; color: #1b1a1a">H</div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="sw4" pathLength="1" stroke="#2a2422" stroke-width="10" style="filter: blur(2px)" d="M180 520 C120 600 260 640 200 720" />
+          <path class="loop" pathLength="1" stroke="#e2321d" stroke-width="5" d="M216 548 C170 520 160 640 220 640 C280 640 270 520 230 545 C215 555 205 600 230 610" />
+          <path class="loop" pathLength="1" stroke="#e2321d" stroke-width="5" d="M672 548 C630 520 620 640 680 650 C740 655 735 530 690 545" />
+          <path class="loop" pathLength="1" stroke="#e2321d" stroke-width="5" d="M840 1428 C800 1400 790 1530 850 1530 C905 1530 900 1410 860 1425 C845 1430 835 1470 860 1480" />
+          <path class="loop" pathLength="1" stroke="#e2321d" stroke-width="5" d="M300 1250 C270 1300 330 1330 350 1290 C370 1250 320 1220 300 1250" />
+        </svg>
+      </div>
+
+      <!-- 9: CTA (template words, no arrow; Oyen walks in) -->
+      <div id="p" class="scene clip" data-layout-allow-overflow data-start="18.4" data-duration="4" data-track-index="2">
+        <div class="bg dark"></div>
+        <svg class="star" id="p-star" viewBox="0 0 100 100" style="left: 580px; top: 780px; width: 460px; height: 460px">
+          <path d="M50 0 Q54 44 100 50 Q54 56 50 100 Q46 56 0 50 Q46 44 50 0Z" fill="#e2321d" />
+        </svg>
+        <img class="px" id="p-obj" src="assets/px/product-3d.png" alt="" style="left: 700px; top: 860px; width: 225px; height: 415px" />
         <div id="cta">
-          <div class="white" id="cta-k">nak satu?</div>
-          <div class="cta-big white" id="cta-b1">TEKAN</div>
+          <div id="cta-k">nak satu?</div>
+          <div class="cta-big" id="cta-b1">TEKAN</div>
           <div class="cta-big" id="cta-b2">BEG KUNING</div>
           <div id="cta-btn">
             <svg width="62" height="62" viewBox="0 0 24 24">
@@ -510,14 +639,14 @@ tumbuhan.*</div>
             CHECK HARGA PROMO
           </div>
         </div>
-        <svg id="underline" viewBox="0 0 1080 1920" fill="none" stroke="#e0301e" stroke-width="9" stroke-linecap="round">
-          <path id="uline" pathLength="1" d="M150 835 C330 810 560 855 740 822 C820 808 880 816 930 830" />
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path id="uline" pathLength="1" stroke="#e2321d" stroke-width="9" d="M150 690 C330 665 560 710 740 677 C820 663 880 671 930 685" />
         </svg>
       </div>
 
       <!-- OYEN:START (generated by `python3 -m oyen install`; edit storyline.py, not this) -->
       <div id="cat"><div id="cat-walk"><div id="cat-spr" style="background-position: 0px -840px"></div></div></div>
-      <div id="ob0" class="bub clip" data-start="18.65" data-duration="3.32" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">J</span><span class="ch">o</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">h</span><span class="ch">e</span><span class="ch">c</span><span class="ch">k</span><span class="ch">o</span><span class="ch">u</span><span class="ch">t</span><span class="ch">!</span></div></div>
+      <div id="ob0" class="bub clip" data-start="19.25" data-duration="2.72" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">J</span><span class="ch">o</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">h</span><span class="ch">e</span><span class="ch">c</span><span class="ch">k</span><span class="ch">o</span><span class="ch">u</span><span class="ch">t</span><span class="ch">!</span></div></div>
       <!-- OYEN:END -->
 
       <div id="grain"></div>
@@ -526,29 +655,46 @@ tumbuhan.*</div>
 
       <!-- ================= AUDIO: music bed + SFX (see assets/sfx/CREDITS.md) ================= -->
       <audio id="music" src="assets/music.mp3" data-start="0" data-duration="22.4" data-track-index="20" data-volume="0.6"></audio>
-      <audio id="sfx-whoosh-0" src="assets/sfx/whoosh-short.mp3" data-start="0.72" data-track-index="21" data-volume="0.35"></audio>
-      <audio id="sfx-type-1" src="assets/sfx/typing.mp3" data-start="0.95" data-duration="1.5" data-track-index="22" data-volume="0.3"></audio>
-      <audio id="sfx-riser-1" src="assets/sfx/riser.mp3" data-start="1.8" data-duration="1" data-track-index="23" data-volume="0.3"></audio>
-      <audio id="sfx-impact-2" src="assets/sfx/impact-bass-1.mp3" data-start="2.8" data-track-index="24" data-volume="0.45"></audio>
-      <audio id="sfx-type-2" src="assets/sfx/typing.mp3" data-start="3.05" data-duration="1.2" data-track-index="25" data-volume="0.28"></audio>
-      <audio id="sfx-whoosh-3" src="assets/sfx/whoosh.mp3" data-start="4.95" data-track-index="26" data-volume="0.35"></audio>
-      <audio id="sfx-type-3" src="assets/sfx/typing.mp3" data-start="5.2" data-duration="1.5" data-track-index="27" data-volume="0.28"></audio>
-      <audio id="sfx-click-4a" src="assets/sfx/click.mp3" data-start="7.4" data-track-index="28" data-volume="0.55"></audio>
-      <audio id="sfx-click-4b" src="assets/sfx/click.mp3" data-start="8.2" data-track-index="29" data-volume="0.55"></audio>
-      <audio id="sfx-click-4c" src="assets/sfx/click.mp3" data-start="9" data-track-index="30" data-volume="0.55"></audio>
-      <audio id="sfx-click-4d" src="assets/sfx/click.mp3" data-start="9.8" data-track-index="31" data-volume="0.55"></audio>
-      <audio id="sfx-whoosh-5a" src="assets/sfx/whoosh-short.mp3" data-start="10.56" data-track-index="32" data-volume="0.35"></audio>
-      <audio id="sfx-type-5a" src="assets/sfx/typing.mp3" data-start="10.75" data-duration="0.7" data-track-index="33" data-volume="0.26"></audio>
-      <audio id="sfx-type-5b" src="assets/sfx/typing.mp3" data-start="12.35" data-duration="0.6" data-track-index="34" data-volume="0.26"></audio>
-      <audio id="sfx-type-5c" src="assets/sfx/typing.mp3" data-start="13.95" data-duration="0.65" data-track-index="35" data-volume="0.26"></audio>
-      <audio id="sfx-whoosh-6" src="assets/sfx/whoosh.mp3" data-start="15.55" data-track-index="36" data-volume="0.4"></audio>
-      <audio id="sfx-sparkle-6" src="assets/sfx/sparkle.mp3" data-start="16.85" data-track-index="37" data-volume="0.4"></audio>
-      <audio id="sfx-type-7" src="assets/sfx/typing.mp3" data-start="17.95" data-duration="0.4" data-track-index="38" data-volume="0.28"></audio>
-      <audio id="sfx-impact-7" src="assets/sfx/impact-bass-1.mp3" data-start="18.4" data-track-index="39" data-volume="0.4"></audio>
-      <audio id="sfx-chime-7" src="assets/sfx/chime.mp3" data-start="19.3" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-hit-a" src="assets/sfx/impact-bass-1.mp3" data-start="0" data-track-index="21" data-volume="0.45"></audio>
+      <audio id="sfx-wh-a" src="assets/sfx/whoosh.mp3" data-start="0.2" data-track-index="22" data-volume="0.45"></audio>
+      <audio id="sfx-type-a" src="assets/sfx/typing.mp3" data-start="0.85" data-duration="0.85" data-track-index="23" data-volume="0.3"></audio>
+      <audio id="sfx-riser-b" src="assets/sfx/riser.mp3" data-start="1.45" data-duration="0.6" data-track-index="24" data-volume="0.3"></audio>
+      <audio id="sfx-hit-b" src="assets/sfx/impact-bass-1.mp3" data-start="2" data-track-index="25" data-volume="0.5"></audio>
+      <audio id="sfx-wh-b" src="assets/sfx/whoosh.mp3" data-start="2.15" data-track-index="26" data-volume="0.4"></audio>
+      <audio id="sfx-hit-c" src="assets/sfx/impact-bass-1.mp3" data-start="4" data-track-index="27" data-volume="0.35"></audio>
+      <audio id="sfx-click-c1" src="assets/sfx/click.mp3" data-start="4.2" data-track-index="28" data-volume="0.5"></audio>
+      <audio id="sfx-click-c2" src="assets/sfx/click.mp3" data-start="5.02" data-track-index="29" data-volume="0.5"></audio>
+      <audio id="sfx-wh-d" src="assets/sfx/whoosh-short.mp3" data-start="6.28" data-track-index="30" data-volume="0.4"></audio>
+      <audio id="sfx-pop-e" src="assets/sfx/pop.mp3" data-start="6.55" data-track-index="31" data-volume="0.4"></audio>
+      <audio id="sfx-wh-e1" src="assets/sfx/whoosh.mp3" data-start="7.08" data-track-index="32" data-volume="0.35"></audio>
+      <audio id="sfx-pop-e2" src="assets/sfx/pop.mp3" data-start="7.33" data-track-index="33" data-volume="0.5"></audio>
+      <audio id="sfx-wh-e2" src="assets/sfx/whoosh.mp3" data-start="7.72" data-track-index="34" data-volume="0.35"></audio>
+      <audio id="sfx-hit-f" src="assets/sfx/impact-bass-1.mp3" data-start="8.3" data-track-index="35" data-volume="0.55"></audio>
+      <audio id="sfx-click-f" src="assets/sfx/click.mp3" data-start="8.5" data-track-index="36" data-volume="0.55"></audio>
+      <audio id="sfx-wh-g" src="assets/sfx/whoosh-short.mp3" data-start="9.15" data-track-index="37" data-volume="0.4"></audio>
+      <audio id="sfx-hit-h" src="assets/sfx/impact-bass-1.mp3" data-start="9.83" data-track-index="38" data-volume="0.5"></audio>
+      <audio id="sfx-click-h" src="assets/sfx/click.mp3" data-start="10" data-track-index="39" data-volume="0.55"></audio>
+      <audio id="sfx-wh-i" src="assets/sfx/whoosh-short.mp3" data-start="10.48" data-track-index="40" data-volume="0.4"></audio>
+      <audio id="sfx-hit-j" src="assets/sfx/impact-bass-1.mp3" data-start="11" data-track-index="41" data-volume="0.5"></audio>
+      <audio id="sfx-click-j" src="assets/sfx/click.mp3" data-start="11.15" data-track-index="42" data-volume="0.55"></audio>
+      <audio id="sfx-wh-l" src="assets/sfx/whoosh.mp3" data-start="12" data-track-index="43" data-volume="0.4"></audio>
+      <audio id="sfx-pop-l" src="assets/sfx/pop.mp3" data-start="12.45" data-track-index="44" data-volume="0.4"></audio>
+      <audio id="sfx-hit-m" src="assets/sfx/impact-bass-1.mp3" data-start="13.83" data-track-index="45" data-volume="0.35"></audio>
+      <audio id="sfx-click-m1" src="assets/sfx/click.mp3" data-start="14.05" data-track-index="46" data-volume="0.5"></audio>
+      <audio id="sfx-click-m2" src="assets/sfx/click.mp3" data-start="14.45" data-track-index="47" data-volume="0.5"></audio>
+      <audio id="sfx-wh-m" src="assets/sfx/whoosh.mp3" data-start="15.62" data-track-index="48" data-volume="0.4"></audio>
+      <audio id="sfx-click-n1" src="assets/sfx/click.mp3" data-start="15.9" data-track-index="60" data-volume="0.45"></audio>
+      <audio id="sfx-click-n2" src="assets/sfx/click.mp3" data-start="16.24" data-track-index="61" data-volume="0.45"></audio>
+      <audio id="sfx-click-n3" src="assets/sfx/click.mp3" data-start="16.58" data-track-index="62" data-volume="0.45"></audio>
+      <audio id="sfx-click-n4" src="assets/sfx/click.mp3" data-start="16.92" data-track-index="63" data-volume="0.45"></audio>
+      <audio id="sfx-wh-o" src="assets/sfx/whoosh.mp3" data-start="17.18" data-track-index="64" data-volume="0.35"></audio>
+      <audio id="sfx-sparkle-o" src="assets/sfx/sparkle.mp3" data-start="17.6" data-track-index="65" data-volume="0.4"></audio>
+      <audio id="sfx-type-p" src="assets/sfx/typing.mp3" data-start="18.5" data-duration="0.3" data-track-index="66" data-volume="0.3"></audio>
+      <audio id="sfx-hit-p" src="assets/sfx/impact-bass-1.mp3" data-start="18.85" data-track-index="67" data-volume="0.45"></audio>
+      <audio id="sfx-chime-p" src="assets/sfx/chime.mp3" data-start="19.45" data-track-index="68" data-volume="0.4"></audio>
       <!-- OYEN:SFX:START -->
-      <audio id="sfx-pop-ob0" src="assets/sfx/pop.mp3" data-start="18.65" data-track-index="50" data-volume="0.45"></audio>
-      <audio id="sfx-type-ob0" src="assets/sfx/typing.mp3" data-start="18.77" data-duration="0.47" data-track-index="51" data-volume="0.22"></audio>
+      <audio id="sfx-pop-ob0" src="assets/sfx/pop.mp3" data-start="19.25" data-track-index="50" data-volume="0.45"></audio>
+      <audio id="sfx-type-ob0" src="assets/sfx/typing.mp3" data-start="19.37" data-duration="0.47" data-track-index="51" data-volume="0.22"></audio>
       <audio id="sfx-dash-3" src="assets/sfx/whoosh.mp3" data-start="21.2" data-track-index="52" data-volume="0.5"></audio>
       <audio id="sfx-hit-ob0" src="assets/sfx/impact-bass-1.mp3" data-start="21.324" data-track-index="53" data-volume="0.55"></audio>
       <audio id="sfx-hitpop-ob0" src="assets/sfx/pop.mp3" data-start="21.324" data-track-index="54" data-volume="0.6"></audio>
@@ -557,127 +703,199 @@ tumbuhan.*</div>
 
     <script>
       const tl = gsap.timeline({ paused: true });
+      const $ = (s) => document.querySelector(s);
 
-      // ---------- helpers: all seek-safe ----------
-      // typewriter: each character is shown by a set(); a cursor follows and blinks until `until`
-      const typed = (sel, at, cps, until) => {
-        const el = document.querySelector(sel);
-        const text = el.textContent;
+      // ---------- helpers: all seek-safe (sets + one tween per property per element) ----------
+      // words appear one at a time; a cursor follows and blinks until `until`
+      const words = (sel, times, until, cursor = "bar") => {
+        const el = $(sel);
+        const parts = el.textContent.split(" ");
         el.textContent = "";
-        [...text].forEach((c, i) => {
-          const s = document.createElement(c === "\n" ? "br" : "span");
+        parts.forEach((p, i) => {
+          const s = document.createElement("span");
           s.className = "tw";
-          if (c !== "\n") s.textContent = c;
+          s.textContent = (i ? " " : "") + p;
           el.appendChild(s);
-          tl.set(s, { display: "inline" }, at + i * cps);
+          tl.set(s, { display: "inline" }, times[i]);
         });
         const cur = document.createElement("span");
-        cur.className = "cur";
+        cur.className = cursor;
         el.appendChild(cur);
-        const end = at + text.length * cps;
-        tl.set(cur, { opacity: 1 }, at);
+        tl.set(cur, { opacity: 1 }, times[0] - 0.08);
         let on = false;
-        for (let t = end + 0.3; t < until - 0.05; t += 0.3, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, t);
+        for (let t = times[times.length - 1] + 0.25; t < until - 0.05; t += 0.25, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, t);
         tl.set(cur, { opacity: 0 }, until);
-        return end;
       };
-      const popIn = (el, at, rot = 0) =>
-        tl.fromTo(el, { scale: 0, rotation: rot - 25, opacity: 0 }, { scale: 1, rotation: rot, opacity: 1, duration: 0.35, ease: "back.out(2.4)" }, at);
-      // hard cuts between paper and ink
-      const bg = (isDark, at) => tl.set("#dark", { opacity: isDark ? 1 : 0 }, at);
+      const steps = (at, n, dt) => Array.from({ length: n }, (_, i) => at + i * dt);
+      // pen strokes draw on (pathLength="1")
+      const pen = (sel, at, dur) =>
+        tl.fromTo(sel, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: dur, ease: "power1.inOut" }, at);
+      // a blurred streak travels along a path
+      const swoosh = (sel, at, dur) =>
+        tl.fromTo(sel, { strokeDasharray: "0.35 1.4", strokeDashoffset: 0.35 }, { strokeDashoffset: -1.05, duration: dur, ease: "power2.inOut" }, at);
       tl.set("#flash", { opacity: 0 }, 0);
-      const flash = (at, peak = 0.5) =>
-        tl.set("#flash", { opacity: peak }, at).to("#flash", { opacity: 0, duration: 0.16, ease: "power1.out" }, at);
-      // grain moves every 1/12 s like film
+      // film grain moves every frame-ish
       for (let i = 1; i * 0.0834 < 22.4; i++)
         tl.set("#grain", { backgroundPosition: ((i * 97) % 256) + "px " + ((i * 61) % 256) + "px" }, i * 0.0834);
-      // ring of pixel objects (built here so the positions live in one place)
-      const RING = ["bottle", "duck", "plate", "strawberry", "carrot", "rattle", "lemon", "leaf", "heart", "bubbles"];
-      const ring = (sel, cx, cy, rx, ry, size) =>
+      // pixel objects (assets/px, built by make_pixels.py): art px * k
+      const ART = { product: [45, 83], oyen: [36, 50] };
+      const obj = (parent, name, cx, cy, k) => {
+        const img = document.createElement("img");
+        img.className = "px shadow";
+        img.src = "assets/px/" + (name === "product" ? "product-3d" : name) + ".png";
+        img.alt = "";
+        const [w, h] = ART[name] || [18, 18];
+        img.style.width = w * k + "px";
+        img.style.height = h * k + "px";
+        img.style.left = Math.round(cx - (w * k) / 2) + "px";
+        img.style.top = Math.round(cy - (h * k) / 2) + "px";
+        $(parent).appendChild(img);
+        return img;
+      };
+      const RING = ["product", "bottle", "duck", "oyen", "lemon", "heart", "strawberry", "leaf", "plate", "carrot", "bubbles", "rattle"];
+      const ring = (parent, cx, cy, rx, ry) =>
         RING.map((name, i) => {
           const a = -Math.PI / 2 + (i * 2 * Math.PI) / RING.length;
-          const img = document.createElement("img");
-          img.className = "px";
-          img.src = "assets/icons/" + name + ".png";
-          img.alt = "";
-          img.style.width = img.style.height = size + "px";
-          img.style.left = Math.round(cx + rx * Math.cos(a) - size / 2) + "px";
-          img.style.top = Math.round(cy + ry * Math.sin(a) - size / 2) + "px";
-          document.querySelector(sel).appendChild(img);
-          return { img, a };
+          const k = name === "product" ? 3.4 : name === "oyen" ? 4.2 : 12;
+          return { img: obj(parent, name, cx + rx * Math.cos(a), cy + ry * Math.sin(a), k), a, name };
         });
 
-      // ---------- 1 hook (paper) ----------
-      tl.to("#s1-big", { x: -50, duration: 0.7, ease: "none" }, 0);
-      tl.to("#dash-l", { x: 420, duration: 0.8, ease: "power2.out" }, 0);
-      tl.to("#dash-r", { x: -420, duration: 0.8, ease: "power2.out" }, 0);
-      tl.to("#s1-big", { scale: 0.18, y: 260, opacity: 0, duration: 0.25, ease: "power2.in" }, 0.7);
-      tl.to(".dash", { opacity: 0, duration: 0.2 }, 0.75);
-      typed("#t1a", 0.95, 0.045, 1.95);
-      typed("#t1b", 1.95, 0.045, 2.8);
-      document.querySelectorAll(".s1i").forEach((el, i) => {
-        popIn(el, 1.0 + i * 0.18, i % 2 ? 8 : -8);
-        tl.to(el, { y: -40, duration: 1.4, ease: "sine.inOut" }, 1.35 + i * 0.18);
+      // ---------- 1 kinetic question (paper) ----------
+      tl.fromTo("#a2-scroll", { x: 0 }, { x: -3300, duration: 0.6, ease: "power1.in" }, 0.2);
+      [["#g1", 0.38, 0.5], ["#g2", 0.5, 0.62]].forEach(([s, a, b]) => tl.set(s, { opacity: 1 }, a).set(s, { opacity: 0 }, b));
+      tl.set("#a2-dash", { opacity: 1 }, 0.66);
+      words("#a3-l1", steps(0.86, 4, 0.11), 1.32);
+      words("#a3-l2", steps(1.34, 3, 0.13), 2.0);
+      pen("#pen1", 0.8, 0.22);
+      tl.to("#pen1", { opacity: 0, duration: 0.25 }, 1.05);
+      pen("#pen2", 0.92, 0.3);
+      pen("#pen3", 1.36, 0.18);
+      pen("#pen4", 1.55, 0.08);
+
+      // ---------- 2 flare + iris ----------
+      tl.fromTo("#b1 .star", { scale: 0.6, rotation: -15 }, { scale: 1.1, rotation: 0, duration: 0.17, ease: "none" }, 2.0);
+      tl.fromTo("#b2-star", { x: -380, scale: 0.4, rotation: -25 }, { x: 0, scale: 1, rotation: 0, duration: 0.35, ease: "expo.out" }, 2.17);
+      tl.to("#b2-star", { scale: 1.06, duration: 1.3, ease: "sine.inOut" }, 2.52);
+      document.querySelectorAll(".b2o").forEach((el, i) => {
+        tl.fromTo(el, { x: 360, y: -120, rotation: 40, filter: "blur(10px)" }, { x: 0, y: 0, rotation: i % 2 ? 8 : -8, filter: "blur(0px)", duration: 0.32, ease: "expo.out" }, 2.17 + i * 0.03);
+        tl.to(el, { y: i % 2 ? 26 : -26, duration: 1.3, ease: "sine.inOut" }, 2.5);
       });
-      tl.fromTo("#burn", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.in" }, 2.35);
-      tl.fromTo("#star", { opacity: 0, x: -300, scale: 0.3, rotation: -30 }, { opacity: 1, x: 0, scale: 1.15, rotation: 0, duration: 0.45, ease: "expo.out" }, 2.35);
+      pen("#pen5", 2.17, 0.14);
+      pen("#pen6", 2.24, 0.1);
+      tl.fromTo("#iris", { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 1.4, ease: "power1.inOut" }, 2.3);
+      tl.set("#b2-key", { color: "#f4f1ec" }, 3.45);
+      tl.fromTo("#b3-blob", { scale: 0.6, x: 0 }, { scale: 1.3, x: -260, duration: 0.15, ease: "none" }, 3.85);
 
-      // ---------- 2 reveal (dark) ----------
-      bg(1, 2.8);
-      tl.fromTo("#sh2", { scale: 1.12 }, { scale: 1, duration: 2.2, ease: "power1.out" }, 2.8);
-      typed("#t2a", 3.05, 0.045, 3.85);
-      typed("#t2b", 3.85, 0.05, 5.0);
+      // ---------- 3 glowing hands ----------
+      tl.fromTo("#v-pump", { scale: 1.06 }, { scale: 1, duration: 2.3, ease: "power1.out" }, 4.0);
+      words("#c-1", [4.2, 4.42], 4.98);
+      tl.set("#c-1", { opacity: 0 }, 4.98);
+      words("#c-2", [5.02, 5.18, 5.36], 6.3);
+      pen("#pen7", 4.75, 0.2);
+      tl.to("#pen7", { opacity: 0, duration: 0.15 }, 5.05);
+      // warm light washes over before the cut (sample "you just show it.")
+      tl.fromTo("#lightbg", { opacity: 0 }, { opacity: 0.55, duration: 0.5, ease: "power1.in" }, 5.75);
+      tl.set("#lightbg", { opacity: 0 }, 6.3);
+      tl.fromTo("#leak", { y: 260, opacity: 0.4 }, { y: 0, opacity: 1, duration: 0.2, ease: "power2.out" }, 6.3);
 
-      // ---------- 3 uses (paper) ----------
-      bg(0, 5.0);
-      flash(5.0, 0.35);
-      tl.fromTo("#sh3, #frame3", { scale: 0.86, rotation: -4 }, { scale: 1, rotation: -2, duration: 0.5, ease: "back.out(1.8)" }, 5.0);
-      typed("#t3a", 5.2, 0.03, 6.05);
-      typed("#t3b", 6.05, 0.03, 7.4);
-      ring("#ring3", 540, 980, 420, 540, 112).forEach(({ img }, i) => popIn(img, 5.15 + i * 0.07));
-      tl.fromTo("#ring3", { rotation: 0 }, { rotation: 10, duration: 2.4, ease: "none" }, 5.0);
+      // ---------- 4 ring ----------
+      const re = ring("#ring-e", 540, 960, 330, 430);
+      tl.fromTo("#ring-e", { filter: "grayscale(1) blur(14px)", scale: 1.25, rotation: 0 }, { filter: "grayscale(0) blur(0px)", scale: 1, rotation: 6, duration: 0.3, ease: "power2.out" }, 6.5);
+      tl.to("#ring-e", { rotation: 22, duration: 1.5, ease: "none" }, 6.8);
+      re.forEach(({ img }) => tl.fromTo(img, { rotation: 0 }, { rotation: -22, duration: 1.8, ease: "none" }, 6.5));
+      tl.fromTo("#e-blot", { x: 0, y: -160, scale: 0.4 }, { x: -20, y: 0, scale: 1, duration: 0.4, ease: "power2.out" }, 6.6);
+      tl.to("#e-blot", { scale: 9, duration: 0.3, ease: "power2.in" }, 8.0);
+      swoosh("#sw1", 7.05, 0.38);
+      swoosh("#sw2", 7.68, 0.38);
+      tl.fromTo("#burst", { opacity: 0, scale: 0.4, transformOrigin: "540px 1180px" }, { opacity: 1, scale: 1.3, duration: 0.14, ease: "power2.out" }, 7.33);
+      tl.to("#burst", { opacity: 0, duration: 0.2 }, 7.5);
+      const heart = re.find((o) => o.name === "heart").img;
+      tl.set(heart, { filter: "brightness(1.6) sepia(1) saturate(6) hue-rotate(-20deg)" }, 7.33).set(heart, { filter: "none" }, 7.55);
 
-      // ---------- 4 facts ----------
-      [["#sc4a", 7.4, 1], ["#sc4b", 8.2, 0], ["#sc4c", 9.0, 1], ["#sc4d", 9.8, 0]].forEach(([id, at, isDark]) => {
-        bg(isDark, at);
-        tl.fromTo(id + " .ribbon, " + id + " .slash", { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: "expo.out" }, at);
-        popIn(id + " .beat-icon", at + 0.04, isDark ? -6 : 6);
-        tl.to(id + " .beat-icon", { y: -16, duration: 0.6, ease: "sine.out" }, at + 0.4);
-        typed(id + " .word", at + 0.12, 0.028, at + 0.8);
+      // ---------- 5 word beats + conveyors ----------
+      tl.fromTo("#f-obj", { rotationY: -70, rotationZ: -20, transformPerspective: 900, filter: "blur(8px)", x: -120 }, { rotationY: 18, rotationZ: -8, filter: "blur(0px)", x: 0, duration: 0.45, ease: "expo.out" }, 8.3);
+      tl.to("#f-obj", { rotationY: -10, duration: 0.42, ease: "sine.inOut" }, 8.75);
+      tl.fromTo("#f-star", { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.25, ease: "back.out(2)" }, 8.32);
+      tl.set("#f-hit", { opacity: 1 }, 8.3).set("#f-hit", { opacity: 0 }, 8.47);
+      words("#f-w", [8.5], 9.17, "block");
+
+      const conv = (parent, names, y, k) => names.map((n, i) => obj(parent, n, 120 + i * 230, y + (i % 2 ? 40 : -30), n === "product" ? 3.4 : n === "oyen" ? 4.2 : k));
+      conv("#conv-g", ["bottle", "leaf", "product", "heart", "duck", "strawberry", "lemon"], 960, 13);
+      tl.fromTo("#conv-g", { x: 520 }, { x: -820, duration: 0.66, ease: "power1.inOut" }, 9.17);
+      tl.fromTo("#g .streak", { x: 300 }, { x: -500, duration: 0.66, ease: "none" }, 9.17);
+
+      tl.fromTo("#h-beam", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "expo.out" }, 9.83);
+      tl.fromTo("#h-obj", { x: -260, y: 260, rotation: -30, filter: "blur(8px)" }, { x: 0, y: 0, rotation: -12, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 9.83);
+      words("#h-w", [10.0, 10.12], 10.5, "block");
+
+      conv("#conv-i", ["plate", "oyen", "bubbles", "check", "carrot", "rattle"], 960, 13);
+      tl.fromTo("#conv-i", { x: -700 }, { x: 260, duration: 0.5, ease: "power1.inOut" }, 10.5);
+
+      tl.fromTo("#j-ring", { scale: 1.8, opacity: 1 }, { scale: 1, opacity: 0, duration: 0.3, ease: "power2.out" }, 11.0);
+      tl.fromTo("#j-obj", { rotationY: 70, transformPerspective: 900, scale: 0.7 }, { rotationY: -12, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 11.0);
+      document.querySelectorAll(".j-sp").forEach((el, i) => {
+        tl.set(el, { filter: "brightness(1.1) sepia(1) saturate(8) hue-rotate(-30deg)" }, 11.0);
+        tl.fromTo(el, { opacity: 0, y: 40 }, { opacity: 1, y: -30, duration: 0.6, ease: "power1.out" }, 11.1 + i * 0.12);
       });
+      words("#j-w", [11.15], 11.83, "block");
+      conv("#conv-k", ["duck", "heart", "product", "leaf", "plate"], 960, 13);
 
-      // ---------- 5 proof (footage) ----------
-      bg(1, 10.6);
-      [["#sc5a", "#sh5a", "#t5a", 10.6], ["#sc5b", "#sh5b", "#t5b", 12.2], ["#sc5c", "#sh5c", "#t5c", 13.8]].forEach(([id, shot, line, at]) => {
-        tl.fromTo(shot, { scale: 1.0 }, { scale: 1.07, duration: 1.6, ease: "none" }, at);
-        popIn(id + " .tagicon", at + 0.05, -6);
-        typed(line, at + 0.15, 0.04, at + 1.6);
+      // ---------- 6 ring breaks into ink ----------
+      const rl = ring("#ring-l", 540, 960, 330, 430);
+      tl.fromTo("#ring-l", { rotation: -12 }, { rotation: 0, duration: 0.45, ease: "power2.out" }, 12.0);
+      swoosh("#sw3", 12.0, 0.4);
+      const SCATTER = [[-120, -560], [300, -380], [380, -60], [420, 260], [300, 560], [100, 680], [-160, 640], [-420, 460], [-460, 120], [-420, -200], [-300, -480], [40, -260]];
+      rl.forEach(({ img }, i) => {
+        const [dx, dy] = SCATTER[i];
+        tl.to(img, { x: dx * 0.5, y: dy * 0.45, scale: 0.55, rotation: (i % 2 ? 1 : -1) * 18, duration: 0.45, ease: "power3.out" }, 12.45 + (i % 4) * 0.02);
+        if (i % 3 !== 1) tl.set(img, { filter: "brightness(0)" }, 12.85 + (i % 5) * 0.14);
       });
-      flash(12.2, 0.25);
-      flash(13.8, 0.25);
+      document.querySelectorAll(".l-blot").forEach((el, i) =>
+        tl.fromTo(el, { scale: 0 }, { scale: 1.2, duration: 0.3, ease: "back.out(2)" }, 12.75 + i * 0.22));
+      pen("#sq1", 12.9, 0.2);
+      pen("#sq2", 13.1, 0.2);
+      words("#l-w", [13.55], 13.83);
 
-      // ---------- 6 payoff (paper) ----------
-      bg(0, 15.4);
-      ring("#ring6", 540, 900, 400, 460, 120).forEach(({ img, a }, i) => {
-        tl.fromTo(img, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(2)" }, 15.4 + i * 0.02);
-        tl.to(img, { x: Math.cos(a) * 900, y: Math.sin(a) * 1100, rotation: (i % 2 ? 1 : -1) * 160, duration: 0.6, ease: "power3.in" }, 15.6 + (i % 3) * 0.04);
-      });
-      [[-380, -520, -40], [260, -640, 30], [-520, 380, 50], [440, 520, -60], [-200, 700, 25], [520, -300, -35]].forEach(([x, y, r], i) => {
-        tl.fromTo("#L" + (i + 1), { x, y, rotation: r, opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 16.05 + i * 0.05);
-      });
-      tl.fromTo("#loop1, #loop2", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.45, ease: "power1.inOut", stagger: 0.12 }, 16.85);
-      tl.fromTo("#tick6", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.3, ease: "power1.inOut" }, 17.05);
-      typed("#t6", 16.95, 0.022, 17.8);
+      // ---------- 7 glowing hands, split words ----------
+      tl.fromTo("#v-brush", { scale: 1.08, x: -40 }, { scale: 1, x: 0, duration: 2.07, ease: "power1.out" }, 13.83);
+      words("#m-1", [14.05], 15.9);
+      words("#m-2", [14.45, 14.62], 15.9);
+      tl.fromTo("#wash", { opacity: 0, x: 300 }, { opacity: 1, x: 0, duration: 0.24, ease: "power2.in" }, 15.66);
 
-      // ---------- 7 CTA (dark) ----------
-      bg(1, 17.8);
-      typed("#cta-k", 17.95, 0.045, 18.4);
-      tl.fromTo("#cta-b1", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.26, ease: "back.out(2.4)" }, 18.4);
-      tl.fromTo("#cta-b2", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 18.6);
-      tl.fromTo("#uline", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power1.inOut" }, 18.95);
-      tl.fromTo("#cta-btn", { opacity: 0, y: 60, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(2)" }, 19.3);
-      tl.to("#cta-btn", { scale: 1.06, duration: 0.32, ease: "sine.inOut", yoyo: true, repeat: 5 }, 19.7);
-      tl.set("#cat", { visibility: "visible" }, 17.8);
+      // ---------- 8 strobe between the letters ----------
+      const STROBE = [
+        [15.9, "paper", "heart", 15, "#1b1a1a"], [16.07, "greyv", "heart", 20, "#151313"], [16.24, "dark", "product", 2.8, "#f4f1ec"],
+        [16.41, "red", "product", 4.2, "#f4f1ec"], [16.58, "red", "duck", 17, "#2a1210"], [16.75, "dark", "check", 14, "#f4f1ec"],
+        [16.92, "dark", "check", 19, "#f4f1ec"], [17.09, "greyv", "lemon", 21, "#151313"],
+      ];
+      STROBE.forEach(([at, bgName, name, k, ink], i) => {
+        const img = obj("#n-objs", name, 540, 940, k);
+        img.style.visibility = "hidden";
+        tl.set(img, { visibility: "visible", rotation: name === "duck" ? -18 : 0 }, at);
+        if (i < STROBE.length - 1) tl.set(img, { visibility: "hidden" }, STROBE[i + 1][0]);
+        if (i) tl.set("#n-bg", { className: "bg " + bgName }, at);
+        tl.set("#n .letter", { color: ink }, at);
+      });
+      [15.9, 16.07, 16.24, 16.58, 16.75, 16.92].forEach((at, i) => tl.fromTo("#nL" + (i + 1), { opacity: 0 }, { opacity: 1, duration: 0.01 }, at));
+
+      // ---------- 8b letters drift apart ----------
+      [[60, -380, -40], [-60, 260, 25], [380, -300, 160], [-120, -420, -20], [-20, 500, 70], [-160, 300, -30]].forEach(([x, y, r], i) =>
+        tl.fromTo("#oL" + (i + 1), { x: 0, y: 0, rotation: 0 }, { x, y, rotation: r, duration: 0.7, ease: "power2.out" }, 17.2));
+      swoosh("#sw4", 17.22, 0.25);
+      document.querySelectorAll("#o .loop").forEach((el, i) => pen(el, 17.6 + i * 0.14, 0.3));
+
+      // ---------- 9 CTA ----------
+      words("#cta-k", [18.5, 18.64], 18.85);
+      tl.fromTo("#cta-b1", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(2.4)" }, 18.85);
+      tl.fromTo("#cta-b2", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(2.4)" }, 19.05);
+      pen("#uline", 19.3, 0.35);
+      tl.fromTo("#cta-btn", { opacity: 0, y: 60, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(2)" }, 19.45);
+      tl.to("#cta-btn", { scale: 1.06, duration: 0.32, ease: "sine.inOut", yoyo: true, repeat: 5 }, 19.85);
+      tl.fromTo("#p-obj", { rotationY: -70, transformPerspective: 900, opacity: 0 }, { rotationY: 15, opacity: 1, duration: 0.5, ease: "expo.out" }, 18.6);
+      tl.to("#p-obj", { rotationY: -15, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 19.1);
+      tl.fromTo("#p-star", { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2)" }, 18.6);
+      tl.to("#p-star", { rotation: 25, duration: 3.2, ease: "none" }, 19.0);
+      tl.set("#cat", { visibility: "visible" }, 18.4);
 
       // OYEN:START (generated by `python3 -m oyen install` from storyline.py)
       // sprite frames switch by background-position at fixed times -> seek-safe
@@ -707,13 +925,13 @@ tumbuhan.*</div>
           tl.to(sel, { x: 640, y: -170, rotation: 30, scaleX: 1, opacity: 0, duration: 0.55, ease: "power2.out" }, knock + 0.05);
         }
       };
-      [[0.6, -420, -840], [1.2, -840, -840], [1.8, -1260, -840], [2.4, 0, -840], [3, -420, -840], [3.6, -840, -840], [4.2, -1260, -840], [4.8, 0, -840], [5.4, -420, -840], [6, -840, -840], [6.6, -1260, -840], [7.2, 0, -840], [7.8, -420, -840], [8.4, -840, -840], [9, -1260, -840], [9.6, 0, -840], [10.2, -420, -840], [10.8, -840, -840], [11.4, -1260, -840], [12, 0, -840], [12.6, -420, -840], [13.2, -840, -840], [13.8, -1260, -840], [14.4, 0, -840], [15, -420, -840], [15.6, -840, -840], [16.2, -1260, -840], [16.8, 0, -840], [17.4, -420, -840], [17.8, -420, -2100], [17.92, -840, -2100], [18.04, -1260, -2100], [18.16, -1680, -2100], [18.28, -2100, -2100], [18.4, -2520, -2100], [18.5, 0, 0], [18.77, -1680, 0], [18.89, -2100, 0], [19.01, -2520, 0], [19.17, -2100, 0], [19.236, 0, 0], [19.8, -840, 0], [20.25, 0, 0], [20.4, -1260, 0], [20.52, 0, 0], [21.2, -2940, -2100], [21.28, 0, -2520], [21.36, -420, -2520], [21.44, -840, -2520], [21.52, -1260, -2520], [21.6, -1680, -2520], [21.68, -2940, -2100], [21.76, 0, -2520], [21.84, -420, -2520], [21.92, -840, -2520], [22, -1260, -2520], [22.08, -1680, -2520], [22.16, -2940, -2100], [22.24, 0, -2520], [22.32, -420, -2520]].forEach((f) => spr(f[0], f[1], f[2]));
-      pop(17.8);
-      walkIn(17.8, -476, 0, 0.7);
-      pop(18.5);
+      [[0.6, -420, -840], [1.2, -840, -840], [1.8, -1260, -840], [2.4, 0, -840], [3, -420, -840], [3.6, -840, -840], [4.2, -1260, -840], [4.8, 0, -840], [5.4, -420, -840], [6, -840, -840], [6.6, -1260, -840], [7.2, 0, -840], [7.8, -420, -840], [8.4, -840, -840], [9, -1260, -840], [9.6, 0, -840], [10.2, -420, -840], [10.8, -840, -840], [11.4, -1260, -840], [12, 0, -840], [12.6, -420, -840], [13.2, -840, -840], [13.8, -1260, -840], [14.4, 0, -840], [15, -420, -840], [15.6, -840, -840], [16.2, -1260, -840], [16.8, 0, -840], [17.4, -420, -840], [18, -840, -840], [18.4, -420, -2100], [18.52, -840, -2100], [18.64, -1260, -2100], [18.76, -1680, -2100], [18.88, -2100, -2100], [19, -2520, -2100], [19.1, 0, 0], [19.37, -1680, 0], [19.49, -2100, 0], [19.61, -2520, 0], [19.77, -2100, 0], [19.836, 0, 0], [20.4, -840, 0], [20.85, 0, 0], [21.2, -2940, -2100], [21.28, 0, -2520], [21.36, -420, -2520], [21.44, -840, -2520], [21.52, -1260, -2520], [21.6, -1680, -2520], [21.68, -2940, -2100], [21.76, 0, -2520], [21.84, -420, -2520], [21.92, -840, -2520], [22, -1260, -2520], [22.08, -1680, -2520], [22.16, -2940, -2100], [22.24, 0, -2520], [22.32, -420, -2520]].forEach((f) => spr(f[0], f[1], f[2]));
+      pop(18.4);
+      walkIn(18.4, -476, 0, 0.7);
+      pop(19.1);
       pop(21.2);
       dashOut(21.2, 0, 1084, 0.985);
-      say("ob0", 18.65, 21.97, 0.032, 21.324);
+      say("ob0", 19.25, 21.97, 0.032, 21.324);
       // OYEN:END
 
       window.__timelines["main"] = tl;

@@ -302,3 +302,39 @@ def build():
 
 if __name__ == "__main__":
     build()
+
+
+def extrude(im, depth=2, shade=0.5):
+    """Fake voxel depth (the sample's chunky 3D objects): darker copies of the silhouette stacked
+    down-right under the icon. Returns a new image `depth` px larger each way."""
+    w, h = im.size
+    out = Image.new("RGBA", (w + depth, h + depth), (0, 0, 0, 0))
+    dark = im.copy()
+    px = dark.load()
+    for y in range(h):
+        for x in range(w):
+            r, g, b, a = px[x, y]
+            if a:
+                px[x, y] = (int(r * shade), int(g * shade), int(b * shade), a)
+    for k in range(depth, 0, -1):  # every offset up to `depth`: a solid side, no staircase gaps
+        for dx, dy in ((k, k), (k - 1, k), (k, k - 1)):
+            out.alpha_composite(dark, (dx, dy))
+    out.alpha_composite(im, (0, 0))
+    return out
+
+
+def blob(size=24, seed=0, colour=(20, 18, 18)):
+    """A pixel ink blot: a wobbly disc (the sample's black blots that fly across the objects)."""
+    import math
+    import random
+    rnd = random.Random(seed)
+    c = (size - 1) / 2
+    bumps = [rnd.uniform(-0.18, 0.12) for _ in range(9)]
+    im = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    for y in range(size):
+        for x in range(size):
+            a = math.atan2(y - c, x - c)
+            r = c * 0.92 * (1 + sum(b * math.cos((i + 2) * a + i) for i, b in enumerate(bumps)) / 3)
+            if math.hypot(x - c, y - c) <= r:
+                im.putpixel((x, y), colour + (255,))
+    return im
