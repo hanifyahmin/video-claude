@@ -8,3 +8,4 @@ videos/*/snapshots/
 videos/*/assets/source*.mp4
 videos/*/assets/source*.mov
 videos/*/assets/source*.webm
+videos/*/.transcode-cache/
