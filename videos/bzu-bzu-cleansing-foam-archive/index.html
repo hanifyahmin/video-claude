@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- local copy: cdn.jsdelivr.net may be blocked in cloud sessions -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #e9e7e2;
+      }
+      /* archive look (after the sample edit): paper / ink scenes cut hard against each other, small
+         lowercase typewriter text with a cursor, pixel objects, red hand-drawn accents, film grain */
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: Montserrat, sans-serif;
+        color: #1b1a1a;
+        background: #e9e7e2;
+        --accent: #ffd23f;
+        --on-accent: #1b1a1a;
+        --red: #e0301e;
+      }
+      #paper,
+      #dark {
+        position: absolute;
+        inset: 0;
+      }
+      #paper {
+        background: radial-gradient(ellipse 75% 60% at 50% 46%, #f4f3ef 0%, #e6e4de 62%, #cfccc5 100%);
+      }
+      #dark {
+        opacity: 0;
+        background: radial-gradient(ellipse 80% 60% at 50% 50%, #1a1716 0%, #0b0a0a 70%, #050505 100%);
+      }
+
+      /* ---------- footage (muted; one wrapper per cut, the wrapper carries zoom) ---------- */
+      #foot {
+        position: absolute;
+        inset: 0;
+      }
+      .shot {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .shot video {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+      }
+      /* the sample's glowing silhouette: footage turned into one warm tone, fading to black */
+      #sh2 video {
+        filter: grayscale(1) sepia(1) saturate(4.5) hue-rotate(-14deg) brightness(0.78) contrast(1.6);
+        -webkit-mask-image: radial-gradient(ellipse 62% 42% at 50% 64%, #000 35%, transparent 78%);
+      }
+      #sh3 {
+        inset: auto;
+        left: 250px;
+        top: 600px;
+        width: 580px;
+        height: 760px;
+      }
+      #sh3 video {
+        width: 580px;
+        height: 760px;
+        object-position: 50% 28%;
+        filter: saturate(0.95) contrast(1.04);
+      }
+      .doc video {
+        filter: saturate(0.85) contrast(1.06) sepia(0.14);
+      }
+      #sh7 video {
+        filter: brightness(0.3) saturate(0.7) blur(8px);
+      }
+
+      /* ---------- scenes (text + objects; transparent, over the footage) ---------- */
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+      .line {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 64px;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        white-space: pre;
+      }
+      .left {
+        left: 84px;
+        width: 900px;
+        text-align: left;
+      }
+      .white {
+        color: #f3f1ec;
+      }
+      .grey {
+        color: #8f8b86;
+      }
+      .tw {
+        display: none;
+      }
+      .cur {
+        display: inline-block;
+        width: 0.09em;
+        height: 0.95em;
+        margin-left: 0.12em;
+        vertical-align: -0.1em;
+        background: currentColor;
+        opacity: 0;
+      }
+      .px {
+        position: absolute;
+        image-rendering: pixelated;
+        filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.28));
+      }
+      #s1-big {
+        position: absolute;
+        left: 0;
+        top: 560px;
+        width: 1080px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 250px;
+        line-height: 0.92;
+        letter-spacing: -0.045em;
+      }
+      .dash {
+        position: absolute;
+        top: 1080px;
+        width: 1400px;
+        border-top: 6px dashed #1b1a1a;
+      }
+      #star {
+        position: absolute;
+        left: -520px;
+        top: 460px;
+        width: 1000px;
+        height: 1000px;
+        opacity: 0;
+      }
+      #burn {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background: radial-gradient(ellipse 55% 40% at 62% 50%, rgba(255, 214, 190, 0) 20%, rgba(120, 60, 40, 0.55) 60%, rgba(10, 8, 8, 0.95) 100%);
+      }
+      #frame3 {
+        position: absolute;
+        left: 236px;
+        top: 586px;
+        width: 608px;
+        height: 788px;
+        border: 14px solid #fbfaf7;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      }
+      .word {
+        position: absolute;
+        left: 0;
+        top: 1120px;
+        width: 1080px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 104px;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        white-space: pre;
+      }
+      .beat-icon {
+        left: 420px;
+        top: 700px;
+        width: 240px;
+        height: 240px;
+      }
+      .ribbon {
+        position: absolute;
+        left: -200px;
+        top: 760px;
+        width: 1480px;
+        height: 150px;
+        background: var(--red);
+        transform-origin: 0% 50%;
+      }
+      .slash {
+        position: absolute;
+        left: 160px;
+        top: 818px;
+        width: 760px;
+        height: 10px;
+        background: var(--red);
+        transform-origin: 0% 50%;
+      }
+      .topfade {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 640px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0));
+      }
+      .tagicon {
+        left: 84px;
+        top: 190px;
+        width: 112px;
+        height: 112px;
+      }
+      .letter {
+        position: absolute;
+        top: 800px;
+        width: 140px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 170px;
+        line-height: 1;
+      }
+      #doodles,
+      #underline {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: visible;
+      }
+      #cta {
+        position: absolute;
+        left: 40px;
+        top: 440px;
+        width: 1000px;
+        height: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      #cta-k {
+        font-weight: 600;
+        font-size: 60px;
+        line-height: 1.2;
+        white-space: pre;
+      }
+      .cta-big {
+        font-weight: 800;
+        font-size: 150px;
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+      #cta-b2 {
+        color: var(--accent);
+      }
+      #cta-btn {
+        margin-top: 70px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 124px;
+        padding: 0 46px 0 36px;
+        border: 6px solid #1b1a1a;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px #f3f1ec, 12px 12px 0 4px var(--red);
+        font-weight: 800;
+        font-size: 48px;
+        color: #1b1a1a;
+      }
+
+      /* ---------- finish: grain, vignette, flash ---------- */
+      #grain {
+        position: absolute;
+        inset: 0;
+        background-image: url("assets/grain.png");
+        background-size: 256px 256px;
+        mix-blend-mode: overlay;
+        opacity: 0.16;
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 85% 70% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.32) 100%);
+      }
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        opacity: 0;
+      }
+      /* Oyen stays out of the archive scenes and walks in for the CTA */
+      #cat {
+        visibility: hidden;
+      }
+      /* OYEN:CSS:START (generated by `python3 -m oyen install`) */
+      #cat {
+        position: absolute;
+        left: 16px;
+        top: 1140px;
+        width: 420px;
+        height: 420px;
+      }
+      #cat-svg,
+      #cat-spr {
+        display: block;
+        filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.45));
+      }
+      #cat-spr {
+        width: 420px;
+        height: 420px;
+        background-image: url("assets/oyen-tabby.png");
+        background-size: 3360px 2940px;
+        background-repeat: no-repeat;
+        image-rendering: pixelated;
+        transform-origin: 85% 100%;
+      }
+      .bub {
+        position: absolute;
+        left: 450px;
+        top: 1282px;
+        width: 590px;
+        height: 130px;
+      }
+      .bub-in {
+        position: absolute;
+        left: 0;
+        top: 0;
+        max-width: 590px;
+        padding: 22px 28px;
+        background: #fffdf5;
+        box-shadow:
+          0 -6px 0 0 #2a160b,
+          0 6px 0 0 #2a160b,
+          -6px 0 0 0 #2a160b,
+          6px 0 0 0 #2a160b,
+          12px 12px 0 0 rgba(0, 0, 0, 0.35);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 1.2;
+        color: #2a160b;
+        white-space: nowrap;
+      }
+      .bub-tail {
+        position: absolute;
+        left: -30px;
+        top: 34px;
+        width: 30px;
+        height: 30px;
+      }
+      /* OYEN:CSS:END */
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="22.4"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="paper"></div>
+      <div id="dark"></div>
+
+      <!-- ================= FOOTAGE (assets/source-portrait.mp4, muted) ================= -->
+      <div id="foot">
+        <div class="shot" data-layout-allow-overflow id="sh2">
+          <video id="v2" class="clip" src="assets/source-portrait.mp4" data-start="2.8" data-duration="2.2" data-media-start="31.6" data-track-index="0" muted playsinline></video>
+        </div>
+        <div class="shot" data-layout-allow-overflow id="sh3">
+          <video id="v3" class="clip" src="assets/source-portrait.mp4" data-start="5" data-duration="2.4" data-media-start="15.4" data-track-index="0" muted playsinline></video>
+        </div>
+        <div class="shot doc" data-layout-allow-overflow id="sh5a">
+          <video id="v5a" class="clip" src="assets/source-portrait.mp4" data-start="10.6" data-duration="1.6" data-media-start="40" data-playback-rate="1.5" data-track-index="0" muted playsinline></video>
+        </div>
+        <div class="shot doc" data-layout-allow-overflow id="sh5b">
+          <video id="v5b" class="clip" src="assets/source-portrait.mp4" data-start="12.2" data-duration="1.6" data-media-start="51.4" data-track-index="0" muted playsinline></video>
+        </div>
+        <div class="shot doc" data-layout-allow-overflow id="sh5c">
+          <video id="v5c" class="clip" src="assets/source-portrait.mp4" data-start="13.8" data-duration="1.6" data-media-start="69.4" data-track-index="0" muted playsinline></video>
+        </div>
+        <div class="shot" data-layout-allow-overflow id="sh7">
+          <video id="v7" class="clip" src="assets/source-portrait.mp4" data-start="17.8" data-duration="4.6" data-media-start="15" data-playback-rate="0.5" data-track-index="0" muted playsinline></video>
+        </div>
+      </div>
+
+      <!-- ================= 1 HOOK (paper): big words, then the typed question ================= -->
+      <div id="sc1" class="scene clip" data-layout-allow-overflow data-start="0" data-duration="2.8" data-track-index="2">
+        <div class="dash" id="dash-l" style="left: -1200px"></div>
+        <div class="dash" id="dash-r" style="left: 900px"></div>
+        <div id="s1-big">botol<br />susu?</div>
+        <div class="line" id="t1a" style="top: 830px">cuci botol susu baby</div>
+        <div class="line" id="t1b" style="top: 912px">pakai apa?</div>
+        <img class="px s1i" src="assets/icons/bottle.png" alt="" style="left: 110px; top: 420px; width: 176px; height: 176px" />
+        <img class="px s1i" src="assets/icons/duck.png" alt="" style="left: 800px; top: 480px; width: 176px; height: 176px" />
+        <img class="px s1i" src="assets/icons/plate.png" alt="" style="left: 150px; top: 1180px; width: 160px; height: 160px" />
+        <img class="px s1i" src="assets/icons/strawberry.png" alt="" style="left: 790px; top: 1160px; width: 160px; height: 160px" />
+        <img class="px s1i" src="assets/icons/rattle.png" alt="" style="left: 480px; top: 1310px; width: 140px; height: 140px" />
+        <img class="px s1i" src="assets/icons/bubbles.png" alt="" style="left: 470px; top: 280px; width: 140px; height: 140px" />
+        <div id="burn"></div>
+        <svg id="star" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="star-g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7fe3ff" />
+              <stop offset="1" stop-color="#1f5bff" />
+            </linearGradient>
+          </defs>
+          <path d="M50 0 Q54 46 100 50 Q54 54 50 100 Q46 54 0 50 Q46 46 50 0Z" fill="url(#star-g)" />
+        </svg>
+      </div>
+
+      <!-- ================= 2 REVEAL (dark): glowing foam footage ================= -->
+      <div id="sc2" class="scene clip" data-start="2.8" data-duration="2.2" data-track-index="2">
+        <div class="line left grey" id="t2a" style="top: 360px; font-size: 80px">cuma perlu</div>
+        <div class="line left white" id="t2b" style="top: 456px; font-size: 80px; font-weight: 700">buih ni.</div>
+      </div>
+
+      <!-- ================= 3 USES (paper): label in a print, objects orbiting ================= -->
+      <div id="sc3" class="scene clip" data-layout-allow-overflow data-start="5" data-duration="2.4" data-track-index="2">
+        <div id="frame3"></div>
+        <div class="line" id="t3a" style="top: 236px; font-size: 56px">untuk botol susu, pinggan,</div>
+        <div class="line" id="t3b" style="top: 306px; font-size: 56px">mainan, buah &amp; sayur.</div>
+        <div id="ring3" data-layout-allow-overflow></div>
+      </div>
+
+      <!-- ================= 4 FACTS: one word, one object, one red mark ================= -->
+      <div id="sc4a" class="scene clip" data-layout-allow-overflow data-start="7.4" data-duration="0.8" data-track-index="2">
+        <div class="ribbon" style="transform: rotate(-14deg)"></div>
+        <img class="px beat-icon" src="assets/icons/no-scent.png" alt="" />
+        <div class="word white" id="w4a">0% pewangi.</div>
+      </div>
+      <div id="sc4b" class="scene clip" data-layout-allow-overflow data-start="8.2" data-duration="0.8" data-track-index="2">
+        <div class="slash" style="transform: rotate(10deg)"></div>
+        <img class="px beat-icon" src="assets/icons/drop.png" alt="" />
+        <div class="word" id="w4b">tanpa sulfat.</div>
+      </div>
+      <div id="sc4c" class="scene clip" data-layout-allow-overflow data-start="9" data-duration="0.8" data-track-index="2">
+        <div class="ribbon" style="transform: rotate(12deg); top: 720px"></div>
+        <img class="px beat-icon" src="assets/icons/leaf.png" alt="" />
+        <div class="word white" id="w4c" style="font-size: 92px">100% bahan
+tumbuhan.*</div>
+      </div>
+      <div id="sc4d" class="scene clip" data-layout-allow-overflow data-start="9.8" data-duration="0.8" data-track-index="2">
+        <div class="slash" style="transform: rotate(-9deg)"></div>
+        <img class="px beat-icon" src="assets/icons/check.png" alt="" />
+        <div class="word" id="w4d">halal.</div>
+      </div>
+
+      <!-- ================= 5 PROOF (footage + typed lines) ================= -->
+      <div id="sc5a" class="scene clip" data-start="10.6" data-duration="1.6" data-track-index="2">
+        <div class="topfade"></div>
+        <img class="px tagicon" src="assets/icons/sponge.png" alt="" />
+        <div class="line left white" id="t5a" style="top: 330px; font-size: 76px">lembut di tangan.</div>
+      </div>
+      <div id="sc5b" class="scene clip" data-start="12.2" data-duration="1.6" data-track-index="2">
+        <div class="topfade"></div>
+        <img class="px tagicon" src="assets/icons/bubbles.png" alt="" />
+        <div class="line left white" id="t5b" style="top: 330px; font-size: 76px">mudah dibilas.</div>
+      </div>
+      <div id="sc5c" class="scene clip" data-start="13.8" data-duration="1.6" data-track-index="2">
+        <div class="topfade"></div>
+        <img class="px tagicon" src="assets/icons/lemon.png" alt="" />
+        <div class="line left white" id="t5c" style="top: 330px; font-size: 76px">bau lemon segar.</div>
+      </div>
+
+      <!-- ================= 6 PAYOFF (paper): objects scatter, letters find their place ================= -->
+      <div id="sc6" class="scene clip" data-layout-allow-overflow data-start="15.4" data-duration="2.4" data-track-index="2">
+        <div id="ring6" data-layout-allow-overflow></div>
+        <div class="letter" id="L1" style="left: 95px">B</div>
+        <div class="letter" id="L2" style="left: 245px">E</div>
+        <div class="letter" id="L3" style="left: 395px">R</div>
+        <div class="letter" id="L4" style="left: 545px">S</div>
+        <div class="letter" id="L5" style="left: 695px">I</div>
+        <div class="letter" id="L6" style="left: 845px">H</div>
+        <svg id="doodles" viewBox="0 0 1080 1920" fill="none" stroke="#e0301e" stroke-width="7" stroke-linecap="round">
+          <path id="loop1" pathLength="1" d="M305 760 C210 765 200 960 300 975 C390 990 420 800 330 770 C300 760 270 772 262 790" />
+          <path id="loop2" pathLength="1" d="M775 752 C700 740 690 980 772 990 C850 1000 860 770 790 755 C770 750 748 760 740 776" />
+          <path id="tick6" pathLength="1" d="M380 1060 C520 1040 700 1046 840 1070" />
+        </svg>
+        <div class="line" id="t6" style="top: 1110px; font-size: 54px">bersih, lembut, wangi lemon.</div>
+      </div>
+
+      <!-- ================= 7 CTA (dark; template words, no arrow) ================= -->
+      <div id="sc7" class="scene clip" data-start="17.8" data-duration="4.6" data-track-index="2">
+        <div id="cta">
+          <div class="white" id="cta-k">nak satu?</div>
+          <div class="cta-big white" id="cta-b1">TEKAN</div>
+          <div class="cta-big" id="cta-b2">BEG KUNING</div>
+          <div id="cta-btn">
+            <svg width="62" height="62" viewBox="0 0 24 24">
+              <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="9.5" cy="20" r="1.6" fill="currentColor" />
+              <circle cx="17" cy="20" r="1.6" fill="currentColor" />
+            </svg>
+            CHECK HARGA PROMO
+          </div>
+        </div>
+        <svg id="underline" viewBox="0 0 1080 1920" fill="none" stroke="#e0301e" stroke-width="9" stroke-linecap="round">
+          <path id="uline" pathLength="1" d="M150 835 C330 810 560 855 740 822 C820 808 880 816 930 830" />
+        </svg>
+      </div>
+
+      <!-- OYEN:START (generated by `python3 -m oyen install`; edit storyline.py, not this) -->
+      <div id="cat"><div id="cat-walk"><div id="cat-spr" style="background-position: 0px -840px"></div></div></div>
+      <div id="ob0" class="bub clip" data-start="18.65" data-duration="3.32" data-track-index="6"><div class="bub-in"><svg class="bub-tail" width="30" height="30" viewBox="0 0 5 5" shape-rendering="crispEdges"><rect x="4" y="0" width="1" height="5" fill="#fffdf5"/><rect x="3" y="1" width="1" height="3" fill="#fffdf5"/><rect x="2" y="2" width="1" height="1" fill="#fffdf5"/><rect x="3" y="0" width="1" height="1" fill="#2a160b"/><rect x="2" y="1" width="1" height="1" fill="#2a160b"/><rect x="1" y="2" width="1" height="1" fill="#2a160b"/><rect x="2" y="3" width="1" height="1" fill="#2a160b"/><rect x="3" y="4" width="1" height="1" fill="#2a160b"/></svg><span class="ch">J</span><span class="ch">o</span><span class="ch">m</span><span class="ch">&nbsp;</span><span class="ch">c</span><span class="ch">h</span><span class="ch">e</span><span class="ch">c</span><span class="ch">k</span><span class="ch">o</span><span class="ch">u</span><span class="ch">t</span><span class="ch">!</span></div></div>
+      <!-- OYEN:END -->
+
+      <div id="grain"></div>
+      <div id="vignette"></div>
+      <div id="flash"></div>
+
+      <!-- ================= AUDIO: music bed + SFX (see assets/sfx/CREDITS.md) ================= -->
+      <audio id="music" src="assets/music.mp3" data-start="0" data-duration="22.4" data-track-index="20" data-volume="0.6"></audio>
+      <audio id="sfx-whoosh-0" src="assets/sfx/whoosh-short.mp3" data-start="0.72" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx-type-1" src="assets/sfx/typing.mp3" data-start="0.95" data-duration="1.5" data-track-index="22" data-volume="0.3"></audio>
+      <audio id="sfx-riser-1" src="assets/sfx/riser.mp3" data-start="1.8" data-duration="1" data-track-index="23" data-volume="0.3"></audio>
+      <audio id="sfx-impact-2" src="assets/sfx/impact-bass-1.mp3" data-start="2.8" data-track-index="24" data-volume="0.45"></audio>
+      <audio id="sfx-type-2" src="assets/sfx/typing.mp3" data-start="3.05" data-duration="1.2" data-track-index="25" data-volume="0.28"></audio>
+      <audio id="sfx-whoosh-3" src="assets/sfx/whoosh.mp3" data-start="4.95" data-track-index="26" data-volume="0.35"></audio>
+      <audio id="sfx-type-3" src="assets/sfx/typing.mp3" data-start="5.2" data-duration="1.5" data-track-index="27" data-volume="0.28"></audio>
+      <audio id="sfx-click-4a" src="assets/sfx/click.mp3" data-start="7.4" data-track-index="28" data-volume="0.55"></audio>
+      <audio id="sfx-click-4b" src="assets/sfx/click.mp3" data-start="8.2" data-track-index="29" data-volume="0.55"></audio>
+      <audio id="sfx-click-4c" src="assets/sfx/click.mp3" data-start="9" data-track-index="30" data-volume="0.55"></audio>
+      <audio id="sfx-click-4d" src="assets/sfx/click.mp3" data-start="9.8" data-track-index="31" data-volume="0.55"></audio>
+      <audio id="sfx-whoosh-5a" src="assets/sfx/whoosh-short.mp3" data-start="10.56" data-track-index="32" data-volume="0.35"></audio>
+      <audio id="sfx-type-5a" src="assets/sfx/typing.mp3" data-start="10.75" data-duration="0.7" data-track-index="33" data-volume="0.26"></audio>
+      <audio id="sfx-type-5b" src="assets/sfx/typing.mp3" data-start="12.35" data-duration="0.6" data-track-index="34" data-volume="0.26"></audio>
+      <audio id="sfx-type-5c" src="assets/sfx/typing.mp3" data-start="13.95" data-duration="0.65" data-track-index="35" data-volume="0.26"></audio>
+      <audio id="sfx-whoosh-6" src="assets/sfx/whoosh.mp3" data-start="15.55" data-track-index="36" data-volume="0.4"></audio>
+      <audio id="sfx-sparkle-6" src="assets/sfx/sparkle.mp3" data-start="16.85" data-track-index="37" data-volume="0.4"></audio>
+      <audio id="sfx-type-7" src="assets/sfx/typing.mp3" data-start="17.95" data-duration="0.4" data-track-index="38" data-volume="0.28"></audio>
+      <audio id="sfx-impact-7" src="assets/sfx/impact-bass-1.mp3" data-start="18.4" data-track-index="39" data-volume="0.4"></audio>
+      <audio id="sfx-chime-7" src="assets/sfx/chime.mp3" data-start="19.3" data-track-index="40" data-volume="0.4"></audio>
+      <!-- OYEN:SFX:START -->
+      <audio id="sfx-pop-ob0" src="assets/sfx/pop.mp3" data-start="18.65" data-track-index="50" data-volume="0.45"></audio>
+      <audio id="sfx-type-ob0" src="assets/sfx/typing.mp3" data-start="18.77" data-duration="0.47" data-track-index="51" data-volume="0.22"></audio>
+      <audio id="sfx-dash-3" src="assets/sfx/whoosh.mp3" data-start="21.2" data-track-index="52" data-volume="0.5"></audio>
+      <audio id="sfx-hit-ob0" src="assets/sfx/impact-bass-1.mp3" data-start="21.324" data-track-index="53" data-volume="0.55"></audio>
+      <audio id="sfx-hitpop-ob0" src="assets/sfx/pop.mp3" data-start="21.324" data-track-index="54" data-volume="0.6"></audio>
+      <!-- OYEN:SFX:END -->
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- helpers: all seek-safe ----------
+      // typewriter: each character is shown by a set(); a cursor follows and blinks until `until`
+      const typed = (sel, at, cps, until) => {
+        const el = document.querySelector(sel);
+        const text = el.textContent;
+        el.textContent = "";
+        [...text].forEach((c, i) => {
+          const s = document.createElement(c === "\n" ? "br" : "span");
+          s.className = "tw";
+          if (c !== "\n") s.textContent = c;
+          el.appendChild(s);
+          tl.set(s, { display: "inline" }, at + i * cps);
+        });
+        const cur = document.createElement("span");
+        cur.className = "cur";
+        el.appendChild(cur);
+        const end = at + text.length * cps;
+        tl.set(cur, { opacity: 1 }, at);
+        let on = false;
+        for (let t = end + 0.3; t < until - 0.05; t += 0.3, on = !on) tl.set(cur, { opacity: on ? 1 : 0 }, t);
+        tl.set(cur, { opacity: 0 }, until);
+        return end;
+      };
+      const popIn = (el, at, rot = 0) =>
+        tl.fromTo(el, { scale: 0, rotation: rot - 25, opacity: 0 }, { scale: 1, rotation: rot, opacity: 1, duration: 0.35, ease: "back.out(2.4)" }, at);
+      // hard cuts between paper and ink
+      const bg = (isDark, at) => tl.set("#dark", { opacity: isDark ? 1 : 0 }, at);
+      tl.set("#flash", { opacity: 0 }, 0);
+      const flash = (at, peak = 0.5) =>
+        tl.set("#flash", { opacity: peak }, at).to("#flash", { opacity: 0, duration: 0.16, ease: "power1.out" }, at);
+      // grain moves every 1/12 s like film
+      for (let i = 1; i * 0.0834 < 22.4; i++)
+        tl.set("#grain", { backgroundPosition: ((i * 97) % 256) + "px " + ((i * 61) % 256) + "px" }, i * 0.0834);
+      // ring of pixel objects (built here so the positions live in one place)
+      const RING = ["bottle", "duck", "plate", "strawberry", "carrot", "rattle", "lemon", "leaf", "heart", "bubbles"];
+      const ring = (sel, cx, cy, rx, ry, size) =>
+        RING.map((name, i) => {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / RING.length;
+          const img = document.createElement("img");
+          img.className = "px";
+          img.src = "assets/icons/" + name + ".png";
+          img.alt = "";
+          img.style.width = img.style.height = size + "px";
+          img.style.left = Math.round(cx + rx * Math.cos(a) - size / 2) + "px";
+          img.style.top = Math.round(cy + ry * Math.sin(a) - size / 2) + "px";
+          document.querySelector(sel).appendChild(img);
+          return { img, a };
+        });
+
+      // ---------- 1 hook (paper) ----------
+      tl.to("#s1-big", { x: -50, duration: 0.7, ease: "none" }, 0);
+      tl.to("#dash-l", { x: 420, duration: 0.8, ease: "power2.out" }, 0);
+      tl.to("#dash-r", { x: -420, duration: 0.8, ease: "power2.out" }, 0);
+      tl.to("#s1-big", { scale: 0.18, y: 260, opacity: 0, duration: 0.25, ease: "power2.in" }, 0.7);
+      tl.to(".dash", { opacity: 0, duration: 0.2 }, 0.75);
+      typed("#t1a", 0.95, 0.045, 1.95);
+      typed("#t1b", 1.95, 0.045, 2.8);
+      document.querySelectorAll(".s1i").forEach((el, i) => {
+        popIn(el, 1.0 + i * 0.18, i % 2 ? 8 : -8);
+        tl.to(el, { y: -40, duration: 1.4, ease: "sine.inOut" }, 1.35 + i * 0.18);
+      });
+      tl.fromTo("#burn", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.in" }, 2.35);
+      tl.fromTo("#star", { opacity: 0, x: -300, scale: 0.3, rotation: -30 }, { opacity: 1, x: 0, scale: 1.15, rotation: 0, duration: 0.45, ease: "expo.out" }, 2.35);
+
+      // ---------- 2 reveal (dark) ----------
+      bg(1, 2.8);
+      tl.fromTo("#sh2", { scale: 1.12 }, { scale: 1, duration: 2.2, ease: "power1.out" }, 2.8);
+      typed("#t2a", 3.05, 0.045, 3.85);
+      typed("#t2b", 3.85, 0.05, 5.0);
+
+      // ---------- 3 uses (paper) ----------
+      bg(0, 5.0);
+      flash(5.0, 0.35);
+      tl.fromTo("#sh3, #frame3", { scale: 0.86, rotation: -4 }, { scale: 1, rotation: -2, duration: 0.5, ease: "back.out(1.8)" }, 5.0);
+      typed("#t3a", 5.2, 0.03, 6.05);
+      typed("#t3b", 6.05, 0.03, 7.4);
+      ring("#ring3", 540, 980, 420, 540, 112).forEach(({ img }, i) => popIn(img, 5.15 + i * 0.07));
+      tl.fromTo("#ring3", { rotation: 0 }, { rotation: 10, duration: 2.4, ease: "none" }, 5.0);
+
+      // ---------- 4 facts ----------
+      [["#sc4a", 7.4, 1], ["#sc4b", 8.2, 0], ["#sc4c", 9.0, 1], ["#sc4d", 9.8, 0]].forEach(([id, at, isDark]) => {
+        bg(isDark, at);
+        tl.fromTo(id + " .ribbon, " + id + " .slash", { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: "expo.out" }, at);
+        popIn(id + " .beat-icon", at + 0.04, isDark ? -6 : 6);
+        tl.to(id + " .beat-icon", { y: -16, duration: 0.6, ease: "sine.out" }, at + 0.4);
+        typed(id + " .word", at + 0.12, 0.028, at + 0.8);
+      });
+
+      // ---------- 5 proof (footage) ----------
+      bg(1, 10.6);
+      [["#sc5a", "#sh5a", "#t5a", 10.6], ["#sc5b", "#sh5b", "#t5b", 12.2], ["#sc5c", "#sh5c", "#t5c", 13.8]].forEach(([id, shot, line, at]) => {
+        tl.fromTo(shot, { scale: 1.0 }, { scale: 1.07, duration: 1.6, ease: "none" }, at);
+        popIn(id + " .tagicon", at + 0.05, -6);
+        typed(line, at + 0.15, 0.04, at + 1.6);
+      });
+      flash(12.2, 0.25);
+      flash(13.8, 0.25);
+
+      // ---------- 6 payoff (paper) ----------
+      bg(0, 15.4);
+      ring("#ring6", 540, 900, 400, 460, 120).forEach(({ img, a }, i) => {
+        tl.fromTo(img, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(2)" }, 15.4 + i * 0.02);
+        tl.to(img, { x: Math.cos(a) * 900, y: Math.sin(a) * 1100, rotation: (i % 2 ? 1 : -1) * 160, duration: 0.6, ease: "power3.in" }, 15.6 + (i % 3) * 0.04);
+      });
+      [[-380, -520, -40], [260, -640, 30], [-520, 380, 50], [440, 520, -60], [-200, 700, 25], [520, -300, -35]].forEach(([x, y, r], i) => {
+        tl.fromTo("#L" + (i + 1), { x, y, rotation: r, opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 16.05 + i * 0.05);
+      });
+      tl.fromTo("#loop1, #loop2", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.45, ease: "power1.inOut", stagger: 0.12 }, 16.85);
+      tl.fromTo("#tick6", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.3, ease: "power1.inOut" }, 17.05);
+      typed("#t6", 16.95, 0.022, 17.8);
+
+      // ---------- 7 CTA (dark) ----------
+      bg(1, 17.8);
+      typed("#cta-k", 17.95, 0.045, 18.4);
+      tl.fromTo("#cta-b1", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.26, ease: "back.out(2.4)" }, 18.4);
+      tl.fromTo("#cta-b2", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 18.6);
+      tl.fromTo("#uline", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power1.inOut" }, 18.95);
+      tl.fromTo("#cta-btn", { opacity: 0, y: 60, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(2)" }, 19.3);
+      tl.to("#cta-btn", { scale: 1.06, duration: 0.32, ease: "sine.inOut", yoyo: true, repeat: 5 }, 19.7);
+      tl.set("#cat", { visibility: "visible" }, 17.8);
+
+      // OYEN:START (generated by `python3 -m oyen install` from storyline.py)
+      // sprite frames switch by background-position at fixed times -> seek-safe
+      const spr = (at, x, y) => tl.set("#cat-spr", { backgroundPosition: x + "px " + y + "px" }, at);
+      // a new animation starts with a small stepped pixel "pop"
+      const pop = (at) =>
+        tl.set("#cat-spr", { scale: 1.08 }, at).to("#cat-spr", { scale: 1, duration: 0.15, ease: "steps(3)" }, at);
+      // walk/run in from off-screen left
+      const walkIn = (at, from, to, dur) =>
+        tl.set("#cat-walk", { x: from }, at).to("#cat-walk", { x: to, duration: dur, ease: "none" }, at);
+      const jump = (at) =>
+        tl.to("#cat", { y: -70, duration: 0.12, ease: "steps(3)" }, at).to("#cat", { y: 0, duration: 0.16, ease: "steps(4)" }, at + 0.12);
+      // dash off to the right
+      const dashOut = (at, from, to, dur) =>
+        tl.set("#cat-walk", { x: from }, at).to("#cat-walk", { x: to, duration: dur, ease: "none" }, at);
+      // speech bubble: stepped pop and typed text (mouth flaps are sprite frames, scheduled above);
+      // knock = when Oyen's dash hits it: it spins up and away instead of popping out
+      const say = (id, at, end, cps, knock) => {
+        const sel = "#" + id + " .bub-in";
+        const chars = document.getElementById(id).querySelectorAll(".ch");
+        tl.fromTo(sel, { scale: 0, transformOrigin: "0% 50%" }, { scale: 1, duration: 0.16, ease: "steps(4)" }, at);
+        tl.fromTo(chars, { opacity: 0 }, { opacity: 1, duration: 0.001, stagger: cps }, at + 0.12);
+        if (knock === null) {
+          tl.to(sel, { scale: 0, duration: 0.1, ease: "steps(3)" }, end - 0.1);
+        } else {
+          tl.to(sel, { x: -14, scaleX: 0.86, duration: 0.05, ease: "power1.out" }, knock);
+          tl.to(sel, { x: 640, y: -170, rotation: 30, scaleX: 1, opacity: 0, duration: 0.55, ease: "power2.out" }, knock + 0.05);
+        }
+      };
+      [[0.6, -420, -840], [1.2, -840, -840], [1.8, -1260, -840], [2.4, 0, -840], [3, -420, -840], [3.6, -840, -840], [4.2, -1260, -840], [4.8, 0, -840], [5.4, -420, -840], [6, -840, -840], [6.6, -1260, -840], [7.2, 0, -840], [7.8, -420, -840], [8.4, -840, -840], [9, -1260, -840], [9.6, 0, -840], [10.2, -420, -840], [10.8, -840, -840], [11.4, -1260, -840], [12, 0, -840], [12.6, -420, -840], [13.2, -840, -840], [13.8, -1260, -840], [14.4, 0, -840], [15, -420, -840], [15.6, -840, -840], [16.2, -1260, -840], [16.8, 0, -840], [17.4, -420, -840], [17.8, -420, -2100], [17.92, -840, -2100], [18.04, -1260, -2100], [18.16, -1680, -2100], [18.28, -2100, -2100], [18.4, -2520, -2100], [18.5, 0, 0], [18.77, -1680, 0], [18.89, -2100, 0], [19.01, -2520, 0], [19.17, -2100, 0], [19.236, 0, 0], [19.8, -840, 0], [20.25, 0, 0], [20.4, -1260, 0], [20.52, 0, 0], [21.2, -2940, -2100], [21.28, 0, -2520], [21.36, -420, -2520], [21.44, -840, -2520], [21.52, -1260, -2520], [21.6, -1680, -2520], [21.68, -2940, -2100], [21.76, 0, -2520], [21.84, -420, -2520], [21.92, -840, -2520], [22, -1260, -2520], [22.08, -1680, -2520], [22.16, -2940, -2100], [22.24, 0, -2520], [22.32, -420, -2520]].forEach((f) => spr(f[0], f[1], f[2]));
+      pop(17.8);
+      walkIn(17.8, -476, 0, 0.7);
+      pop(18.5);
+      pop(21.2);
+      dashOut(21.2, 0, 1084, 0.985);
+      say("ob0", 18.65, 21.97, 0.032, 21.324);
+      // OYEN:END
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
