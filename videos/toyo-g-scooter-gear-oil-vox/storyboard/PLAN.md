@@ -27,7 +27,7 @@ pair with a ball bearing (steel), wear/rust/heat marks, an amber oil film.
 - Enemy marks pop in with a small shake; the oil film strokes around the teeth and the marks fade.
 - Spec stamps thump in (scale 1.4 -> 1 with a dust puff); strips slide in with ticks.
 - Scooter rides off with speed lines; light stop-motion "boil" on notes and drawings at 12 fps.
-- CTA as the template (no arrow), Oyen walks in, "Jom checkout!", dashes off.
+- CTA as the template (no arrow); no mascot in the Vox style (user request), the product print takes its place.
 
 ## Sound
 Explainer music bed (soft synth pulse) generated until a track is supplied. SFX: marker

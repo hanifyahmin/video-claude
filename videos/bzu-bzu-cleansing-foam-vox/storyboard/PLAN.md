@@ -24,7 +24,7 @@ snapshot of the real layout in `index.html`, so the build animates exactly these
 | 4 | 11.5–14.5 | Zero list | 0% box → strips: pewangi / peluntur & paraben / pewarna tiruan / sabun & alkohol (+ tanpa sulfat, 100% bahan tumbuhan*) |
 | 5 | 14.5–18 | How to | Diagram from the washing directions: 6 pam → 5L air → rendam 10 min → bilas |
 | 6 | 18–21.5 | Proof | Before/after prints: residue circled, clean bottle ticked — "Mudah dibilas" |
-| 7 | 21.5–25.5 | CTA | Nak satu? / Tekan BEG KUNING / CHECK HARGA PROMO + product print; Oyen walks in, "Jom checkout!", dashes off |
+| 7 | 21.5–25.5 | CTA | Nak satu? / Tekan BEG KUNING / CHECK HARGA PROMO + product print (no mascot in the Vox style) |
 
 ## Sound
 Music bed in the explainer register (soft synth pulse, no drums) generated like
