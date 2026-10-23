@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- local copy: cdn.jsdelivr.net may be blocked in cloud sessions -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #f1ece2;
+      }
+      /* Vox-style explainer: newsprint paper, flat diagrams with ink outlines, yellow highlighter,
+         red marker annotations, mono labels, the product as a taped print */
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: Montserrat, sans-serif;
+        color: #141414;
+        background: #f1ece2 url("assets/paper.jpg") center / cover;
+        --yellow: #ffe600;
+        --red: #e8402a;
+        --navy: #1d3a8a;
+        --amber: #f2a516;
+        --mint: #9fd6cc;
+        --steel: #c9c2b5;
+        --ink: #141414;
+        --accent: #ffe600;
+        --on-accent: #141414;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+      .tag {
+        position: absolute;
+        left: 70px;
+        top: 180px;
+        padding: 8px 18px 10px;
+        background: var(--ink);
+        color: #fff;
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 34px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .head {
+        position: absolute;
+        left: 70px;
+        top: 250px;
+        width: 960px;
+        font-family: "Archivo Black", sans-serif;
+        font-size: 96px;
+        line-height: 1.03;
+        letter-spacing: -0.01em;
+      }
+      .mark {
+        position: relative;
+        z-index: 0;
+        white-space: nowrap;
+      }
+      .mark::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: -10px;
+        right: -10px;
+        top: 18%;
+        bottom: 4%;
+        background: var(--yellow);
+        transform: skewX(-6deg) rotate(-1deg);
+      }
+      .note {
+        position: absolute;
+        padding: 12px 22px 14px;
+        background: #fffdf6;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 1.15;
+        white-space: nowrap;
+      }
+      .note.yellow {
+        background: var(--yellow);
+      }
+      .foot {
+        position: absolute;
+        left: 70px;
+        font-family: "Space Mono", monospace;
+        font-size: 25px;
+        color: #5a554c;
+      }
+      .print {
+        position: absolute;
+        padding: 26px;
+        background: #fbfaf6;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28), 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .print img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .tape {
+        position: absolute;
+        width: 200px;
+        height: 56px;
+        background: url("assets/tape.png") center / 100% 100%;
+      }
+      .stamp {
+        position: absolute;
+        padding: 10px 20px 12px;
+        border: 6px solid var(--navy);
+        color: var(--navy);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 40px;
+        letter-spacing: 0.03em;
+        background: rgba(255, 253, 246, 0.6);
+      }
+      .draw {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: visible;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .ink {
+        stroke: var(--ink);
+        stroke-width: 7;
+      }
+      .marker {
+        fill: none;
+        stroke: var(--red);
+        stroke-width: 9;
+      }
+      .halftone {
+        position: absolute;
+        background-image: radial-gradient(circle, rgba(20, 20, 20, 0.22) 30%, transparent 32%);
+        background-size: 16px 16px;
+      }
+      .strip {
+        position: absolute;
+        left: 70px;
+        width: 940px;
+        height: 96px;
+        padding: 20px 26px;
+        background: #fffdf6;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 38px;
+        white-space: nowrap;
+      }
+      .strip b {
+        color: #1f8a5b;
+        margin-right: 16px;
+      }
+      #cta-btn {
+        position: absolute;
+        left: 70px;
+        top: 760px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: 118px;
+        padding: 0 40px 0 32px;
+        background: var(--ink);
+        color: var(--yellow);
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 44px;
+        box-shadow: 10px 10px 0 var(--red);
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 85% 70% at 50% 50%, rgba(0, 0, 0, 0) 60%, rgba(60, 45, 20, 0.22) 100%);
+      }
+      #cat {
+        visibility: hidden;
+      }
+      /* OYEN:CSS:START */
+      /* OYEN:CSS:END */
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="25.5"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- the scooter, drawn once and reused (scene 1 + 6) -->
+      <svg width="0" height="0" style="position: absolute">
+        <defs>
+          <g id="scooter">
+            <circle cx="300" cy="1250" r="120" fill="#2a2a2a" class="ink" />
+            <circle cx="300" cy="1250" r="58" fill="#d9d4ca" class="ink" />
+            <circle cx="810" cy="1250" r="110" fill="#2a2a2a" class="ink" />
+            <circle cx="810" cy="1250" r="52" fill="#d9d4ca" class="ink" />
+            <path d="M790 1000 L812 1250" class="ink" style="stroke-width: 16" />
+            <path d="M160 1110 Q140 960 300 930 L570 930 L610 1010 L470 1070 L360 1120 Z" fill="#9fd6cc" class="ink" />
+            <path d="M290 930 Q300 872 370 868 L560 872 Q610 878 606 930 Z" fill="#141414" class="ink" />
+            <path d="M460 1062 L708 1062 L708 1094 L430 1094 Z" fill="#7cc2b6" class="ink" />
+            <path d="M708 1094 L690 900 Q700 770 760 710 L812 706 L800 900 L782 1110 Z" fill="#9fd6cc" class="ink" />
+            <path d="M790 712 L770 610 M710 596 L850 610" class="ink" style="stroke-width: 12" />
+            <circle cx="818" cy="660" r="24" fill="#ffe600" class="ink" />
+            <path d="M240 1180 Q226 1118 300 1106 L520 1106 Q566 1116 556 1170 Q546 1216 500 1218 L320 1244 Q252 1246 240 1180 Z" fill="#c9c2b5" class="ink" />
+            <circle cx="300" cy="1186" r="26" fill="#8f877a" class="ink" style="stroke-width: 5" />
+          </g>
+        </defs>
+      </svg>
+
+      <!-- ================= 1 HOOK ================= -->
+      <div id="s1" class="scene clip" data-layout-allow-overflow data-start="0" data-duration="3.5" data-track-index="2">
+        <div class="tag">Skuter / motosikal</div>
+        <div class="head">Minyak enjin<br />selalu tukar.<br /><span class="mark">Minyak gear?</span></div>
+        <svg class="draw" viewBox="0 0 1080 1920" style="transform: translate(-20px, 120px) scale(0.95)">
+          <use href="#scooter" />
+          <path class="marker" pathLength="1" d="M200 1180 C190 1060 600 1050 600 1160 C600 1270 260 1290 215 1215 C200 1190 240 1150 300 1140" />
+        </svg>
+        <div class="note" style="left: 520px; top: 1440px; transform: rotate(-2deg)">kotak gear belakang</div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path class="marker" style="stroke-width: 7" d="M600 1430 C560 1400 520 1380 490 1360 M490 1360 L510 1400 M490 1360 L535 1365" />
+        </svg>
+      </div>
+
+      <!-- ================= 2 INSIDE: zoom into the gearbox ================= -->
+      <div id="s2" class="scene clip" data-layout-allow-overflow data-start="3.5" data-duration="3.5" data-track-index="2">
+        <div class="tag">Dalam kotak gear</div>
+        <div class="head" style="font-size: 88px">Gear &amp; galas<br /><span class="mark">berputar laju</span></div>
+        <svg class="draw gears" viewBox="0 0 1080 1920"></svg>
+        <div class="note" style="left: 640px; top: 600px; transform: rotate(3deg)">gear</div>
+        <div class="note" style="left: 90px; top: 1290px; transform: rotate(-3deg)">galas</div>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <path class="marker" style="stroke-width: 7" d="M680 680 C640 720 620 760 600 780" />
+          <path class="marker" style="stroke-width: 7" d="M230 1280 C300 1180 360 1080 400 1010" />
+        </svg>
+      </div>
+
+      <!-- ================= 3 THE ENEMIES ================= -->
+      <div id="s3" class="scene clip" data-layout-allow-overflow data-start="7" data-duration="3.5" data-track-index="2">
+        <div class="tag">Musuh gear</div>
+        <div class="head" style="font-size: 88px"><span class="mark">3 benda</span> ni<br />makan gear</div>
+        <svg class="draw gears" viewBox="0 0 1080 1920"></svg>
+        <svg class="draw" viewBox="0 0 1080 1920">
+          <g stroke="#e8402a" stroke-width="6">
+            <path d="M560 760 l26 -14 M582 790 l28 -10 M300 760 l20 -22 M330 1100 l-24 -14" />
+          </g>
+          <g fill="#a0522d" opacity="0.85">
+            <circle cx="250" cy="980" r="24" /><circle cx="276" cy="1012" r="14" /><circle cx="640" cy="1040" r="18" /><circle cx="900" cy="1090" r="20" />
+          </g>
+          <g class="ink" fill="#fffdf6">
+            <rect x="880" y="560" width="54" height="230" rx="27" />
+            <circle cx="907" cy="820" r="48" fill="#e8402a" />
+          </g>
+          <path d="M907 790 V640" stroke="#e8402a" stroke-width="22" />
+          <path d="M830 650 c-18 -24 18 -40 0 -64 M800 700 c-18 -24 18 -40 0 -64" stroke="#e8402a" stroke-width="6" fill="none" />
+        </svg>
+        <div class="note" style="left: 380px; top: 640px; transform: rotate(-2deg)">kehausan</div>
+        <div class="note" style="left: 60px; top: 1300px; transform: rotate(2deg)">karat &amp; kakisan</div>
+        <div class="note" style="left: 640px; top: 1330px; transform: rotate(-3deg)">haba &amp; ricih</div>
+      </div>
+
+      <!-- ================= 4 THE PRODUCT ================= -->
+      <div id="s4" class="scene clip" data-layout-allow-overflow data-start="10.5" data-duration="3.5" data-track-index="2">
+        <div class="tag">Kenalkan</div>
+        <div class="head" style="font-size: 82px">TOYO-G<br /><span class="mark">Scooter Gear Oil</span></div>
+        <div class="print" id="p4" style="left: 90px; top: 500px; width: 420px; height: 1040px; transform: rotate(-3deg)">
+          <img src="assets/product.png" alt="" />
+        </div>
+        <div class="tape" style="left: 200px; top: 478px; transform: rotate(-6deg)"></div>
+        <div class="stamp" style="left: 570px; top: 600px; transform: rotate(-4deg)">SAE 80W-90</div>
+        <div class="stamp" style="left: 600px; top: 760px; transform: rotate(3deg)">API GL-5</div>
+        <div class="stamp" style="left: 560px; top: 920px; transform: rotate(-2deg)">MIL-L-2105</div>
+        <div class="stamp" style="left: 620px; top: 1080px; transform: rotate(4deg)">100ml</div>
+        <div class="note yellow" style="left: 540px; top: 1270px; transform: rotate(-2deg)">untuk semua jenis<br />skuter &amp; motosikal</div>
+        <div class="foot" style="left: 560px; top: 1440px">Spesifikasi: label botol</div>
+      </div>
+
+      <!-- ================= 5 WHAT IT DOES ================= -->
+      <div id="s5" class="scene clip" data-layout-allow-overflow data-start="14" data-duration="4.5" data-track-index="2">
+        <div class="tag">Apa ia buat</div>
+        <div class="head" style="font-size: 84px">Satu lapisan<br /><span class="mark">pelindung</span></div>
+        <svg class="draw gears oiled" viewBox="0 0 1080 1920" style="transform: translate(160px, -40px) scale(0.62); transform-origin: 540px 600px"></svg>
+        <div class="strip" style="top: 960px; transform: rotate(-1deg)"><b>✓</b>lindung gear &amp; galas</div>
+        <div class="strip" style="top: 1076px; transform: rotate(1deg)"><b>✓</b>halang kehausan &amp; hakisan mikro</div>
+        <div class="strip" style="top: 1192px; transform: rotate(-0.5deg)"><b>✓</b>lindung karat &amp; kakisan</div>
+        <div class="strip" style="top: 1308px; transform: rotate(1deg)"><b>✓</b>stabil ricih &amp; haba tinggi</div>
+        <div class="foot" style="top: 1450px">Sumber: penerangan produk</div>
+      </div>
+
+      <!-- ================= 6 THE RESULT ================= -->
+      <div id="s6" class="scene clip" data-layout-allow-overflow data-start="18.5" data-duration="3" data-track-index="2">
+        <div class="tag">Hasilnya</div>
+        <div class="head" style="font-size: 88px">Pecutan<br /><span class="mark">lebih lancar*</span></div>
+        <svg class="draw" viewBox="0 0 1080 1920" style="transform: translate(40px, 40px) scale(0.85); transform-origin: 540px 1100px">
+          <path d="M40 960 H220 M10 1050 H180 M60 1140 H200" stroke="#141414" stroke-width="8" stroke-dasharray="40 26" />
+          <use href="#scooter" />
+        </svg>
+        <div class="note yellow" style="left: 90px; top: 640px; transform: rotate(-3deg)">minyak tahan<br />lebih lama</div>
+        <div class="foot" style="top: 1460px">*berbanding pelincir konvensional lain,<br />menurut penerangan produk</div>
+      </div>
+
+      <!-- ================= 7 CTA (template words, no arrow) ================= -->
+      <div id="s7" class="scene clip" data-layout-allow-overflow data-start="21.5" data-duration="4" data-track-index="2">
+        <div class="tag">Nak satu?</div>
+        <div class="head" style="font-size: 130px; line-height: 1.05">Tekan<br /><span class="mark">BEG KUNING</span></div>
+        <div id="cta-btn">
+          <svg width="58" height="58" viewBox="0 0 24 24">
+            <path d="M6 7h14l-1.6 8.2a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5.4 4.6A1 1 0 0 0 4.4 4H2.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9.5" cy="20" r="1.6" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.6" fill="currentColor" />
+          </svg>
+          CHECK HARGA PROMO
+        </div>
+        <div class="print" id="p7" style="left: 640px; top: 930px; width: 290px; height: 640px; transform: rotate(5deg)">
+          <img src="assets/product.png" alt="" />
+        </div>
+        <div class="tape" style="left: 690px; top: 905px; transform: rotate(3deg)"></div>
+      </div>
+
+      <!-- OYEN:START -->
+      <!-- OYEN:END -->
+
+      <div id="vignette"></div>
+      <!-- OYEN:SFX:START -->
+      <!-- OYEN:SFX:END -->
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- flat gear diagram (built once per .gears svg) ----------
+      const gearPath = (cx, cy, r, teeth, depth) => {
+        const pts = [];
+        for (let i = 0; i < teeth; i++) {
+          const a = (i / teeth) * Math.PI * 2;
+          const w = Math.PI / teeth;
+          [[-0.55, r - depth], [-0.3, r], [0.3, r], [0.55, r - depth]].forEach(([k, rr]) =>
+            pts.push([cx + rr * Math.cos(a + k * w), cy + rr * Math.sin(a + k * w)]));
+        }
+        return "M" + pts.map((p) => p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" L") + " Z";
+      };
+      const NS = "http://www.w3.org/2000/svg";
+      const el = (parent, tag, attrs) => {
+        const e = document.createElementNS(NS, tag);
+        Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+        parent.appendChild(e);
+        return e;
+      };
+      document.querySelectorAll(".gears").forEach((svg) => {
+        const oiled = svg.classList.contains("oiled");
+        [[440, 960, 250, 20, 34, "#c9c2b5"], [770, 1120, 140, 11, 30, "#aea699"]].forEach(([cx, cy, r, n, d, fill]) => {
+          if (oiled) el(svg, "path", { d: gearPath(cx, cy, r + 14, n, d), fill: "none", stroke: "#f2a516", "stroke-width": 26, opacity: 0.75 });
+          el(svg, "path", { d: gearPath(cx, cy, r, n, d), fill, class: "ink" });
+          el(svg, "circle", { cx, cy, r: r * 0.58, fill: "none", stroke: "#8f877a", "stroke-width": 6 });
+        });
+        // the bearing at the big gear's centre: rings + balls
+        el(svg, "circle", { cx: 440, cy: 960, r: 96, fill: "#e6e1d6", class: "ink" });
+        for (let i = 0; i < 10; i++) {
+          const a = (i / 10) * Math.PI * 2;
+          el(svg, "circle", { cx: 440 + 70 * Math.cos(a), cy: 960 + 70 * Math.sin(a), r: 16, fill: "#8f877a", class: "ink", style: "stroke-width: 4" });
+        }
+        el(svg, "circle", { cx: 440, cy: 960, r: 42, fill: "#f1ece2", class: "ink" });
+      });
+
+      // OYEN:START
+      // OYEN:END
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
