@@ -30,7 +30,10 @@ pair with a ball bearing (steel), wear/rust/heat marks, an amber oil film.
 - CTA as the template (no arrow); no mascot in the Vox style (user request), the product print takes its place.
 
 ## Sound
-Explainer music bed (soft synth pulse) generated until a track is supplied. SFX: marker
+Soundtrack: the user's "Cowbell Loop" (Suno, 111.7 BPM), cut from 13.68s so the cowbell intro
+plays under the hook and the beat drop lands on the zoom into the gearbox (3.5s); the spec
+stamps and the four strips fall on the beat, the scooter rides out on the next section hit
+(20.69s); 1.3s fade out. SFX: marker
 (click), stamps (impact-bass, low), strips (whoosh-short), gear whirr under scene 2-3 (riser,
 quiet), scooter pass (whoosh).
 
