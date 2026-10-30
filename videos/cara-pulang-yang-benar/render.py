@@ -620,14 +620,27 @@ LINES = all_lines()
 ROW_H = {"serif": 98, "script": 104, "echo": 82}
 
 
+FADE = 0.18   # line fade in / out
+
+
+def switch_time(i):
+    """When line i-1 hands over to line i. Lines never share the screen: the old line
+    is gone by this time and the new one fades in from it. With room to spare the
+    new line shows up ~0.45 s before its first word so it can be read ahead."""
+    prev_end, start = LINES[i - 1][1]["end"], LINES[i][1]["start"]
+    early = start - 0.45
+    if early >= prev_end + FADE + 0.05:
+        return early
+    return max(prev_end + 0.05, (prev_end + start) / 2) if start > prev_end else start
+
+
 def line_window(i):
-    """(appear, disappear) for line i."""
+    """(appear, gone): fade in over [appear, appear+FADE], fade out over [gone-FADE, gone]."""
     sec, line = LINES[i]
-    appear = line["start"] - 0.45
-    if i > 0:
-        appear = max(appear, LINES[i - 1][1]["end"] + 0.05)
-    nxt = LINES[i + 1][1]["start"] - 0.45 if i + 1 < len(LINES) else line["end"] + 4
-    gone = min(max(nxt, line["end"] + 0.3), line["end"] + 2.6)
+    appear = switch_time(i) if i > 0 else line["start"] - 0.45
+    gone = line["end"] + 2.6
+    if i + 1 < len(LINES):
+        gone = min(gone, switch_time(i + 1))
     return appear, gone
 
 
@@ -636,7 +649,7 @@ def draw_text_layer(t, s):
     active = []
     for i, (sec, line) in enumerate(LINES):
         a0, a1 = line_window(i)
-        if a0 - 0.3 <= t <= a1 + 0.35:
+        if a0 <= t <= a1:
             active.append(i)
     title_a = kf(t, [(3.5, 0), (5.5, 1), (12.4, 1), (14.6, 0)])
     end_a = kf(t, [(DUR - 20, 0), (DUR - 17, 1), (DUR - 5.5, 1), (DUR - 2.5, 0)])
@@ -664,12 +677,12 @@ def draw_text_layer(t, s):
 def draw_line(d, g, i, t, s):
     sec, line = LINES[i]
     a0, a1 = line_window(i)
-    fade_in = smooth((t - (a0 - 0.3)) / 0.3)
-    fade_out = 1 - smooth((t - a1) / 0.35)
+    fade_in = smooth((t - a0) / FADE)
+    fade_out = smooth((a1 - t) / FADE)
     la = fade_in * fade_out
     if la <= 0:
         return
-    rise = (1 - fade_in) * 18 - (1 - fade_out) * 22
+    rise = (1 - fade_in) * 14 - (1 - fade_out) * 14
     words = line["text"].split()
     styles = word_styles(sec, line)
     both = sec["voice"] == "both"
