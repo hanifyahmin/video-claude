@@ -1,7 +1,7 @@
 """Lyric video renderer: "Cara Pulang yang Benar" (1080x1920, 24 fps).
 
     python3 videos/cara-pulang-yang-benar/render.py frames 12.5 70 ...   # stills -> renders/frames/
-    python3 videos/cara-pulang-yang-benar/render.py video <song.mp3> [--draft]
+    python3 videos/cara-pulang-yang-benar/render.py video <song.mp3> [--draft] [--end SECONDS]
 
 Everything is procedural (PIL + numpy). Motif: an old framed photo of a veranda
 found in a drawer. The parent sits alone on the bench; across the choruses the
@@ -767,8 +767,8 @@ def render(t):
         canvas += gla[..., :3] * (gla[..., 3:] / 255) * 0.9
         a = lay[..., 3:] / 255
         canvas = canvas * (1 - a) + lay[..., :3] * a
-    gr = grain()[int(t * FPS) % 6]
-    canvas += gr[..., None] * 0.22
+    gr = grain()[int(t * 12) % 6]   # grain at 12 fps: filmic, and cheaper to encode
+    canvas += gr[..., None] * 0.15
     canvas *= s["fade_out"]
     return np.clip(canvas, 0, 255).astype(np.uint8)
 
@@ -777,21 +777,23 @@ def _frame(i):
     return render(i / FPS).tobytes()
 
 
-def write_video(song, out, draft=False):
-    n = int(DUR * FPS)
+def write_video(song, out, draft=False, end=None):
+    end = min(end or DUR, DUR)
+    n = int(end * FPS)
     out.parent.mkdir(parents=True, exist_ok=True)
     vf = ["-vf", "scale=720:1280"] if draft else []
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
-           "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", str(song), *vf,
-           "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "medium",
-           "-crf", "26" if draft else "17", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+           "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-t", f"{end:.3f}", "-i", str(song), *vf,
+           "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "slow",
+           "-crf", "26" if draft else "19", "-maxrate", "6M" if draft else "10M",
+           "-bufsize", "20M", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
            "-c:a", "aac", "-b:a", "256k", "-shortest", str(out)]
     ff = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     with Pool(4) as pool:
         for k, buf in enumerate(pool.imap(_frame, range(n), chunksize=6)):
             ff.stdin.write(buf)
             if k % (FPS * 10) == 0:
-                print(f"{k / FPS:6.1f}s / {DUR:.1f}s", flush=True)
+                print(f"{k / FPS:6.1f}s / {end:.1f}s", flush=True)
     ff.stdin.close()
     ff.wait()
     print("wrote", out)
@@ -806,5 +808,6 @@ if __name__ == "__main__":
             print("frame", a)
     elif cmd == "video":
         draft = "--draft" in sys.argv
-        write_video(Path(sys.argv[2]), HERE / "renders" / ("draft.mp4" if draft else "cara-pulang-yang-benar.mp4"),
-                    draft)
+        end = float(sys.argv[sys.argv.index("--end") + 1]) if "--end" in sys.argv else None
+        name = ("draft" if draft else "cara-pulang-yang-benar") + (f"-first{end:g}s" if end else "")
+        write_video(Path(sys.argv[2]), HERE / "renders" / f"{name}.mp4", draft, end)
