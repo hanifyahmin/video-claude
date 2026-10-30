@@ -1,0 +1,1625 @@
+{
+ "sections": [
+  {
+   "name": "Intro",
+   "key": "Intro",
+   "tag": "fingerpicked acoustic guitar, soft",
+   "voice": "v1",
+   "lines": []
+  },
+  {
+   "name": "Verse 1",
+   "key": "Verse 1",
+   "tag": "Voice 1, warm, husky, spoken-like",
+   "voice": "v1",
+   "lines": [
+    {
+     "text": "Kutemukan wajahmu di laci tua",
+     "words": [
+      {
+       "text": "Kutemukan",
+       "start": 15.991,
+       "end": 16.992,
+       "score": 0.995
+      },
+      {
+       "text": "wajahmu",
+       "start": 17.072,
+       "end": 17.692,
+       "score": 0.985
+      },
+      {
+       "text": "di",
+       "start": 17.912,
+       "end": 17.992,
+       "score": 0.999
+      },
+      {
+       "text": "laci",
+       "start": 18.093,
+       "end": 18.513,
+       "score": 0.997
+      },
+      {
+       "text": "tua",
+       "start": 18.853,
+       "end": 19.494,
+       "score": 0.992
+      }
+     ],
+     "start": 15.991,
+     "end": 19.494,
+     "score": 0.994,
+     "min_word": "wajahmu",
+     "min_score": 0.985
+    },
+    {
+     "text": "Senyum yang tertahan di kertas usang",
+     "words": [
+      {
+       "text": "Senyum",
+       "start": 20.054,
+       "end": 20.755,
+       "score": 0.968
+      },
+      {
+       "text": "yang",
+       "start": 20.855,
+       "end": 21.015,
+       "score": 0.986
+      },
+      {
+       "text": "tertahan",
+       "start": 21.075,
+       "end": 21.795,
+       "score": 0.973
+      },
+      {
+       "text": "di",
+       "start": 21.895,
+       "end": 21.975,
+       "score": 0.997
+      },
+      {
+       "text": "kertas",
+       "start": 22.076,
+       "end": 22.736,
+       "score": 0.951
+      },
+      {
+       "text": "usang",
+       "start": 22.976,
+       "end": 23.696,
+       "score": 0.985
+      }
+     ],
+     "refined_from": 0.966,
+     "start": 20.054,
+     "end": 23.696,
+     "score": 0.977,
+     "min_word": "kertas",
+     "min_score": 0.951
+    },
+    {
+     "text": "Kau tunggu aku di beranda",
+     "words": [
+      {
+       "text": "Kau",
+       "start": 23.877,
+       "end": 24.217,
+       "score": 0.975
+      },
+      {
+       "text": "tunggu",
+       "start": 24.397,
+       "end": 24.997,
+       "score": 0.979
+      },
+      {
+       "text": "aku",
+       "start": 25.217,
+       "end": 25.517,
+       "score": 0.997
+      },
+      {
+       "text": "di",
+       "start": 26.158,
+       "end": 26.258,
+       "score": 0.994
+      },
+      {
+       "text": "beranda",
+       "start": 26.458,
+       "end": 27.539,
+       "score": 0.982
+      }
+     ],
+     "refined_from": 0.967,
+     "start": 23.877,
+     "end": 27.539,
+     "score": 0.985,
+     "min_word": "Kau",
+     "min_score": 0.975
+    },
+    {
+     "text": "Aku sibuk mengejar yang tak pernah tenang",
+     "words": [
+      {
+       "text": "Aku",
+       "start": 28.039,
+       "end": 28.24,
+       "score": 0.999
+      },
+      {
+       "text": "sibuk",
+       "start": 28.42,
+       "end": 28.88,
+       "score": 0.984
+      },
+      {
+       "text": "mengejar",
+       "start": 28.96,
+       "end": 29.661,
+       "score": 0.92
+      },
+      {
+       "text": "yang",
+       "start": 29.701,
+       "end": 29.921,
+       "score": 0.736
+      },
+      {
+       "text": "tak",
+       "start": 29.981,
+       "end": 30.121,
+       "score": 0.685
+      },
+      {
+       "text": "pernah",
+       "start": 30.181,
+       "end": 30.761,
+       "score": 0.917
+      },
+      {
+       "text": "tenang",
+       "start": 30.941,
+       "end": 31.782,
+       "score": 0.965
+      }
+     ],
+     "start": 28.039,
+     "end": 31.782,
+     "score": 0.887,
+     "min_word": "tak",
+     "min_score": 0.685
+    },
+    {
+     "text": "Kau bilang, \"Pulanglah sebentar saja\"",
+     "words": [
+      {
+       "text": "Kau",
+       "start": 31.962,
+       "end": 32.162,
+       "score": 0.923
+      },
+      {
+       "text": "bilang,",
+       "start": 32.202,
+       "end": 32.803,
+       "score": 0.859
+      },
+      {
+       "text": "\"Pulanglah",
+       "start": 33.503,
+       "end": 34.144,
+       "score": 0.76
+      },
+      {
+       "text": "sebentar",
+       "start": 34.204,
+       "end": 34.944,
+       "score": 0.776
+      },
+      {
+       "text": "saja\"",
+       "start": 35.064,
+       "end": 35.665,
+       "score": 0.99
+      }
+     ],
+     "start": 31.962,
+     "end": 35.665,
+     "score": 0.862,
+     "min_word": "\"Pulanglah",
+     "min_score": 0.76
+    },
+    {
+     "text": "Kujawab, \"Nanti, bila semua reda\"",
+     "words": [
+      {
+       "text": "Kujawab,",
+       "start": 36.025,
+       "end": 36.786,
+       "score": 0.911
+      },
+      {
+       "text": "\"Nanti,",
+       "start": 37.066,
+       "end": 37.686,
+       "score": 0.992
+      },
+      {
+       "text": "bila",
+       "start": 38.086,
+       "end": 38.367,
+       "score": 0.984
+      },
+      {
+       "text": "semua",
+       "start": 38.547,
+       "end": 38.967,
+       "score": 0.988
+      },
+      {
+       "text": "reda\"",
+       "start": 39.127,
+       "end": 39.708,
+       "score": 0.922
+      }
+     ],
+     "start": 36.025,
+     "end": 39.708,
+     "score": 0.959,
+     "min_word": "Kujawab,",
+     "min_score": 0.911
+    },
+    {
+     "text": "Tapi waktu tak pernah menunggu",
+     "words": [
+      {
+       "text": "Tapi",
+       "start": 40.088,
+       "end": 40.728,
+       "score": 0.991
+      },
+      {
+       "text": "waktu",
+       "start": 41.089,
+       "end": 41.429,
+       "score": 0.998
+      },
+      {
+       "text": "tak",
+       "start": 41.629,
+       "end": 41.849,
+       "score": 0.668
+      },
+      {
+       "text": "pernah",
+       "start": 42.129,
+       "end": 42.55,
+       "score": 0.889
+      },
+      {
+       "text": "menunggu",
+       "start": 42.63,
+       "end": 43.75,
+       "score": 0.87
+      }
+     ],
+     "start": 40.088,
+     "end": 43.75,
+     "score": 0.883,
+     "min_word": "tak",
+     "min_score": 0.668
+    },
+    {
+     "text": "Siapa pun yang bilang \"nanti dulu\"",
+     "words": [
+      {
+       "text": "Siapa",
+       "start": 44.331,
+       "end": 44.751,
+       "score": 0.923
+      },
+      {
+       "text": "pun",
+       "start": 44.851,
+       "end": 45.091,
+       "score": 0.984
+      },
+      {
+       "text": "yang",
+       "start": 45.171,
+       "end": 45.371,
+       "score": 0.956
+      },
+      {
+       "text": "bilang",
+       "start": 45.391,
+       "end": 45.872,
+       "score": 0.782
+      },
+      {
+       "text": "\"nanti",
+       "start": 45.872,
+       "end": 46.292,
+       "score": 0.813
+      },
+      {
+       "text": "dulu\"",
+       "start": 46.412,
+       "end": 46.812,
+       "score": 0.977
+      }
+     ],
+     "start": 44.331,
+     "end": 46.812,
+     "score": 0.906,
+     "min_word": "bilang",
+     "min_score": 0.782
+    }
+   ]
+  },
+  {
+   "name": "Pre-Chorus",
+   "key": "Pre-Chorus",
+   "tag": "",
+   "voice": "v1",
+   "lines": [
+    {
+     "text": "Kini hanya bingkai yang bicara",
+     "words": [
+      {
+       "text": "Kini",
+       "start": 48.874,
+       "end": 50.074,
+       "score": 0.869
+      },
+      {
+       "text": "hanya",
+       "start": 50.435,
+       "end": 50.935,
+       "score": 0.89
+      },
+      {
+       "text": "bingkai",
+       "start": 51.275,
+       "end": 52.216,
+       "score": 0.74
+      },
+      {
+       "text": "yang",
+       "start": 52.216,
+       "end": 52.636,
+       "score": 0.729
+      },
+      {
+       "text": "bicara",
+       "start": 52.776,
+       "end": 54.918,
+       "score": 0.887
+      }
+     ],
+     "refined_from": 0.886,
+     "start": 48.874,
+     "end": 54.918,
+     "score": 0.823,
+     "min_word": "yang",
+     "min_score": 0.729
+    },
+    {
+     "text": "Tentang hari yang tak sempat kita punya",
+     "words": [
+      {
+       "text": "Tentang",
+       "start": 56.319,
+       "end": 56.759,
+       "score": 0.929
+      },
+      {
+       "text": "hari",
+       "start": 56.839,
+       "end": 57.72,
+       "score": 0.958
+      },
+      {
+       "text": "yang",
+       "start": 57.84,
+       "end": 58.02,
+       "score": 0.834
+      },
+      {
+       "text": "tak",
+       "start": 58.06,
+       "end": 58.3,
+       "score": 0.666
+      },
+      {
+       "text": "sempat",
+       "start": 58.54,
+       "end": 59.241,
+       "score": 0.796
+      },
+      {
+       "text": "kita",
+       "start": 59.581,
+       "end": 60.001,
+       "score": 0.982
+      },
+      {
+       "text": "punya",
+       "start": 60.382,
+       "end": 61.022,
+       "score": 0.899
+      }
+     ],
+     "refined_from": 0.731,
+     "start": 56.319,
+     "end": 61.022,
+     "score": 0.866,
+     "min_word": "tak",
+     "min_score": 0.666
+    }
+   ]
+  },
+  {
+   "name": "Chorus",
+   "key": "Chorus",
+   "tag": "fuller, bass and drums enter",
+   "voice": "v1",
+   "lines": [
+    {
+     "text": "Izinkan aku duduk di sebelahmu",
+     "words": [
+      {
+       "text": "Izinkan",
+       "start": 63.744,
+       "end": 64.545,
+       "score": 0.535
+      },
+      {
+       "text": "aku",
+       "start": 64.625,
+       "end": 65.105,
+       "score": 0.819
+      },
+      {
+       "text": "duduk",
+       "start": 66.246,
+       "end": 66.806,
+       "score": 0.832
+      },
+      {
+       "text": "di",
+       "start": 67.026,
+       "end": 67.147,
+       "score": 0.857
+      },
+      {
+       "text": "sebelahmu",
+       "start": 67.707,
+       "end": 69.168,
+       "score": 0.697
+      }
+     ],
+     "start": 63.744,
+     "end": 69.168,
+     "score": 0.748,
+     "min_word": "Izinkan",
+     "min_score": 0.535
+    },
+    {
+     "text": "Walau hanya dalam potret itu",
+     "words": [
+      {
+       "text": "Walau",
+       "start": 70.809,
+       "end": 71.229,
+       "score": 0.426
+      },
+      {
+       "text": "hanya",
+       "start": 71.229,
+       "end": 71.71,
+       "score": 0.439
+      },
+      {
+       "text": "dalam",
+       "start": 71.81,
+       "end": 72.25,
+       "score": 0.427
+      },
+      {
+       "text": "potret",
+       "start": 72.33,
+       "end": 72.911,
+       "score": 0.701
+      },
+      {
+       "text": "itu",
+       "start": 73.231,
+       "end": 73.751,
+       "score": 0.924
+      }
+     ],
+     "start": 70.809,
+     "end": 73.751,
+     "score": 0.583,
+     "min_word": "Walau",
+     "min_score": 0.426
+    },
+    {
+     "text": "Kukatakan semua yang tertunda",
+     "words": [
+      {
+       "text": "Kukatakan",
+       "start": 74.352,
+       "end": 75.452,
+       "score": 0.902
+      },
+      {
+       "text": "semua",
+       "start": 75.672,
+       "end": 76.373,
+       "score": 0.674
+      },
+      {
+       "text": "yang",
+       "start": 76.673,
+       "end": 77.254,
+       "score": 0.716
+      },
+      {
+       "text": "tertunda",
+       "start": 77.394,
+       "end": 79.355,
+       "score": 0.808
+      }
+     ],
+     "start": 74.352,
+     "end": 79.355,
+     "score": 0.775,
+     "min_word": "semua",
+     "min_score": 0.674
+    },
+    {
+     "text": "Maaf yang terlambat, rindu yang tak sempat",
+     "words": [
+      {
+       "text": "Maaf",
+       "start": 79.755,
+       "end": 80.196,
+       "score": 0.919
+      },
+      {
+       "text": "yang",
+       "start": 80.256,
+       "end": 80.416,
+       "score": 0.24
+      },
+      {
+       "text": "terlambat,",
+       "start": 80.456,
+       "end": 81.637,
+       "score": 0.778
+      },
+      {
+       "text": "rindu",
+       "start": 81.777,
+       "end": 82.117,
+       "score": 0.347
+      },
+      {
+       "text": "yang",
+       "start": 82.217,
+       "end": 82.437,
+       "score": 0.275
+      },
+      {
+       "text": "tak",
+       "start": 82.497,
+       "end": 82.717,
+       "score": 0.857
+      },
+      {
+       "text": "sempat",
+       "start": 82.817,
+       "end": 83.878,
+       "score": 0.544
+      }
+     ],
+     "start": 79.755,
+     "end": 83.878,
+     "score": 0.566,
+     "min_word": "yang",
+     "min_score": 0.24
+    },
+    {
+     "text": "Bila nanti kita bertemu lagi",
+     "words": [
+      {
+       "text": "Bila",
+       "start": 84.098,
+       "end": 84.479,
+       "score": 0.607
+      },
+      {
+       "text": "nanti",
+       "start": 84.859,
+       "end": 85.479,
+       "score": 0.818
+      },
+      {
+       "text": "kita",
+       "start": 86.88,
+       "end": 87.221,
+       "score": 0.886
+      },
+      {
+       "text": "bertemu",
+       "start": 87.401,
+       "end": 88.561,
+       "score": 0.556
+      },
+      {
+       "text": "lagi",
+       "start": 88.922,
+       "end": 89.542,
+       "score": 0.754
+      }
+     ],
+     "start": 84.098,
+     "end": 89.542,
+     "score": 0.724,
+     "min_word": "bertemu",
+     "min_score": 0.556
+    },
+    {
+     "text": "Ajari aku cara pulang yang benar",
+     "words": [
+      {
+       "text": "Ajari",
+       "start": 90.483,
+       "end": 91.083,
+       "score": 0.915
+      },
+      {
+       "text": "aku",
+       "start": 91.283,
+       "end": 91.584,
+       "score": 0.925
+      },
+      {
+       "text": "cara",
+       "start": 92.944,
+       "end": 93.625,
+       "score": 0.902
+      },
+      {
+       "text": "pulang",
+       "start": 94.706,
+       "end": 95.606,
+       "score": 0.866
+      },
+      {
+       "text": "yang",
+       "start": 95.726,
+       "end": 96.427,
+       "score": 0.874
+      },
+      {
+       "text": "benar",
+       "start": 96.787,
+       "end": 97.608,
+       "score": 0.496
+      }
+     ],
+     "start": 90.483,
+     "end": 97.608,
+     "score": 0.83,
+     "min_word": "benar",
+     "min_score": 0.496
+    }
+   ]
+  },
+  {
+   "name": "Verse 2",
+   "key": "Verse 2",
+   "tag": "Voice 2, softer, the parent's perspective",
+   "voice": "v2",
+   "lines": [
+    {
+     "text": "Nak, jangan kau simpan sesalmu",
+     "words": [
+      {
+       "text": "Nak,",
+       "start": 101.891,
+       "end": 102.151,
+       "score": 0.368
+      },
+      {
+       "text": "jangan",
+       "start": 102.371,
+       "end": 102.831,
+       "score": 0.806
+      },
+      {
+       "text": "kau",
+       "start": 102.911,
+       "end": 103.272,
+       "score": 0.969
+      },
+      {
+       "text": "simpan",
+       "start": 103.392,
+       "end": 103.852,
+       "score": 0.888
+      },
+      {
+       "text": "sesalmu",
+       "start": 103.912,
+       "end": 104.833,
+       "score": 0.97
+      }
+     ],
+     "start": 101.891,
+     "end": 104.833,
+     "score": 0.8,
+     "min_word": "Nak,",
+     "min_score": 0.368
+    },
+    {
+     "text": "Aku tak pernah menghitung waktumu",
+     "words": [
+      {
+       "text": "Aku",
+       "start": 105.313,
+       "end": 105.873,
+       "score": 0.935
+      },
+      {
+       "text": "tak",
+       "start": 106.234,
+       "end": 106.394,
+       "score": 0.877
+      },
+      {
+       "text": "pernah",
+       "start": 106.454,
+       "end": 106.914,
+       "score": 0.786
+      },
+      {
+       "text": "menghitung",
+       "start": 106.954,
+       "end": 107.755,
+       "score": 0.687
+      },
+      {
+       "text": "waktumu",
+       "start": 107.955,
+       "end": 108.916,
+       "score": 0.978
+      }
+     ],
+     "start": 105.313,
+     "end": 108.916,
+     "score": 0.853,
+     "min_word": "menghitung",
+     "min_score": 0.687
+    },
+    {
+     "text": "Cukup kau tahu, di setiap doaku",
+     "words": [
+      {
+       "text": "Cukup",
+       "start": 109.256,
+       "end": 109.677,
+       "score": 0.829
+      },
+      {
+       "text": "kau",
+       "start": 109.777,
+       "end": 110.137,
+       "score": 0.681
+      },
+      {
+       "text": "tahu,",
+       "start": 110.297,
+       "end": 110.697,
+       "score": 0.49
+      },
+      {
+       "text": "di",
+       "start": 110.817,
+       "end": 110.937,
+       "score": 0.976
+      },
+      {
+       "text": "setiap",
+       "start": 111.298,
+       "end": 111.998,
+       "score": 0.978
+      },
+      {
+       "text": "doaku",
+       "start": 112.058,
+       "end": 112.959,
+       "score": 0.986
+      }
+     ],
+     "refined_from": 0.794,
+     "start": 109.256,
+     "end": 112.959,
+     "score": 0.823,
+     "min_word": "tahu,",
+     "min_score": 0.49
+    },
+    {
+     "text": "Namamu selalu kuantar ke langit itu",
+     "words": [
+      {
+       "text": "Namamu",
+       "start": 113.359,
+       "end": 113.919,
+       "score": 0.883
+      },
+      {
+       "text": "selalu",
+       "start": 114.019,
+       "end": 114.5,
+       "score": 0.542
+      },
+      {
+       "text": "kuantar",
+       "start": 114.58,
+       "end": 115.36,
+       "score": 0.931
+      },
+      {
+       "text": "ke",
+       "start": 115.44,
+       "end": 115.5,
+       "score": 0.901
+      },
+      {
+       "text": "langit",
+       "start": 115.62,
+       "end": 116.181,
+       "score": 0.956
+      },
+      {
+       "text": "itu",
+       "start": 116.521,
+       "end": 117.041,
+       "score": 0.818
+      }
+     ],
+     "refined_from": 0.785,
+     "start": 113.359,
+     "end": 117.041,
+     "score": 0.838,
+     "min_word": "selalu",
+     "min_score": 0.542
+    }
+   ]
+  },
+  {
+   "name": "Pre-Chorus",
+   "key": "Pre-Chorus 2",
+   "tag": "both voices",
+   "voice": "both",
+   "lines": [
+    {
+     "text": "Kini hanya bingkai yang bicara",
+     "words": [
+      {
+       "text": "Kini",
+       "start": 118.182,
+       "end": 119.123,
+       "score": 0.652
+      },
+      {
+       "text": "hanya",
+       "start": 119.523,
+       "end": 120.123,
+       "score": 0.805
+      },
+      {
+       "text": "bingkai",
+       "start": 120.524,
+       "end": 121.404,
+       "score": 0.748
+      },
+      {
+       "text": "yang",
+       "start": 121.504,
+       "end": 122.105,
+       "score": 0.603
+      },
+      {
+       "text": "bicara",
+       "start": 122.285,
+       "end": 124.186,
+       "score": 0.881
+      }
+     ],
+     "start": 118.182,
+     "end": 124.186,
+     "score": 0.738,
+     "min_word": "yang",
+     "min_score": 0.603
+    },
+    {
+     "text": "Tentang hari yang tak sempat kita punya",
+     "words": [
+      {
+       "text": "Tentang",
+       "start": 125.587,
+       "end": 126.067,
+       "score": 0.914
+      },
+      {
+       "text": "hari",
+       "start": 126.127,
+       "end": 127.008,
+       "score": 0.974
+      },
+      {
+       "text": "yang",
+       "start": 127.088,
+       "end": 127.288,
+       "score": 0.731
+      },
+      {
+       "text": "tak",
+       "start": 127.348,
+       "end": 127.588,
+       "score": 0.659
+      },
+      {
+       "text": "sempat",
+       "start": 127.829,
+       "end": 128.449,
+       "score": 0.744
+      },
+      {
+       "text": "kita",
+       "start": 128.849,
+       "end": 129.31,
+       "score": 0.965
+      },
+      {
+       "text": "punya",
+       "start": 129.67,
+       "end": 130.35,
+       "score": 0.772
+      }
+     ],
+     "refined_from": 0.779,
+     "start": 125.587,
+     "end": 130.35,
+     "score": 0.823,
+     "min_word": "tak",
+     "min_score": 0.659
+    }
+   ]
+  },
+  {
+   "name": "Chorus",
+   "key": "Chorus 2",
+   "tag": "both voices, harmony",
+   "voice": "both",
+   "lines": [
+    {
+     "text": "Izinkan aku duduk di sebelahmu",
+     "words": [
+      {
+       "text": "Izinkan",
+       "start": 133.072,
+       "end": 133.853,
+       "score": 0.553
+      },
+      {
+       "text": "aku",
+       "start": 133.913,
+       "end": 134.413,
+       "score": 0.662
+      },
+      {
+       "text": "duduk",
+       "start": 135.554,
+       "end": 136.174,
+       "score": 0.854
+      },
+      {
+       "text": "di",
+       "start": 136.334,
+       "end": 136.475,
+       "score": 0.835
+      },
+      {
+       "text": "sebelahmu",
+       "start": 137.015,
+       "end": 138.476,
+       "score": 0.534
+      }
+     ],
+     "refined_from": 0.724,
+     "start": 133.072,
+     "end": 138.476,
+     "score": 0.688,
+     "min_word": "sebelahmu",
+     "min_score": 0.534
+    },
+    {
+     "text": "Walau hanya dalam potret itu",
+     "words": [
+      {
+       "text": "Walau",
+       "start": 139.917,
+       "end": 140.558,
+       "score": 0.45
+      },
+      {
+       "text": "hanya",
+       "start": 140.678,
+       "end": 141.078,
+       "score": 0.434
+      },
+      {
+       "text": "dalam",
+       "start": 141.178,
+       "end": 141.618,
+       "score": 0.517
+      },
+      {
+       "text": "potret",
+       "start": 141.678,
+       "end": 142.259,
+       "score": 0.771
+      },
+      {
+       "text": "itu",
+       "start": 142.599,
+       "end": 143.099,
+       "score": 0.923
+      }
+     ],
+     "start": 139.917,
+     "end": 143.099,
+     "score": 0.619,
+     "min_word": "hanya",
+     "min_score": 0.434
+    },
+    {
+     "text": "Kukatakan semua yang tertunda",
+     "words": [
+      {
+       "text": "Kukatakan",
+       "start": 143.72,
+       "end": 144.82,
+       "score": 0.897
+      },
+      {
+       "text": "semua",
+       "start": 145.041,
+       "end": 145.721,
+       "score": 0.621
+      },
+      {
+       "text": "yang",
+       "start": 146.041,
+       "end": 146.662,
+       "score": 0.777
+      },
+      {
+       "text": "tertunda",
+       "start": 146.782,
+       "end": 148.743,
+       "score": 0.858
+      }
+     ],
+     "start": 143.72,
+     "end": 148.743,
+     "score": 0.788,
+     "min_word": "semua",
+     "min_score": 0.621
+    },
+    {
+     "text": "Maaf yang terlambat, rindu yang tak sempat",
+     "words": [
+      {
+       "text": "Maaf",
+       "start": 149.163,
+       "end": 149.624,
+       "score": 0.804
+      },
+      {
+       "text": "yang",
+       "start": 149.664,
+       "end": 149.824,
+       "score": 0.453
+      },
+      {
+       "text": "terlambat,",
+       "start": 149.864,
+       "end": 150.945,
+       "score": 0.718
+      },
+      {
+       "text": "rindu",
+       "start": 151.165,
+       "end": 151.545,
+       "score": 0.485
+      },
+      {
+       "text": "yang",
+       "start": 151.625,
+       "end": 151.825,
+       "score": 0.236
+      },
+      {
+       "text": "tak",
+       "start": 151.905,
+       "end": 152.126,
+       "score": 0.639
+      },
+      {
+       "text": "sempat",
+       "start": 152.226,
+       "end": 153.026,
+       "score": 0.741
+      }
+     ],
+     "start": 149.163,
+     "end": 153.026,
+     "score": 0.582,
+     "min_word": "yang",
+     "min_score": 0.236
+    },
+    {
+     "text": "Bila nanti kita bertemu lagi",
+     "words": [
+      {
+       "text": "Bila",
+       "start": 153.486,
+       "end": 153.827,
+       "score": 0.679
+      },
+      {
+       "text": "nanti",
+       "start": 154.227,
+       "end": 154.887,
+       "score": 0.908
+      },
+      {
+       "text": "kita",
+       "start": 156.288,
+       "end": 156.649,
+       "score": 0.933
+      },
+      {
+       "text": "bertemu",
+       "start": 156.829,
+       "end": 157.97,
+       "score": 0.748
+      },
+      {
+       "text": "lagi",
+       "start": 158.33,
+       "end": 158.97,
+       "score": 0.824
+      }
+     ],
+     "start": 153.486,
+     "end": 158.97,
+     "score": 0.818,
+     "min_word": "Bila",
+     "min_score": 0.679
+    },
+    {
+     "text": "Ajari aku cara pulang yang benar",
+     "words": [
+      {
+       "text": "Ajari",
+       "start": 159.911,
+       "end": 160.531,
+       "score": 0.943
+      },
+      {
+       "text": "aku",
+       "start": 160.731,
+       "end": 161.012,
+       "score": 0.938
+      },
+      {
+       "text": "cara",
+       "start": 162.413,
+       "end": 163.113,
+       "score": 0.875
+      },
+      {
+       "text": "pulang",
+       "start": 164.174,
+       "end": 165.135,
+       "score": 0.803
+      },
+      {
+       "text": "yang",
+       "start": 165.215,
+       "end": 166.175,
+       "score": 0.853
+      },
+      {
+       "text": "benar",
+       "start": 166.275,
+       "end": 168.257,
+       "score": 0.642
+      }
+     ],
+     "start": 159.911,
+     "end": 168.257,
+     "score": 0.842,
+     "min_word": "benar",
+     "min_score": 0.642
+    }
+   ]
+  },
+  {
+   "name": "Bridge",
+   "key": "Bridge",
+   "tag": "quiet, almost spoken",
+   "voice": "v1",
+   "lines": [
+    {
+     "text": "Untuk kau yang masih punya waktu",
+     "words": [
+      {
+       "text": "Untuk",
+       "start": 168.397,
+       "end": 168.757,
+       "score": 0.883
+      },
+      {
+       "text": "kau",
+       "start": 168.797,
+       "end": 169.077,
+       "score": 0.928
+      },
+      {
+       "text": "yang",
+       "start": 169.137,
+       "end": 169.317,
+       "score": 0.972
+      },
+      {
+       "text": "masih",
+       "start": 169.337,
+       "end": 169.778,
+       "score": 0.79
+      },
+      {
+       "text": "punya",
+       "start": 169.838,
+       "end": 170.258,
+       "score": 0.925
+      },
+      {
+       "text": "waktu",
+       "start": 170.638,
+       "end": 171.299,
+       "score": 0.967
+      }
+     ],
+     "start": 168.397,
+     "end": 171.299,
+     "score": 0.911,
+     "min_word": "masih",
+     "min_score": 0.79
+    },
+    {
+     "text": "Peluklah mereka sebelum jadi abu",
+     "words": [
+      {
+       "text": "Peluklah",
+       "start": 171.719,
+       "end": 172.36,
+       "score": 0.508
+      },
+      {
+       "text": "mereka",
+       "start": 172.38,
+       "end": 173.02,
+       "score": 0.732
+      },
+      {
+       "text": "sebelum",
+       "start": 173.2,
+       "end": 174.081,
+       "score": 0.879
+      },
+      {
+       "text": "jadi",
+       "start": 174.221,
+       "end": 174.621,
+       "score": 0.982
+      },
+      {
+       "text": "abu",
+       "start": 174.901,
+       "end": 175.382,
+       "score": 0.889
+      }
+     ],
+     "start": 171.719,
+     "end": 175.382,
+     "score": 0.798,
+     "min_word": "Peluklah",
+     "min_score": 0.508
+    },
+    {
+     "text": "Kamera tak bisa mengulang",
+     "words": [
+      {
+       "text": "Kamera",
+       "start": 176.283,
+       "end": 176.923,
+       "score": 0.926
+      },
+      {
+       "text": "tak",
+       "start": 177.003,
+       "end": 177.243,
+       "score": 0.633
+      },
+      {
+       "text": "bisa",
+       "start": 177.323,
+       "end": 177.643,
+       "score": 0.957
+      },
+      {
+       "text": "mengulang",
+       "start": 177.824,
+       "end": 179.044,
+       "score": 0.695
+      }
+     ],
+     "refined_from": 0.775,
+     "start": 176.283,
+     "end": 179.044,
+     "score": 0.803,
+     "min_word": "tak",
+     "min_score": 0.633
+    },
+    {
+     "text": "Detik yang kau biarkan hilang",
+     "words": [
+      {
+       "text": "Detik",
+       "start": 179.104,
+       "end": 180.025,
+       "score": 0.574
+      },
+      {
+       "text": "yang",
+       "start": 180.105,
+       "end": 180.505,
+       "score": 0.55
+      },
+      {
+       "text": "kau",
+       "start": 180.585,
+       "end": 181.046,
+       "score": 0.648
+      },
+      {
+       "text": "biarkan",
+       "start": 181.166,
+       "end": 182.607,
+       "score": 0.797
+      },
+      {
+       "text": "hilang",
+       "start": 182.727,
+       "end": 186.269,
+       "score": 0.427
+      }
+     ],
+     "refined_from": 0.259,
+     "start": 179.104,
+     "end": 186.269,
+     "score": 0.599,
+     "min_word": "hilang",
+     "min_score": 0.427
+    }
+   ]
+  },
+  {
+   "name": "Final Chorus",
+   "key": "Final Chorus",
+   "tag": "emotional peak, then softer",
+   "voice": "both",
+   "lines": [
+    {
+     "text": "Izinkan aku duduk di sebelahmu",
+     "words": [
+      {
+       "text": "Izinkan",
+       "start": 186.389,
+       "end": 187.15,
+       "score": 0.442
+      },
+      {
+       "text": "aku",
+       "start": 187.45,
+       "end": 187.71,
+       "score": 0.529
+      },
+      {
+       "text": "duduk",
+       "start": 188.851,
+       "end": 189.531,
+       "score": 0.854
+      },
+      {
+       "text": "di",
+       "start": 189.671,
+       "end": 189.812,
+       "score": 0.935
+      },
+      {
+       "text": "sebelahmu",
+       "start": 190.332,
+       "end": 191.833,
+       "score": 0.628
+      }
+     ],
+     "refined_from": 0.563,
+     "start": 186.389,
+     "end": 191.833,
+     "score": 0.678,
+     "min_word": "Izinkan",
+     "min_score": 0.442
+    },
+    {
+     "text": "Walau hanya dalam potret itu",
+     "words": [
+      {
+       "text": "Walau",
+       "start": 193.234,
+       "end": 193.714,
+       "score": 0.992
+      },
+      {
+       "text": "hanya",
+       "start": 193.754,
+       "end": 194.074,
+       "score": 0.881
+      },
+      {
+       "text": "dalam",
+       "start": 194.315,
+       "end": 194.895,
+       "score": 0.922
+      },
+      {
+       "text": "potret",
+       "start": 194.995,
+       "end": 195.695,
+       "score": 0.867
+      },
+      {
+       "text": "itu",
+       "start": 195.936,
+       "end": 196.456,
+       "score": 0.996
+      }
+     ],
+     "refined_from": 0.944,
+     "start": 193.234,
+     "end": 196.456,
+     "score": 0.932,
+     "min_word": "potret",
+     "min_score": 0.867
+    },
+    {
+     "text": "Maaf yang terlambat... rindu yang tak sempat",
+     "words": [
+      {
+       "text": "Maaf",
+       "start": 196.836,
+       "end": 197.296,
+       "score": 0.98
+      },
+      {
+       "text": "yang",
+       "start": 197.356,
+       "end": 197.537,
+       "score": 0.962
+      },
+      {
+       "text": "terlambat...",
+       "start": 197.577,
+       "end": 198.837,
+       "score": 0.857
+      },
+      {
+       "text": "rindu",
+       "start": 198.877,
+       "end": 199.198,
+       "score": 0.979
+      },
+      {
+       "text": "yang",
+       "start": 199.378,
+       "end": 199.558,
+       "score": 0.943
+      },
+      {
+       "text": "tak",
+       "start": 199.598,
+       "end": 199.818,
+       "score": 0.477
+      },
+      {
+       "text": "sempat",
+       "start": 199.958,
+       "end": 200.959,
+       "score": 0.81
+      }
+     ],
+     "refined_from": 0.828,
+     "start": 196.836,
+     "end": 200.959,
+     "score": 0.858,
+     "min_word": "tak",
+     "min_score": 0.477
+    },
+    {
+     "text": "Ajari aku... cara pulang",
+     "words": [
+      {
+       "text": "Ajari",
+       "start": 201.019,
+       "end": 201.6,
+       "score": 0.985
+      },
+      {
+       "text": "aku...",
+       "start": 201.8,
+       "end": 202.1,
+       "score": 0.981
+      },
+      {
+       "text": "cara",
+       "start": 202.661,
+       "end": 203.181,
+       "score": 0.943
+      },
+      {
+       "text": "pulang",
+       "start": 203.501,
+       "end": 210.026,
+       "score": 0.662
+      }
+     ],
+     "start": 201.019,
+     "end": 210.026,
+     "score": 0.893,
+     "min_word": "pulang",
+     "min_score": 0.662
+    }
+   ]
+  },
+  {
+   "name": "Outro",
+   "key": "Outro",
+   "tag": "solo acoustic guitar, fade",
+   "voice": "v1",
+   "lines": []
+  }
+ ]
+}
